@@ -27,6 +27,15 @@ The Smart Civic Issue Reporting Platform provides:
 5.Officials fix the problem and update the status
 6.The citizen receives live updates
 
+⚙️ Key Features
+
+-> Photo & video based issue reporting
+-> Automatic GPS geotagging
+-> Live status tracking (Submitted → In Progress → Resolved)
+-> Public issue feed & community upvoting
+-> Government admin dashboard
+-> Analytics and performance tracking
+-> Secure role-based access
 
 
 
