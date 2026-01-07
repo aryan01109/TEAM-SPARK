@@ -1,0 +1,13 @@
+/* Import global responsive styles */
+@import './styles/globals.css';
+
+/* Import Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Import mobile enhancements */
+@import './styles/mobile.css';
+
+/* Additional custom styles can be added here */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}

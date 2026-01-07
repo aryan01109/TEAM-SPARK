@@ -1,0 +1,4 @@
+/* src/styles/SplitText.css */
+.split-text { line-height: 1.05; }
+.split-item { display: inline-block; transform-origin: 50% 50%; }
+.split-space { display: inline-block; width: 0.35em; } /* spacing for words */
