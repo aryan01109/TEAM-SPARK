@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../css/ReportIssue.css">
+  <title>ReportIssue</title>
+</head>
+<body>
+
+<div id="toastContainer"></div>
+
+<main class="report-page-fullscreen">
+
+  <div class="report-content">
+
+    <div class="report-header">
+      <button class="btn-back" onclick="history.back()">← Back</button>
+      <div>
+        <h1>Report a Civic Issue</h1>
+        <p>Help improve your city by reporting issues</p>
+      </div>
+    </div>
+
+    <form id="reportForm" class="report-form" novalidate>
+
+
+      
+      <!-- CATEGORY -->
+      <label class="field">
+        <span class="field-label">Issue Category *</span>
+        <select id="category" required>
+          <option value="">Select issue type</option>
+          <option value="Pothole">Pothole</option>
+          <option value="Streetlight">Streetlight</option>
+          <option value="GarbageOverflow">Garbage Overflow</option>
+          <option value="WaterLeak">Water Leak</option>
+          <option value="Other">Other</option>
+        </select>
+        <small class="field-error"></small>
+      </label>
+
+      <!-- TITLE -->
+      <label class="field">
+        <span class="field-label">Issue Title *</span>
+        <input id="title" minlength="10" maxlength="100" required>
+        <small class="field-error"></small>
+      </label>
+
+      <!-- LOCATION -->
+      <label class="field">
+        <span class="field-label">Location *</span>
+        <input id="locationText" required>
+
+        <div id="map" class="map-container"></div>
+
+        <button type="button" id="btnUseLocation" class="btn secondary small">
+          📍 Use My Location
+        </button>
+
+        <small class="field-error"></small>
+      </label>
+
+      <!-- DESCRIPTION -->
+      <label class="field">
+        <span class="field-label">Description</span>
+        <textarea id="description" maxlength="500"></textarea>
+      </label>
+
+      <!-- PHOTO -->
+      <label class="field">
+        <span class="field-label">Photo</span>
+
+        <div id="uploadBox" class="photo-upload">
+          <input type="file" id="photoInput" hidden accept="image/*">
+          <div id="uploadContent">
+            📷 Click or Drop Photo
+            <div style="margin-top:8px">
+              <button type="button" id="btnCamera" class="btn secondary small">
+                Use Camera
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <video id="cameraView" class="camera-view" autoplay playsinline hidden></video>
+
+        <button type="button" id="btnCapture" class="btn primary small" hidden>
+          Capture
+        </button>
+
+        <canvas id="photoCanvas" hidden></canvas>
+
+        <div id="previewArea"></div>
+      </label>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button type="button" onclick="history.back()" class="btn secondary">
+          Cancel
+        </button>
+
+        <button id="submitBtn" type="submit" class="btn primary">
+          Submit Report
+        </button>
+      </div>
+
+      <div id="loading" class="loading" hidden>
+        Submitting...
+      </div>
+
+      
+
+    </form>
+
+  </div>
+
+</main>
+
+<!-- Google Loader -->
+<script src="https://unpkg.com/@googlemaps/js-api-loader@1.16.6/dist/index.min.js"></script>
+
+<!-- Leaflet JS (used only if needed) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="reportissue.js"></script>
+</body>
+</html>

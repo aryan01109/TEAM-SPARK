@@ -1,0 +1,506 @@
+/* Enhanced CSS Variables for better visibility and modern design */
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1e40af;
+  --primary-dark: #1e3a8a;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --border: #e5e7eb;
+  --border-light: #f3f4f6;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --transition-base: 0.2s ease;
+  
+  /* New color variables */
+  --light-bg: #ebebdf;
+  --dark-accent: #1a1265;
+}
+
+/* Enhanced root container with better typography */
+.manage-issues-root {
+  padding: 20px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  min-height: 100vh;
+}
+
+/* Enhanced section headings */
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Enhanced cards with better shadows */
+.card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+/* Filters row */
+.filters-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.filters-left {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filters-left input,
+.filters-left select {
+  border: 2px solid var(--border);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  transition: all var(--transition-base);
+  min-height: 40px;
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.filters-left input:focus,
+.filters-left select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.filters-left input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.8;
+}
+.search-input {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  background: var(--bg-primary) !important;
+  transition: all var(--transition-base);
+  min-height: 40px;
+}
+
+.search-input:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: var(--bg-primary) !important;
+}
+
+.search-input span {
+  margin-right: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.search-input input {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  flex: 1;
+  background: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+.search-input input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.8;
+}
+.clear-filters {
+  font-size: 14px;
+  color: var(--danger);
+  border: 2px solid var(--danger);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition-base);
+  min-height: 40px;
+}
+
+.clear-filters:hover {
+  background: #fef2f2;
+  transform: translateY(-1px);
+}
+
+/* Issue list */
+.issue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Enhanced issue card with better design */
+.issue-card {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+.issue-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.issue-main {
+  flex: 1;
+}
+.issue-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.issue-title-row h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.issue-id {
+  font-size: 12px;
+  color: #6b7280;
+}
+.issue-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.issue-meta-row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.issue-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+@media (max-width: 768px) {
+  .issue-head {
+    flex-direction: column;
+  }
+  .issue-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* Enhanced pills with modern gradients */
+.pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pill.high {
+  background: linear-gradient(135deg, #fecaca, #ef4444);
+  border-color: var(--danger);
+  color: #7f1d1d;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.pill.medium {
+  background: linear-gradient(135deg, #fed7aa, #fb923c);
+  border-color: var(--warning);
+  color: #9a3412;
+  box-shadow: 0 4px 12px rgba(251, 146, 60, 0.25);
+}
+
+.pill.low {
+  background: linear-gradient(135deg, #bbf7d0, #22c55e);
+  border-color: var(--success);
+  color: #14532d;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+
+.pill.tag {
+  background: linear-gradient(135deg, var(--border-light), #e5e7eb);
+  border-color: var(--border);
+  color: var(--text-secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Enhanced buttons with better accessibility */
+.btn {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-weight: 600;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  background: var(--bg-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  border: 2px solid var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn.primary:hover {
+  background: linear-gradient(135deg, var(--primary-hover), var(--primary-dark));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35);
+}
+
+.btn.ghost {
+  background: var(--bg-primary);
+  border: 2px dashed var(--border);
+  color: var(--text-muted);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn.ghost:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+/* Pagination */
+.list-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+}
+.pagination {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.muted {
+  color: #6b7280;
+  font-size: 13px;
+}
+/* Enhanced issue actions with better text visibility */
+.issue-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  min-width: 160px;
+}
+
+.issue-actions input,
+.issue-actions .action-input,
+.issue-actions textarea {
+  border: 2px solid var(--border);
+  background: var(--bg-primary) !important;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  min-height: 40px;
+  font-size: 14px;
+  color: var(--text-primary) !important;
+  outline: none;
+  width: 100%;
+  transition: all var(--transition-base);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.issue-actions input:focus,
+.issue-actions .action-input:focus,
+.issue-actions textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.issue-actions input::placeholder,
+.issue-actions .action-input::placeholder,
+.issue-actions textarea::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.8;
+}
+
+.issue-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 14px;
+  border: 2px solid var(--border);
+  background: var(--bg-primary);
+  cursor: pointer;
+  min-height: 40px;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.issue-actions .btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: #fff;
+  border: 2px solid var(--primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.issue-actions .btn.ghost,
+.issue-actions .btn.ghost-state {
+  background: var(--bg-primary);
+  border: 2px dashed var(--border);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding: 8px 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* make pills (status/priority) more visible and consistent */
+.pill {
+  display:inline-block;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  vertical-align: middle;
+  margin-left: 6px;
+  border: 1px solid transparent;
+}
+
+/* variants */
+.pill.high { background: #fff5f5; color: #991b1b; border-color: rgba(239,68,68,0.12); }
+.pill.medium { background: #fff7ed; color: #9a3412; border-color: rgba(249,115,22,0.10); }
+.pill.low { background: #ecfdf5; color: #065f46; border-color: rgba(16,185,129,0.08); }
+.pill.tag { background: #f3f4f6; color: #374151; border-color: rgba(15,23,42,0.04); }
+
+/* dashed/outlined look for "acknowledged" like in screenshot */
+.pill.outlined {
+  background: transparent;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: rgba(15,23,42,0.08);
+  color: #6b7280;
+}
+
+/* top-right issue number badge — ensure visible */
+.issue-card::after {
+  content: attr(data-idx);
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  font-size: 12px;
+  color: #9aa8b6;
+  background: transparent;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* Responsive: on small screens, make action column full width under content */
+@media (max-width: 820px) {
+  .issue-actions {
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .issue-actions .btn {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .issue-actions input, .issue-actions .action-input {
+    flex: 1 1 auto;
+  }
+}
+
+/* Accessibility focus */
+.issue-actions .btn:focus,
+.issue-actions input:focus,
+.issue-actions .action-input:focus {
+  outline: 3px solid rgba(37,99,235,0.12);
+  outline-offset: 2px;
+}
+
+/* fallback if some styles are overridden: increase specificity */
+.card.issue-card .issue-actions .btn { border: 1px solid rgba(15,23,42,0.06); }
+
+/* ensure meta rows have contrast and visible icons/text */
+.issue-meta-row { color: #6b7280; font-size: 13px; }
+
+/* if you use placeholder empty DIVs for assigned/inputs, ensure they show border */
+.issue-main .meta-item .empty {
+  display:inline-block;
+  min-width: 80px;
+  min-height: 18px;
+  border: 1px solid transparent;
+  color: #9CA3AF;
+}
+
+/* Enhanced hover effect for issue cards */
+.issue-card:hover { 
+  transform: translateY(-4px); 
+  transition: all var(--transition-base); 
+  box-shadow: var(--shadow-lg); 
+  border-color: var(--primary);
+}

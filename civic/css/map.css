@@ -1,0 +1,318 @@
+/* LeafletMapPanel.css
+   Tighter left/right widths, brand primary var, compact mobile variant,
+   and fixed map flex sizing so Leaflet fills the center panel correctly.
+*/
+
+/* === Theme vars (change these to match your brand) === */
+:root{
+  --primary: #1e88e5;           /* <-- set your brand color here */
+  --primary-contrast: #ffffff;
+  --bg-gradient-start: #fbfdff;
+  --bg-gradient-end: #f7f9fc;
+  --muted: #64748b;
+  --card-border: rgba(2,6,23,0.04);
+  
+  /* New color variables */
+  --light-bg: #ebebdf;
+  --dark-accent: #1a1265;
+}
+
+/* --- Page shell --- */
+.issue-map-shell {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px; /* left 280, center flexible, right 320 */
+  gap: 14px;
+  height: 100vh;
+  padding: 14px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+  color: #0f172a;
+  position: relative;
+}
+
+/* collapsed-left (used by your component) */
+.issue-map-shell.collapsed-left {
+  grid-template-columns: 0 1fr 320px;
+}
+
+/* --- Responsive: tablet / small desktop --- */
+@media (max-width: 980px) {
+  .issue-map-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+    padding: 12px;
+    height: auto;
+  }
+  .map-left { order: 0; grid-column: 1; grid-row: 1; max-height: 34vh; overflow: auto; }
+  .map-center { order: 1; grid-column: 1; grid-row: 2; height: auto; min-height: 380px; }
+  .map-right-panel { order: 2; grid-column: 1; grid-row: 3; max-height: 36vh; overflow: auto; }
+}
+
+/* --- Compact mobile variant: small screens (applies automatically) --- */
+@media (max-width: 480px) {
+  .issue-map-shell { padding: 8px; gap: 8px; }
+  .card { padding: 10px; border-radius: 10px; }
+  .map-container { height: 52vh; min-height: 280px; }
+  .map-left, .map-right-panel { padding: 10px; }
+  .panel-toggle { left: 8px; top: 10px; padding: 6px 8px; font-size: 13px; }
+  .btn { padding: 7px 10px; font-size: 13px; border-radius: 8px; }
+  .input { padding: 7px 8px; font-size: 13px; border-radius: 8px; }
+  .summary-row { padding: 6px 0; }
+  .details-meta { font-size: 12px; margin: 4px 0; }
+  .saved-item { padding: 8px; gap: 6px; }
+}
+
+/* --- Reusable card --- */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px;
+  box-sizing: border-box;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+
+/* Left panel */
+.map-left {
+  min-width: 240px;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+  padding: 16px;
+}
+
+/* Center (map) - FIXED: use flex sizing so the map fills correctly */
+.map-center {
+  display: flex;
+  flex-direction: column;
+  padding: 0;        /* remove extra padding so map fills */
+  min-width: 0;      /* allow flex children to shrink properly */
+}
+
+/* container that holds the map - must grow to fill available space */
+.map-container {
+  flex: 1;            /* grow to fill the center column space */
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;       /* rely on flex for height rather than fixed calc */
+  min-height: 0;      /* allow shrinking on small screens */
+  box-shadow: inset 0 0 0 1px rgba(2,6,23,0.02);
+}
+
+/* Map element - let Leaflet fill the flex container */
+.leaflet-map {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #eaf2fb;
+}
+
+/* Right panel */
+.map-right-panel {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+  padding: 12px;
+}
+
+/* Toggle */
+.panel-toggle {
+  position: absolute;
+  left: 12px;
+  top: 18px;
+  z-index: 60;
+  background: rgba(255,255,255,0.98);
+  border: 1px solid rgba(12,18,32,0.06);
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.08);
+}
+
+/* Buttons */
+.btn {
+  --bg: var(--primary);
+  --color: var(--primary-contrast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--bg);
+  color: var(--color);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(19,102,214,0.12);
+  transition: transform .08s ease, box-shadow .12s ease, opacity .12s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); box-shadow: 0 3px 10px rgba(2,6,23,0.06); }
+
+.btn.ghost {
+  background: #ffffff;
+  color: #0f172a;
+  border: 2px solid rgba(15,23,42,0.12);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+/* Summary card */
+.summary-card .summary-title {
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px dashed rgba(15,23,42,0.03);
+}
+.summary-row:first-of-type { border-top: none; }
+.badge-red { background: #fee2e2; color: #b91c1c; padding: 4px 8px; border-radius: 999px; font-weight: 800; }
+
+/* Details */
+.details-card { min-height: 160px; }
+.details-title { font-weight: 800; font-size: 18px; margin-bottom: 6px; }
+.details-meta { font-size: 13px; color: #334155; margin: 6px 0; }
+.details-actions { display:flex; gap:8px; align-items:center; }
+
+/* Saved list */
+.map-right-panel .saved-list { max-height: 240px; overflow: auto; }
+.saved-item { display:flex; gap:8px; padding:10px; border-bottom:1px solid rgba(15,23,42,0.03); align-items:flex-start; }
+.saved-item:last-child { border-bottom: none; }
+
+/* Empty hint */
+.empty-hint { text-align:center; padding: 24px 8px; color: var(--muted); }
+.empty-hint .pin-ico { font-size: 28px; margin-bottom: 6px; }
+
+/* Small muted */
+.muted.small { color: var(--muted); font-size: 12px; }
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(2,6,23,0.06);
+  background: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+.input:focus { box-shadow: 0 6px 18px rgba(19,102,214,0.06); border-color: rgba(19,102,214,0.16); }
+
+/* Popup rows hover */
+.popup-issue-row { transition: background .12s ease, transform .08s ease; }
+.popup-issue-row:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(2,6,23,0.06); }
+
+/* Cluster & marker styling */
+.marker-box {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:32px; height:32px;
+  border-radius:8px;
+  color:#fff;
+  font-weight:800;
+  border:2px solid #fff;
+  box-shadow: 0 6px 16px rgba(2,6,23,0.08);
+}
+.custom-div-icon .marker-box { display:flex; align-items:center; justify-content:center; }
+
+/* cluster icon */
+.marker-cluster {
+  border-radius: 50%;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+  border: 3px solid rgba(255,255,255,0.85);
+}
+.marker-cluster-small { width: 36px; height: 36px; font-size: 13px; }
+.marker-cluster-medium { width: 48px; height: 48px; font-size: 14px; }
+.marker-cluster-large { width: 64px; height: 64px; font-size: 16px; }
+
+/* small helpers */
+.small-muted { color:#94a3b8; font-size:13px; }
+
+/* ensure leaflet default controls sit below UI popups */
+.leaflet-control-container { z-index: 50 !important; }
+
+/* Accessibility */
+.btn:focus, .input:focus { outline: 3px solid rgba(19,102,214,0.12); outline-offset: 2px; }
+
+/* Misc. */
+.popup-issue-row[data-issue-id] { cursor: pointer; }
+/* Saved issues wrapper */
+.saved-list {
+  max-height: 240px;
+  overflow-y: auto;
+  margin-top: 8px;
+  border: 1px solid rgba(2,6,23,0.05);
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* Saved issue item */
+.saved-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(2,6,23,0.05);
+  align-items: center;
+}
+.saved-item:last-child {
+  border-bottom: none;
+}
+
+/* Saved issue text */
+.saved-item .info {
+  flex: 1;
+  overflow: hidden;
+}
+.saved-item .info strong {
+  font-size: 14px;
+}
+.saved-item .info small {
+  color: #6b7280;
+  font-weight: 600;
+  margin-left: 4px;
+  font-size: 12px;
+}
+.saved-item .info div {
+  color: #6b7280;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Saved issue buttons */
+.saved-item .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 80px;
+}
+.saved-item .btn {
+  padding: 6px 8px;
+  font-size: 13px;
+  border-radius: 8px;
+}

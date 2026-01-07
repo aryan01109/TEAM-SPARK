@@ -1,0 +1,334 @@
+/* Mobile Enhancements for CivicConnect */
+
+/* Enhanced CSS Variables for mobile */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --secondary: #f1f5f9;
+  --accent: #f59e0b;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --border: #d1d5db;
+  --border-light: #e5e7eb;
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-2xl: 1.5rem;
+  --z-sticky: 1020;
+  --z-dropdown: 1050;
+  --z-modal: 1050;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --text-white: #ffffff;
+  
+  /* New color variables */
+  --light-bg: #ebebdf;
+  --dark-accent: #1a1265;
+}
+
+/* Enhanced touch targets for mobile */
+.btn, button, a, input, select, textarea {
+  min-height: 44px;
+  min-width: 44px;
+  font-family: var(--font-family);
+}
+
+/* Improved mobile navigation */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  padding: 0.5rem 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  transition: all var(--transition-fast);
+}
+
+.mobile-nav-item.active {
+  color: var(--primary);
+}
+
+.mobile-nav-icon {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Enhanced mobile forms */
+.mobile-form {
+  padding: 1rem;
+}
+
+.mobile-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.mobile-form-label {
+  font-size: var(--font-size-base);
+  margin-bottom: 0.5rem;
+}
+
+.mobile-form-control {
+  font-size: var(--font-size-lg);
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+}
+
+/* Mobile card enhancements */
+.mobile-card {
+  margin-bottom: 1rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-card-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-card-body {
+  padding: 1rem;
+}
+
+.mobile-card-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Mobile button groups */
+.mobile-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.mobile-btn-group .btn {
+  flex: 1;
+  justify-content: center;
+}
+
+/* Mobile floating action button */
+.mobile-fab {
+  position: fixed;
+  bottom: 5rem;
+  right: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-dropdown);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.mobile-fab:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-2xl);
+}
+
+/* Mobile modal enhancements */
+.mobile-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-overlay);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: var(--z-modal);
+}
+
+.mobile-modal-content {
+  background: var(--bg-primary);
+  width: 100%;
+  max-height: 80vh;
+  border-top-left-radius: var(--radius-2xl);
+  border-top-right-radius: var(--radius-2xl);
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+}
+
+.mobile-modal-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-modal-body {
+  padding: 1rem;
+}
+
+.mobile-modal-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Mobile list enhancements */
+.mobile-list {
+  list-style: none;
+}
+
+.mobile-list-item {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-list-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-list-item-icon {
+  font-size: 1.5rem;
+}
+
+.mobile-list-item-content {
+  flex: 1;
+}
+
+/* Mobile typography enhancements */
+.mobile-title {
+  font-size: var(--font-size-2xl);
+  margin-bottom: 1rem;
+}
+
+.mobile-subtitle {
+  font-size: var(--font-size-lg);
+  margin-bottom: 0.5rem;
+}
+
+.mobile-text {
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+}
+
+/* Mobile spacing enhancements */
+.mobile-p-1 { padding: 0.5rem; }
+.mobile-p-2 { padding: 1rem; }
+.mobile-p-3 { padding: 1.5rem; }
+.mobile-p-4 { padding: 2rem; }
+
+.mobile-m-1 { margin: 0.5rem; }
+.mobile-m-2 { margin: 1rem; }
+.mobile-m-3 { margin: 1.5rem; }
+.mobile-m-4 { margin: 2rem; }
+
+/* Mobile safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .mobile-safe-area {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+  
+  .mobile-safe-bottom {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Mobile orientation handling */
+@media (orientation: landscape) {
+  .mobile-landscape-hidden {
+    display: none;
+  }
+}
+
+/* Enhanced mobile loading states */
+.mobile-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.mobile-loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.mobile-loading-text {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+}
+
+/* Mobile accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-fab,
+  .mobile-nav-item,
+  .btn {
+    transition: none;
+  }
+  
+  .mobile-fab:hover,
+  .mobile-nav-item:hover {
+    transform: none;
+  }
+}
+
+/* Mobile high contrast mode */
+@media (prefers-contrast: high) {
+  .mobile-nav {
+    border-top: 2px solid #000;
+  }
+  
+  .mobile-card {
+    border: 2px solid #000;
+  }
+  
+  .mobile-form-control {
+    border: 2px solid #000;
+  }
+}
