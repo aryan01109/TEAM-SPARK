@@ -112,5 +112,48 @@ Status Flow:
 - Civic-tech innovation  
 
 ---
+## 🏗 System Architecture
 
+The following diagram shows how citizens, cloud services, AI, and municipal authorities are connected in our platform.
+
+Citizen Mobile App (Android / iOS / Web)
+        |
+        |  (Photos, GPS, Text, Voice)
+        v
+Firebase / API Layer
+ - Authentication
+ - Complaint API
+ - Status Management
+ - Notification Engine
+        |
+        v
+Google Cloud Services
+ - Firestore (Complaint Database)
+ - Cloud Storage (Images & Videos)
+ - Cloud Functions (Business Logic)
+ - Firebase Cloud Messaging (Notifications)
+        |
+        v
+AI Processing Layer
+ - Google Vision API
+ - Google NLP API
+ - Auto Category & Priority Detection
+        |
+        v
+Municipal Admin Portal
+ - View Complaints
+ - Assign Tasks
+ - Update Status
+ - Analytics Dashboard
+        |
+        v
+Field Officers / Teams
+ - Receive Tasks
+ - Fix Issues
+ - Update Work Status
+        |
+        v
+Citizen Receives Real-Time Notifications (Resolved)
+
+---
 **Smart Civic Issue Reporting Platform – Powering Smarter Cities** 🌆
