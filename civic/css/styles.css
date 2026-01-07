@@ -1,0 +1,10 @@
+/* Global styles for converted pages */
+:root{--bg:#f7f8fb;--text:#222;--accent:#0b61ff}
+body{font-family:Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:24px}
+h1,h2,h3,h4{color:var(--accent);margin:0 0 12px}
+a{color:var(--accent)}
+header,nav,section,article,form{background:#fff;padding:12px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:12px}
+input,button,textarea,select{font:inherit;padding:8px;margin-top:6px;border:1px solid #ddd;border-radius:6px}
+button{background:var(--accent);color:#fff;border:none}
+/* Small responsive */
+@media(min-width:800px){body{max-width:900px;margin:24px auto}}
