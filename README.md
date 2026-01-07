@@ -19,7 +19,6 @@ The Smart Civic Issue Reporting Platform provides:
    ~ Data-driven prioritization of the most urgent issues 
 
 📱 How It Works
-
 1.A citizen uploads a photo or video of a problem
 2.The system automatically captures the GPS location
 3.The issue is stored and categorized
@@ -28,7 +27,6 @@ The Smart Civic Issue Reporting Platform provides:
 6.The citizen receives live updates
 
 ⚙️ Key Features
-
 -> Photo & video based issue reporting
 -> Automatic GPS geotagging
 -> Live status tracking (Submitted → In Progress → Resolved)
