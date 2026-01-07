@@ -101,7 +101,6 @@ Status Flow:
 ## 🎥 Demo  
 
 📽 Demo video and working prototype available  
-(See YouTube / Drive link in project submission)
 
 ---
 
