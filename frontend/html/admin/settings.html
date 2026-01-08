@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/admin/AdminDashboard.css">
+  <title>AdminSettings</title>
+</head>
+<body>
+ <header class="admin-header">
+  <h2>Admin Panel</h2>
+  <button id="logoutBtn">Logout</button>
+</header>
+
+<div class="admin-dashboard">
+  <div class="admin-content">
+    <div class="card">
+      <h2 class="card-title">Admin Settings</h2>
+
+      <form id="adminSettingsForm" class="settings-form">
+
+        <!-- SYSTEM -->
+        <div class="settings-section">
+          <h3>System Settings</h3>
+          <label class="checkbox-option">
+            <input type="checkbox" id="maintenanceMode" />
+            Enable Maintenance Mode
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" id="systemNotifications" />
+            Enable System Notifications
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" id="autoUpdates" />
+            Enable Auto Updates
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" id="backupEnabled" />
+            Enable Automated Backups
+          </label>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="settings-section">
+          <h3>Email Settings</h3>
+          <div class="form-group">
+            <label>SMTP Host</label>
+            <input id="smtpHost" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>SMTP Port</label>
+            <input id="smtpPort" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>From Email</label>
+            <input id="fromEmail" class="form-input" />
+          </div>
+        </div>
+
+        <!-- SECURITY -->
+        <div class="settings-section">
+          <h3>Security Settings</h3>
+          <label class="checkbox-option">
+            <input type="checkbox" id="twoFactorAuth" />
+            Enable Two-Factor Authentication
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" id="auditLogging" />
+            Enable Audit Logging
+          </label>
+
+          <div class="form-group">
+            <label>Session Timeout (minutes)</label>
+            <input type="number" id="sessionTimeout" min="1" max="480" />
+          </div>
+
+          <div class="radio-group">
+            <label><input type="radio" name="passwordComplexity" value="low" /> Low</label>
+            <label><input type="radio" name="passwordComplexity" value="medium" /> Medium</label>
+            <label><input type="radio" name="passwordComplexity" value="high" /> High</label>
+          </div>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="settings-section">
+          <h3>Feature Settings</h3>
+          <label class="checkbox-option">
+            <input type="checkbox" id="userReporting" />
+            Enable User Reporting
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" id="communityFeatures" />
+            Enable Community Features
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" id="adminDashboard" />
+            Enable Admin Dashboard
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" id="apiAccess" />
+            Enable API Access
+          </label>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Save Settings</button>
+          <button type="button" id="resetBtn" class="btn-secondary">Reset</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+<script src="../../js/admin/adminSettings.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/auth/Register.css">
+  <title>Register</title>
+</head>
+<body>
+  <div class="register-root">
+    <form class="register-card" id="registerForm">
+      <h2 class="register-title">Create an account</h2>
+
+      <div id="message" style="display: none; text-align: center; margin-bottom: 1rem;"></div>
+
+      <label class="field-label">Role</label>
+      <select class="field-select" id="role">
+        <option value="User">User</option>
+        <option value="Admin">Admin</option>
+      </select>
+
+      <label class="field-label">Select preferred Language</label>
+      <select class="field-select" id="lang">
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Dogri">Dogri</option>
+      </select>
+
+      <label class="field-label">Full name</label>
+      <input
+        class="field-input"
+        id="fullName"
+        type="text"
+        placeholder="Your full name"
+      />
+      <div id="fullNameError" class="field-error" style="display: none;"></div>
+
+      <div id="userFields">
+        <label class="field-label">Mobile No / Email / Username</label>
+        <input
+          class="field-input"
+          id="identifier"
+          type="text"
+          placeholder="Mobile No / Email Id / Username"
+        />
+        <div id="identifierError" class="field-error" style="display: none;"></div>
+      </div>
+
+      <div id="adminFields" style="display: none;">
+        <label class="field-label">Admin Email</label>
+        <input
+          class="field-input"
+          id="adminEmail"
+          type="email"
+          placeholder="Admin Email"
+        />
+        <div id="adminEmailError" class="field-error" style="display: none;"></div>
+
+        <label class="field-label">Government ID</label>
+        <input
+          class="field-input"
+          id="govId"
+          type="text"
+          placeholder="Government ID"
+        />
+        <div id="govIdError" class="field-error" style="display: none;"></div>
+
+        <label class="field-label">Department</label>
+        <input
+          class="field-input"
+          id="department"
+          type="text"
+          placeholder="Department"
+        />
+        <div id="departmentError" class="field-error" style="display: none;"></div>
+
+        
+        
+        <div id="securityCodeError" class="field-error" style="display: none;"></div>
+      </div>
+
+      <label class="field-label">Password</label>
+      <input
+        class="field-input"
+        id="password"
+        type="password"
+        placeholder="Password"
+      />
+      <div id="passwordError" class="field-error" style="display: none;"></div>
+
+      <label class="field-label">Confirm Password</label>
+      <input
+        class="field-input"
+        id="confirm"
+        type="password"
+        placeholder="Confirm Password"
+      />
+      <div id="confirmError" class="field-error" style="display: none;"></div>
+
+      <button class="field-button" type="submit" id="submitBtn">Register</button>
+
+      <div class="field-link">
+        Already have an account? <a href="./LoginPage.html">Login</a>
+      </div>
+    </form>
+  </div>
+  
+
+
+
+
+  <script src="../../js/auth/Register.js"></script>
+</body>
+</html>

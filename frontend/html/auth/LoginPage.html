@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/auth/login.css">
+  <title>LoginPage</title>
+</head>
+<body>
+  <div class="login-page-root">
+    <form id="loginForm" class="login-card" novalidate>
+      <h2 class="login-title">Login</h2>
+
+      <div id="generalError" class="error" style="display:none"></div>
+
+      <label class="label">Role</label>
+      <select id="roleSelect" class="select">
+        <option value="User">User</option>
+        <option value="Admin">Admin</option>
+      </select>
+
+      <label class="label">Select preferred Language:</label>
+      <select id="languageSelect" class="select">
+        <option>English</option>
+        <option>Hindi</option>
+        <option>Gujarati</option>
+        <option>Dogri</option>
+      </select>
+
+      <div id="userFields">
+        <label class="label">Mobile No / Email Id / Username</label>
+        <input id="identifier" class="input" name="identifier" placeholder="Mobile No / Email Id / Username">
+        <div id="identifierError" class="error" style="display:none"></div>
+
+        <label class="label">Password</label>
+        <input id="password" type="password" class="input" name="password" placeholder="Password">
+        <div id="passwordError" class="error" style="display:none"></div>
+
+        <label class="label">Security code</label>
+        <input id="securityCode" class="input" name="securityCode" placeholder="Security code (optional)">
+        <div id="securityCodeError" class="error" style="display:none"></div>
+      </div>
+
+      <div id="adminFields" style="display:none">
+        <label class="label">Allocated Government / Admin ID</label>
+        <input id="govId" class="input" name="govId" placeholder="e.g. GOV-123456 or Admin ID">
+        <div id="govIdError" class="error" style="display:none"></div>
+
+        <label class="label">Admin Password</label>
+        <input id="adminPassword" type="password" class="input" name="adminPassword" placeholder="Admin password">
+        <div id="adminPasswordError" class="error" style="display:none"></div>
+
+        <div class="note">Admins must use their official allocated ID. Contact system admin to reset credentials.</div>
+      </div>
+
+      <button id="submitBtn" type="submit" class="btn-login">Login</button>
+
+      <div class="register-line">Don't have an account? <a class="link" href="Register.html">Register</a></div>
+    </form>
+  </div>
+
+  <script src="../../js/auth/loginpage.js"></script>
+</body>
+</html>

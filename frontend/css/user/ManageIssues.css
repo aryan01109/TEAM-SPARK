@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+}
+
+.admin-header {
+  background: #0f2a44;
+  color: #fff;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.manage-issues-root {
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filters input,
+.filters select,
+.filters button {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.issue-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.issue-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.issue-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn.outline {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.btn.primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+}
+
+.pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}

@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f6f8fb;
+  color: #1f2933;
+}
+
+/* HEADER */
+.header {
+  background: #1e293b;
+  color: white;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header button {
+  margin-left: 8px;
+}
+
+/* LAYOUT */
+.container {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+.sidebar {
+  width: 220px;
+  background: #0f172a;
+  color: #cbd5f5;
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.sidebar li.active,
+.sidebar li:hover {
+  background: #1e293b;
+  color: white;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+.card h4 {
+  margin: 0 0 8px;
+}
+
+.value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* ISSUES */
+.issues h3 {
+  margin-bottom: 12px;
+}
+
+.issue {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
+.issue .left {
+  display: flex;
+  flex-direction: column;
+}
+
+.issue .title {
+  font-weight: 600;
+}
+
+.issue .meta {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.issue .status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.status.in-progress {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.status.resolved {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+/* SLA BANNER */
+.sla-banner {
+  display: none;
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px;
+  text-align: center;
+}
+
+.sla-banner.visible {
+  display: block;
+}
+
+/* BUTTONS */
+button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  cursor: pointer;
+}
+
+/* ANOMALY */
+.anomaly {
+  border: 2px solid #ef4444;
+  background: #fff1f2;
+}
+
+/* OFFLINE */
+body.offline::before {
+  content: "Offline Mode";
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #f59e0b;
+  color: black;
+  text-align: center;
+  padding: 6px;
+  z-index: 1000;
+}

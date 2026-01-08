@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/user/UserProfile.css">
+  <title>User Profile</title>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <div class="brand">
+      <div class="logo">🏙️</div>
+      <div>
+        <div class="brand-name">CivicConnect</div>
+        <div class="brand-tagline">Report · Track · Improve</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="UserDashboard.html" class="nav-link">Dashboard</a>
+      <a href="ReportIssue.html" class="nav-link">Report Issue</a>
+      <a href="MyReports.html" class="nav-link">My Reports</a>
+      <a href="CommunityPage.html" class="nav-link">Community</a>
+      <a href="profile.html" class="nav-link">Profile</a>
+    </nav>
+
+    <div class="avatar-wrapper">
+      <button id="avatarBtn" class="avatar-btn" title="Profile"></button>
+
+      <div id="avatarMenu" class="avatar-menu" aria-hidden="true">
+        <div class="menu-user">
+          <div id="menuAvatar" class="menu-avatar"></div>
+          <div class="menu-user-info">
+            <div id="menuUserName" class="menu-user-name"></div>
+            <div class="menu-user-email muted">Member</div>
+          </div>
+        </div>
+
+        <div class="menu-items">
+          <a href="profile.html" class="menu-item">View Profile</a>
+          <a href="MyReports.html" class="menu-item">My Reports</a>
+          <a href="CommunityPage.html" class="menu-item">Community</a>
+        </div>
+
+        <div class="menu-actions">
+          <button class="btn small outline full" onclick="window.location='profile.html'">
+            View Profile
+          </button>
+
+          <button id="logoutBtn" class="btn small primary full">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<main class="profile-main">
+  <section class="profile-card">
+    <div class="avatar-large"></div>
+    <div class="profile-info">
+      <h2 id="profileName">Your Name</h2>
+      <p id="profileEmail">you@example.com</p>
+      <p id="profileBio">Member of the community</p>
+
+      <div class="profile-actions">
+        <button class="btn primary" onclick="editProfile()">Edit Profile</button>
+        <button class="btn outline" onclick="changePassword()">Change Password</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-reports">
+    <h3>My Reports</h3>
+    <div id="myReportsList" class="reports-list"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-bottom">
+    © <span id="year"></span> CivicConnect
+  </div>
+</footer>
+<script src="../../js/user/UserProfile.js"></script>
+</body>
+</html>

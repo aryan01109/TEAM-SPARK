@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="../css/admin/dashboard.css" />
+
+  <!-- PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<script type="module">
+  import { protectPage } from "../../js/core/auth.js";
+  protectPage("dashboard");
+</script>
+
+<header class="header">
+  <div class="left">
+    <h2 id="tenantName">City Admin Dashboard</h2>
+    <span class="role">Role: <strong id="userRole"></strong></span>
+  </div>
+
+  <div class="right">
+    <button id="exportPdfBtn">Export PDF</button>
+    <button id="syncBtn">Sync</button>
+  </div>
+</header>
+
+<div id="slaBanner" class="sla-banner"></div>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <ul>
+      <li class="active">Overview</li>
+      <li data-role="admin">Departments</li>
+      <li data-role="admin">Reports</li>
+      <li data-role="admin">Audit</li>
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- STATS -->
+    <section class="stats">
+      <div class="card" id="statActive">
+        <h4>Active Issues</h4>
+        <div class="value" id="activeIssues">0</div>
+      </div>
+
+      <div class="card" id="statUrgent">
+        <h4>Urgent Issues</h4>
+        <div class="value" id="urgentIssues">0</div>
+      </div>
+
+      <div class="card" id="statResolved">
+        <h4>Resolved Today</h4>
+        <div class="value" id="resolvedToday">0</div>
+      </div>
+    </section>
+
+    <!-- ISSUES -->
+    <section class="issues">
+      <h3>Recent Issues</h3>
+      <div id="issueList"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="../../js/admin/AdminDashboard.js"></script>
+</body>
+</html>

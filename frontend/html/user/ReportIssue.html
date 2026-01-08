@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/user/ReportIssue.css">
+  <title>Report an Issue</title>
+</head>
+<body>
+  <script type="module">
+    import { loadHeader } from "../../js/shared/header.js";
+    loadHeader('report');
+  </script>
+
+  <main class="report-root">
+    <section class="report-card">
+      <h1>Report an Issue</h1>
+
+      <form id="reportForm" class="report-form">
+        <label>Title</label>
+        <input id="title" type="text" placeholder="Short title" required />
+
+        <label>Category</label>
+        <select id="category">
+          <option>Infrastructure</option>
+          <option>Sanitation</option>
+          <option>Traffic</option>
+          <option>Utilities</option>
+        </select>
+
+        <label>Location</label>
+        <input id="address" type="text" placeholder="Address or landmark" />
+
+        <label>Description</label>
+        <textarea id="description" placeholder="Describe the issue"></textarea>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Submit Report</button>
+          <button type="button" class="btn outline" onclick="window.location='MyReports.html'">Cancel</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../../js/user/reportissue.js"></script>
+</body>
+</html>
