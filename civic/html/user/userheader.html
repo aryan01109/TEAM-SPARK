@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../css/user/userheader.css" />
+  <title>User Header</title>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__container">
+
+    <!-- BRAND -->
+    <a href="UserDashboard.html" class="brand-logo">
+      <img src="../../assets/images/logo1.png" alt="CivicIssue Logo" class="brand-logo__icon" />
+      <div class="brand-text">
+        <span class="brand-name">CivicConnect</span>
+        <span class="brand-tagline">Report · Track · Improve</span>
+      </div>
+    </a>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav" aria-label="Main Navigation">
+      <div class="tabs">
+        <a href="UserDashboard.html" class="tab active">Dashboard</a>
+        <a href="ReportIssue.html" class="tab">Report</a>
+        <a href="MyReports.html" class="tab">My Reports</a>
+        <a href="CommunityPage.html" class="tab">Community</a>
+        <a href="UserProfile.html" class="tab">Profile</a>
+        <span class="glider"></span>
+      </div>
+    </nav>
+
+    <!-- ACTIONS -->
+    <div class="header-actions avatar-wrapper">
+      <button id="avatarBtn" class="avatar-btn" title="Profile"></button>
+
+      <div id="avatarMenu" class="avatar-menu">
+        <a href="UserProfile.html" class="menu-item">View Profile</a>
+        <a href="MyReports.html" class="menu-item">My Reports</a>
+        <a href="CommunityPage.html" class="menu-item">Community</a>
+        <button id="logoutBtn" class="menu-logout">Logout</button>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<script src="../../js/user/userheader.js"></script>
+</body>
+</html>

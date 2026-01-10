@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/user/UserDashboard.css">
+   <link rel="stylesheet" href="../../css/header.css">
+  <title>UserDashboard</title>
+</head>
+<body>
+
+  
+
+  <main class="dash-main">
+
+    <!-- Welcome -->
+    <section class="welcome-strip">
+      <div class="welcome-text">
+        <h2 id="welcomeUser">Welcome back!</h2>
+        <p>Here's what's happening in your community today.</p>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-row">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">Total Reports</div>
+          <div id="totalReports" class="stat-value">0</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-title">Resolved Issues</div>
+          <div id="resolvedReports" class="stat-value">0</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-title">In Progress</div>
+          <div id="progressReports" class="stat-value">0</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-title">Response Rate</div>
+          <div id="responseRate" class="stat-value">0%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+      <h3>Quick Actions</h3>
+      <div class="actions-grid">
+        <button onclick="goto('./ReportIssue.html')" class="action-card">📝 Report Issue</button>
+        <button onclick="goto('./MyReports.html')" class="action-card">📋 My Reports</button>
+        <button onclick="goto('./CommunityPage.html')" class="action-card">🏘️ Community</button>
+        <button onclick="goto('/FeaturesPage.html')" class="action-card">💬 Feedback</button>
+      </div>
+    </section>
+
+    <!-- Search + Filters -->
+    <section class="recent-reports">
+      <div class="reports-header">
+        <h3>Recent Reports</h3>
+
+        <input id="searchInput" type="text" placeholder="Search reports..." />
+      </div>
+
+      <div class="map-filters">
+        <button onclick="setFilter('All')" class="filter-btn active">All</button>
+        <button onclick="setFilter('Infrastructure')" class="filter-btn">Infrastructure</button>
+        <button onclick="setFilter('Sanitation')" class="filter-btn">Sanitation</button>
+        <button onclick="setFilter('Traffic')" class="filter-btn">Traffic</button>
+        <button onclick="setFilter('Utilities')" class="filter-btn">Utilities</button>
+      </div>
+
+      <div id="reportsList" class="reports-list grid"></div>
+
+    </section>
+
+  </main>
+
+  <footer class="dash-footer">
+    <div class="footer-bottom">
+      © <span id="year"></span> CivicConnect
+    </div>
+  </footer>
+
+
+<script src="../../js/user/UserDashboard.js"> </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/auth/LoginPage.css">
+  <title>LoginPage</title>
+</head>
+<body>
+  <div class="login-page-root">
+    <form id="loginForm" class="login-card" novalidate>
+      <h2 class="login-title">Login</h2>
+
+      <div id="generalError" class="error" style="display:none"></div>
+
+      <label class="label">Role</label>
+      <select id="roleSelect" class="select">
+        <option value="User">User</option>
+        <option value="Admin">Admin</option>
+      </select>
+
+      <label class="label">Select preferred Language:</label>
+      <select id="languageSelect" class="select">
+        <option>English</option>
+        <option>Hindi</option>
+        <option>Gujarati</option>
+        <option>Dogri</option>
+      </select>
+
+      <div id="userFields">
+        <label class="label">Mobile No / Email Id / Username</label>
+        <input id="identifier" class="input" name="identifier" placeholder="Mobile No / Email Id / Username">
+        <div id="identifierError" class="error" style="display:none"></div>
+
+        <label class="label">Password</label>
+        <input id="password" type="password" class="input" name="password" placeholder="Password">
+        <div id="passwordError" class="error" style="display:none"></div>
+
+        <label class="label">Security code</label>
+        <input id="securityCode" class="input" name="securityCode" placeholder="Security code (optional)">
+        <div id="securityCodeError" class="error" style="display:none"></div>
+      </div>
+
+      <div id="adminFields" style="display:none">
+        <label class="label">Allocated Government / Admin ID</label>
+        <input id="govId" class="input" name="govId" placeholder="e.g. GOV-123456 or Admin ID">
+        <div id="govIdError" class="error" style="display:none"></div>
+
+        <label class="label">Admin Password</label>
+        <input id="adminPassword" type="password" class="input" name="adminPassword" placeholder="Admin password">
+        <div id="adminPasswordError" class="error" style="display:none"></div>
+
+        <div class="note">Admins must use their official allocated ID. Contact system admin to reset credentials.</div>
+      </div>
+<button class="animated-button">
+  <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+    ></path>
+  </svg>
+  <span class="text">LOGIN</span>
+  <span class="circle"></span>
+  <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+    ></path>
+  </svg>
+</button>
+
+
+      <div class="register-line">Don't have an account? <a class="link" href="Register.html">Register</a></div>
+    </form>
+  </div>
+
+  <script src="../../js/auth/loginpage.js"></script>
+
+</body>
+</html>
