@@ -94,6 +94,18 @@ function applyFilters() {
   render();
 }
 
+// map location
+fetch("http://localhost:5000/api/map/issues", {
+  headers: {
+    Authorization: "Bearer " + localStorage.getItem("token")
+  }
+})
+.then(res => res.json())
+.then(data => {
+  console.log("Map Issues:", data);
+  // Loop & place markers on Leaflet map
+});
+
 
 // Update Stats
 function updateStats() {

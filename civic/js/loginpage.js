@@ -113,6 +113,27 @@
         }
       });
 
+fetch("http://localhost:5000/api/auth/user-login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    identifier,
+    password,
+    securityCode
+  })
+});
+
+fetch("http://localhost:5000/api/auth/admin-login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    govId,
+    adminPassword
+  })
+});
+
+
+
       // initialize
       showRoleFields();
     })();

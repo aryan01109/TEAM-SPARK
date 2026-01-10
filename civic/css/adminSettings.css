@@ -1,0 +1,46 @@
+body {
+  background: #020617;
+  color: white;
+  font-family: Segoe UI, sans-serif;
+  margin: 0;
+  padding: 40px;
+}
+
+.settings-card {
+  max-width: 500px;
+  margin: auto;
+  background: rgba(255,255,255,0.05);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(56,189,248,0.4);
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: #0f172a;
+  color: white;
+  border: 1px solid #38bdf8;
+  border-radius: 8px;
+}
+
+label {
+  margin-top: 15px;
+  display: block;
+}
+
+.check {
+  margin-top: 15px;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: linear-gradient(90deg,#38bdf8,#22c55e);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
