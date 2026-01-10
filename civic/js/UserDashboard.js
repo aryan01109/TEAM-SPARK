@@ -45,7 +45,7 @@ document.getElementById("logoutBtn").onclick = () => {
    DASHBOARD DATA + UI
 ========================= */
 
-const API_BASE = "http://localhost:5001";
+const API_BASE = "http://localhost:5000";
 
 let reports = [];
 let filterType = "All";
