@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/user/FeedbackPage.css">
+  <title>FeedbackPage</title>
+</head>
+<body>
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Feedback & Suggestions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- reuse your existing styles -->
+  <link rel="stylesheet" href="../styles/ReportIssue.css">
+
+  <style>
+    /* small additions for rating */
+    .rating-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .star {
+      color: #d1d5db;
+      transition: color 0.2s;
+      user-select: none;
+    }
+
+    .star.filled {
+      color: #f59e0b;
+    }
+
+    .rating-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    .has-error {
+      border-color: #dc2626 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="report-issue-page">
+
+  <div class="report-header">
+    <h1>Feedback & Suggestions</h1>
+    <p>We value your feedback to improve our services</p>
+  </div>
+
+  <div class="report-form-container">
+
+    <div id="successBox" class="success-message" hidden>
+      Thank you for your feedback! We appreciate your input.
+    </div>
+
+    <div id="errorBox" class="error-message" hidden></div>
+
+    <form id="feedbackForm" class="report-form" novalidate>
+
+      <!-- NAME + EMAIL -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="field-label">Name (Optional)</label>
+          <input
+            type="text"
+            id="name"
+            class="field-input"
+            placeholder="Your name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Email (Optional)</label>
+          <input
+            type="email"
+            id="email"
+            class="field-input"
+            placeholder="your.email@example.com"
+          >
+          <div id="emailError" class="field-error"></div>
+        </div>
+      </div>
+
+      <!-- TYPE -->
+      <div class="form-group">
+        <label class="field-label">Feedback Type</label>
+        <select id="feedbackType" class="field-input">
+          <option value="general">General Feedback</option>
+          <option value="bug">Bug Report</option>
+          <option value="feature">Feature Request</option>
+          <option value="complaint">Complaint</option>
+          <option value="compliment">Compliment</option>
+        </select>
+      </div>
+
+      <!-- SUBJECT -->
+      <div class="form-group">
+        <label class="field-label">Subject *</label>
+        <input
+          type="text"
+          id="subject"
+          class="field-input"
+          placeholder="Brief subject of your feedback"
+        >
+        <div id="subjectError" class="field-error"></div>
+      </div>
+
+      <div class="rating">
+  <input value="5" name="rating" id="star5" type="radio">
+  <label for="star5"></label>
+  <input value="4" name="rating" id="star4" type="radio">
+  <label for="star4"></label>
+  <input value="3" name="rating" id="star3" type="radio">
+  <label for="star3"></label>
+  <input value="2" name="rating" id="star2" type="radio">
+  <label for="star2"></label>
+  <input value="1" name="rating" id="star1" type="radio">
+  <label for="star1"></label>
+</div>
+
+      <!-- MESSAGE -->
+      <div class="form-group">
+        <label class="field-label">Your Feedback *</label>
+        <textarea
+          id="message"
+          class="field-textarea"
+          rows="6"
+          placeholder="Please provide detailed feedback..."
+        ></textarea>
+        <div id="messageError" class="field-error"></div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" id="cancelBtn">
+          Cancel
+        </button>
+        <button type="submit" class="btn-primary" id="submitBtn">
+          Submit Feedback
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+
+
+
+<script src="../../js/user/FeedbackPage.js"></script>
+</body>
+</html>

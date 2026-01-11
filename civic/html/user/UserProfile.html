@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/user/UserProfile.css">
+  <link rel="stylesheet" href="../../css/header.css">
+  <title>UserProfile</title>
+</head>
+<body>
+  
+<div id="header"></div>
+
+  <div class="profile-page">
+
+  <div class="profile-container">
+
+    <!-- SUMMARY CARD -->
+    <div class="profile-summary card">
+
+      <div class="profile-left">
+        <div class="avatar" id="userInitials"></div>
+
+        <div class="user-meta">
+          <div class="user-name">
+            <span id="userName"></span>
+            <span class="role-label" id="roleLabel"></span>
+          </div>
+
+          <div class="user-email" id="userEmail"></div>
+        </div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-small">
+          <div class="stat-value" id="statReports"></div>
+          <div class="stat-label">Total Reports</div>
+        </div>
+        <div class="stat-small">
+          <div class="stat-value" id="statResolved"></div>
+          <div class="stat-label">Issues Resolved</div>
+        </div>
+        <div class="stat-small">
+          <div class="stat-value" id="statPoints"></div>
+          <div class="stat-label">Civic Points</div>
+        </div>
+        <div class="stat-small">
+          <div class="stat-value" id="statRank"></div>
+          <div class="stat-label">Neighborhood Rank</div>
+        </div>
+      </div>
+
+      <div class="profile-progress">
+        <div class="progress-legend">
+          <div>Progress to Community Leader</div>
+          <div class="points-left"><span id="pointsLeft"></span> points to go</div>
+        </div>
+
+        <div class="progress-wrap">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs card">
+      <button class="tab active" data-tab="achievements">Achievements</button>
+      <button class="tab" data-tab="activity">Activity</button>
+      <button class="tab" data-tab="impact">Impact</button>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="profile-grid">
+
+      <!-- ACHIEVEMENTS -->
+      <div id="tab-achievements">
+        <div class="card badges-card">
+          <h4 class="card-title">Civic Badges</h4>
+          <div id="badgesList" class="badges-grid"></div>
+        </div>
+
+        <div class="card leaderboard-card">
+          <h4 class="card-title">Community Leaderboard</h4>
+          <ol id="leaderboard" class="leaderboard"></ol>
+        </div>
+      </div>
+
+      <!-- ACTIVITY -->
+      <div id="tab-activity" style="display:none;">
+        <div class="card activity-card full-width">
+          <h4 class="card-title">Recent Activity</h4>
+          <ul id="activityList" class="activity-list"></ul>
+        </div>
+      </div>
+
+      <!-- IMPACT -->
+      <div id="tab-impact" style="display:none;">
+        <div class="card impact-left">
+          <h4 class="card-title">Your Impact</h4>
+          <div class="impact-row">
+            <div class="label">Issues You've Helped Resolve</div>
+            <div class="value" id="impactResolved"></div>
+          </div>
+
+          <div class="impact-row">
+            <div class="label">Community Upvotes Received</div>
+            <div class="value" id="impactUpvotes"></div>
+          </div>
+
+          <div class="impact-row">
+            <div class="label">Average Response Time</div>
+            <div class="value" id="impactAvgDays"></div>
+          </div>
+        </div>
+
+        <div class="card impact-right">
+          <h4 class="card-title">Contribution Timeline</h4>
+
+          <div class="timeline-stats">
+            <div class="tl-box green">
+              <div class="tl-value" id="tlResolved"></div>
+              <div class="tl-label">Issues Resolved</div>
+            </div>
+
+            <div class="tl-box blue">
+              <div class="tl-value" id="tlProgress"></div>
+              <div class="tl-label">In Progress</div>
+            </div>
+
+            <div class="tl-box yellow">
+              <div class="tl-value" id="tlSuccess"></div>
+              <div class="tl-label">Success Rate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<script src="../../js/user/UserProfile.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+<<<<<<< HEAD:civic/html/user/ReportIssue.html
+  <link rel="stylesheet" href="../../css/user/ReportIssue.css">
+  <link rel="stylesheet" href="../../css/header.css">
+=======
+  <link rel="stylesheet" href="/civic/css/ReportIssue.css">
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/html/ReportIssue.html
+  <title>ReportIssue</title>
+</head>
+<body>
+  
+<div id="header"></div>
+
+<div id="toastContainer"></div>
+
+<main class="report-page-fullscreen">
+
+  <div class="report-content">
+
+    <div class="report-header">
+      <button class="btn-back" onclick="history.back()">← Back</button>
+      <div>
+        <h1>Report a Civic Issue</h1>
+        <p>Help improve your city by reporting issues</p>
+      </div>
+    </div>
+
+    <form id="reportForm" class="report-form" novalidate>
+
+
+      
+      <!-- CATEGORY -->
+      <label class="field">
+        <span class="field-label">Issue Category *</span>
+        <select id="category" required>
+          <option value="">Select issue type</option>
+          <option value="Pothole">Pothole</option>
+          <option value="Streetlight">Streetlight</option>
+          <option value="GarbageOverflow">Garbage Overflow</option>
+          <option value="WaterLeak">Water Leak</option>
+          <option value="Other">Other</option>
+        </select>
+        <small class="field-error"></small>
+      </label>
+
+      <!-- TITLE -->
+      <label class="field">
+        <span class="field-label">Issue Title *</span>
+        <input id="title" minlength="10" maxlength="100" required>
+        <small class="field-error"></small>
+      </label>
+
+      <!-- LOCATION -->
+      <label class="field">
+        <span class="field-label">Location *</span>
+        <input id="locationText" required>
+
+        <div id="map" class="map-container"></div>
+
+        <button type="button" id="btnUseLocation" class="btn secondary small">
+          📍 Use My Location
+        </button>
+
+        <small class="field-error"></small>
+      </label>
+
+      <!-- DESCRIPTION -->
+      <label class="field">
+        <span class="field-label">Description</span>
+        <textarea id="description" maxlength="500"></textarea>
+      </label>
+
+      <!-- PHOTO -->
+      <label class="field">
+        <span class="field-label">Photo</span>
+
+        <div id="uploadBox" class="photo-upload">
+          <input type="file" id="photoInput" hidden accept="image/*">
+          <div id="uploadContent">
+            📷 Click or Drop Photo
+            <div style="margin-top:8px">
+              <button type="button" id="btnCamera" class="btn secondary small">
+                Use Camera
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <video id="cameraView" class="camera-view" autoplay playsinline hidden></video>
+
+        <button type="button" id="btnCapture" class="btn primary small">
+        
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none" class="svg-icon"><g stroke-width="2" stroke-linecap="round" stroke="#fff" fill-rule="evenodd" clip-rule="evenodd"><path d="m4 9c0-1.10457.89543-2 2-2h2l.44721-.89443c.33879-.67757 1.03131-1.10557 1.78889-1.10557h3.5278c.7576 0 1.4501.428 1.7889 1.10557l.4472.89443h2c1.1046 0 2 .89543 2 2v8c0 1.1046-.8954 2-2 2h-12c-1.10457 0-2-.8954-2-2z"></path><path d="m15 13c0 1.6569-1.3431 3-3 3s-3-1.3431-3-3 1.3431-3 3-3 3 1.3431 3 3z"></path></g></svg>
+  <span class="lable">Take a Photo</span>
+</button>
+
+        <canvas id="photoCanvas" hidden></canvas>
+
+        <div id="previewArea"></div>
+      </label>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button type="button" onclick="history.back()" class="btn secondary">
+          Cancel
+        </button>
+
+        <button id="submitBtn" type="submit" class="btn primary">
+          Submit Report
+        </button>
+      </div>
+
+      <div id="loading" class="loading" hidden>
+        Submitting...
+      </div>
+
+      
+
+    </form>
+
+  </div>
+
+</main>
+
+<!-- Google Loader -->
+<script src="https://unpkg.com/@googlemaps/js-api-loader@1.16.6/dist/index.min.js"></script>
+
+<!-- Leaflet JS (used only if needed) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<<<<<<< HEAD:civic/html/user/ReportIssue.html
+<script src="../../js/user/reportissue.js"></script>
+=======
+<script src="/civic/js/reportissue.js"></script>
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/html/ReportIssue.html
+</body>
+</html>
