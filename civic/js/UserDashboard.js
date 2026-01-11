@@ -1,65 +1,53 @@
 /* =========================
-   USER + AVATAR + LOGOUT
+   CONFIG
+========================= */
+const API_BASE = "http://localhost:5000";
+
+/* =========================
+   USER + AVATAR
 ========================= */
 
 const avatarBtn = document.getElementById("avatarBtn");
 const avatarMenu = document.getElementById("avatarMenu");
 
-// Username
 const username = localStorage.getItem("username") || "User";
 const initial = username.charAt(0).toUpperCase();
 
-// Set UI text
 if (avatarBtn) avatarBtn.innerText = initial;
 document.getElementById("menuAvatar").innerText = initial;
 document.getElementById("menuUserName").innerText = username;
 document.getElementById("welcomeUser").innerText = `Welcome back, ${username}!`;
 
-// Toggle dropdown
 avatarBtn.onclick = () => {
   avatarMenu.classList.toggle("show");
-  avatarMenu.setAttribute(
-    "aria-hidden",
-    !avatarMenu.classList.contains("show")
-  );
 };
 
-// Close when clicking outside
 document.addEventListener("click", e => {
   if (!avatarMenu.contains(e.target) && e.target !== avatarBtn) {
     avatarMenu.classList.remove("show");
-    avatarMenu.setAttribute("aria-hidden", true);
   }
 });
 
-// Logout (shared button)
 document.getElementById("logoutBtn").onclick = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("role");
-  localStorage.removeItem("username");
-  window.location.href = "/login";
+  localStorage.clear();
+  window.location.href = "./LoginPage.html";
 };
 
-
 /* =========================
-   DASHBOARD DATA + UI
+   DASHBOARD DATA
 ========================= */
-
-const API_BASE = "http://localhost:5000";
 
 let reports = [];
 let filterType = "All";
 let searchQuery = "";
 
-// Redirect helper
 function goto(path) {
   window.location.href = path;
 }
 
-// Fetch Dashboard Data
 async function loadDashboard() {
   try {
-    // Stats API
+    // Fetch stats
     const statsRes = await fetch(`${API_BASE}/api/user/statistics`);
     const statsData = await statsRes.json();
 
@@ -75,28 +63,18 @@ async function loadDashboard() {
 
     document.getElementById("responseRate").innerText = rate + "%";
 
-    // Issues API
-    const issuesRes = await fetch(
-      `${API_BASE}/api/issues?limit=20&sort=submittedDate:desc`
-    );
-    const issues = await issuesRes.json();
+    // Fetch issues
+    const issuesRes = await fetch(`${API_BASE}/api/issues`);
+    const issuesData = await issuesRes.json();
 
-    reports = issues.data.map(issue => ({
+    reports = issuesData.data.map(issue => ({
       id: issue._id,
       title: issue.title,
       location: issue.location,
       date: new Date(issue.submittedDate).toLocaleDateString(),
       category: issue.department,
       status: issue.status,
-      priority: issue.priority,
-      progress:
-        issue.status === "resolved"
-          ? 100
-          : issue.status === "in-progress"
-          ? 65
-          : issue.status === "pending"
-          ? 10
-          : 0
+      priority: issue.priority
     }));
 
     renderReports();
@@ -106,8 +84,10 @@ async function loadDashboard() {
   }
 }
 
+/* =========================
+   RENDER REPORTS
+========================= */
 
-// Render Reports
 function renderReports() {
   const list = document.getElementById("reportsList");
   list.innerHTML = "";
@@ -118,7 +98,7 @@ function renderReports() {
     filtered = filtered.filter(r => r.category === filterType);
   }
 
-  if (searchQuery.trim()) {
+  if (searchQuery) {
     filtered = filtered.filter(r =>
       r.title.toLowerCase().includes(searchQuery) ||
       r.location.toLowerCase().includes(searchQuery)
@@ -126,7 +106,7 @@ function renderReports() {
   }
 
   if (filtered.length === 0) {
-    list.innerHTML = `<p>No reports found</p>`;
+    list.innerHTML = "<p>No reports found</p>";
     return;
   }
 
@@ -140,30 +120,38 @@ function renderReports() {
       <div class="priority">${r.priority}</div>
     `;
 
-    div.onclick = () => window.location.href = `/report/${r.id}`;
+    div.onclick = () => window.location.href = `./ReportView.html?id=${r.id}`;
 
     list.appendChild(div);
   });
 }
 
+/* =========================
+   FILTER & SEARCH
+========================= */
 
-// Filter buttons
 function setFilter(type) {
   filterType = type;
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.innerText === type) btn.classList.add("active");
+  });
+
   renderReports();
 }
 
-
-// Search
 document.getElementById("searchInput").addEventListener("input", e => {
   searchQuery = e.target.value.toLowerCase();
   renderReports();
 });
 
-
-// Footer year
+/* =========================
+   FOOTER YEAR
+========================= */
 document.getElementById("year").innerText = new Date().getFullYear();
 
-
-// Start dashboard
+/* =========================
+   INIT
+========================= */
 loadDashboard();
