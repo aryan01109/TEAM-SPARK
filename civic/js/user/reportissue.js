@@ -1,6 +1,6 @@
 /* ================= CONFIG ================= */
 const API_BASE = "http://localhost:5000";
-const GOOGLE_KEY = "YOUR_GOOGLE_KEY";
+const GOOGLE_KEY = "AIzaSyA8FykxntkFfQJ521HlzkTExDXdLnitiiU";
 
 /* ================= STATE ================= */
 let selectedFile = null;
