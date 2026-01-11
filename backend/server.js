@@ -3,32 +3,19 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const User = require("./models/User");
-const Admin = require("./models/Admin");
-
 const app = express();
 
-/* -------------------- Middleware -------------------- */
-app.use(cors());                 // Fix CORS error
-app.use(express.json());         // Read JSON body
+/* ---------------- Middleware ---------------- */
+app.use(cors());
+app.use(express.json());
 
-/* -------------------- MongoDB -------------------- */
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.error("MongoDB Error:", err));
+/* ---------------- MongoDB ---------------- */
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.error("MongoDB Error:", err));
 
-/* -------------------- MODELS -------------------- */
-// const User = mongoose.model(
-//   "User",
-//   new mongoose.Schema({
-//     name: String,
-//     email: String,
-//     password: String,
-//     role: { type: String, default: "user" },
-//     createdAt: { type: Date, default: Date.now }
-//   })
-// );
-
+/* ---------------- Models ---------------- */
 const Issue = mongoose.model(
   "Issue",
   new mongoose.Schema({
@@ -41,55 +28,11 @@ const Issue = mongoose.model(
   })
 );
 
-/* -------------------- TEST ROUTE -------------------- */
+/* ---------------- Routes ---------------- */
 app.get("/", (req, res) => {
-  res.send("TEAM-SPARK API running ");
+  res.send("TEAM-SPARK API running");
 });
 
-/* -------------------- AUTH -------------------- */
-
-
-app.post("/api/register", async (req, res) => {
-  try {
-    const { name, email, password, role, govId, department } = req.body;
-
-    if (!name || !email || !password)
-      return res.status(400).json({ message: "Missing fields" });
-
-    if (role === "Admin") {
-      if (!govId || !department)
-        return res.status(400).json({ message: "Admin verification required" });
-
-      const exists = await Admin.findOne({ email });
-      if (exists) return res.status(400).json({ message: "Admin already exists" });
-
-      const admin = await Admin.create({
-        name, email, password, govId, department
-      });
-
-      return res.json({
-        message: "Admin registered. Awaiting approval",
-        adminId: admin._id
-      });
-    }
-
-    // User
-    const exists = await User.findOne({ email });
-    if (exists) return res.status(400).json({ message: "User already exists" });
-
-    const user = await User.create({ name, email, password });
-
-    res.json({
-      message: "User registered successfully",
-      userId: user._id
-    });
-
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-/* -------------------- DASHBOARD STATS -------------------- */
 app.get("/api/user/statistics", async (req, res) => {
   try {
     const total = await Issue.countDocuments();
@@ -103,13 +46,11 @@ app.get("/api/user/statistics", async (req, res) => {
         byStatus: { resolved, inProgress, pending }
       }
     });
-
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-/* -------------------- ISSUES -------------------- */
 app.get("/api/issues", async (req, res) => {
   try {
     const issues = await Issue.find().sort({ submittedDate: -1 }).limit(20);
@@ -128,6 +69,10 @@ app.post("/api/issues", async (req, res) => {
   }
 });
 
-/* -------------------- SERVER -------------------- */
+/* ---------------- Auth routes ---------------- */
+const authRoutes = require("./routes/auth");
+app.use("/api", authRoutes);
+
+/* ---------------- Server ---------------- */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server running on port " + PORT));

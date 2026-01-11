@@ -1,135 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="../../css/auth/Register.css">
-  <title>Register</title>
+<meta charset="utf-8">
+<title>Create Account</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/civic/css/auth/Register.css">
 </head>
+
 <body>
-  <div class="register-root">
-   
-    <form class="register-card" id="registerForm">
-      <h2 class="register-title">Create an account</h2>
+<div class="register-root">
+<form class="register-card" id="registerForm">
 
-      <div id="message" style="display: none; text-align: center; margin-bottom: 1rem;"></div>
+<h2>Create Account</h2>
+<div id="message"></div>
 
-      <label class="field-label">Role</label>
-      <select class="field-select" id="role">
-        <option value="User">User</option>
-        <option value="Admin">Admin</option>
-      </select>
+<label>Role</label>
+<select id="role">
+  <option>User</option>
+  <option>Admin</option>
+</select>
 
-      <label class="field-label">Select preferred Language</label>
-      <select class="field-select" id="lang">
-        <option value="English">English</option>
-        <option value="Hindi">Hindi</option>
-        <option value="Spanish">Spanish</option>
-        <option value="Dogri">Dogri</option>
-      </select>
+<label>Full Name</label>
+<input id="fullName">
 
-      <label class="field-label">Full name</label>
-      <input
-        class="field-input"
-        id="fullName"
-        type="text"
-        placeholder="Your full name"
-      />
-      <div id="fullNameError" class="field-error" style="display: none;"></div>
+<div id="userFields">
+  <label>Email</label>
+  <input id="identifier">
+</div>
 
-      <div id="userFields">
-        <label class="field-label">Mobile No / Email / Username</label>
-        <input
-          class="field-input"
-          id="identifier"
-          type="text"
-          placeholder="Mobile No / Email Id / Username"
-        />
-        <div id="identifierError" class="field-error" style="display: none;"></div>
-      </div>
+<div id="adminFields" style="display:none">
+  <label>Admin Email</label>
+  <input id="adminEmail">
+  <label>Gov ID</label>
+  <input id="govId">
+  <label>Department</label>
+  <input id="department">
+</div>
 
-      <div id="adminFields" style="display: none;">
-        <label class="field-label">Admin Email</label>
-        <input
-          class="field-input"
-          id="adminEmail"
-          type="email"
-          placeholder="Admin Email"
-        />
-        <div id="adminEmailError" class="field-error" style="display: none;"></div>
+<label>Password</label>
+<input id="password" type="password">
 
-        <label class="field-label">Government ID</label>
-        <input
-          class="field-input"
-          id="govId"
-          type="text"
-          placeholder="Government ID"
-        />
-        <div id="govIdError" class="field-error" style="display: none;"></div>
+<label>Confirm Password</label>
+<input id="confirm" type="password">
 
-        <label class="field-label">Department</label>
-        <input
-          class="field-input"
-          id="department"
-          type="text"
-          placeholder="Department"
-        />
-        <div id="departmentError" class="field-error" style="display: none;"></div>
-<!-- 
-        <label class="field-label">Security Code</label>
-        <input
-          class="field-input"
-          id="securityCode"
-          type="password"
-          placeholder="Security Code"
-        />
-        <div id="securityCodeError" class="field-error" style="display: none;"></div>
-      </div> -->
+<button type="submit">Create Account</button>
 
-      <label class="field-label">Password</label>
-      <input
-        class="field-input"
-        id="password"
-        type="password"
-        placeholder="Password"
-      />
-      <div id="passwordError" class="field-error" style="display: none;"></div>
+</form>
+</div>
 
-      <label class="field-label">Confirm Password</label>
-      <input
-        class="field-input"
-        id="confirm"
-        type="password"
-        placeholder="Confirm Password"
-      />
-      <div id="confirmError" class="field-error" style="display: none;"></div>
-
-      <button class="animated-button">
-  <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-    ></path>
-  </svg>
-  <span class="text">Register</span>
-  <span class="circle"></span>
-  <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-    ></path>
-  </svg>
-</button>
-
-
-      <div class="field-link">
-        Already have an account? <a href="./LoginPage.html">Login</a>
-      </div>
-    </form>
-  </div>
-  
-
-
-
-
-  <script src="../../js/auth/Register.js"></script>
+<script src="/civic/js/auth/Register.js"></script>
 </body>
 </html>
