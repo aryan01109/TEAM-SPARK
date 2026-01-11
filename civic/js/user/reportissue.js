@@ -2,7 +2,11 @@
 const API_BASE = "http://localhost:5000";
 const GOOGLE_KEY = "AIzaSyA8FykxntkFfQJ521HlzkTExDXdLnitiiU";
 
+<<<<<<< HEAD:civic/js/user/reportissue.js
 /* ================= STATE ================= */
+=======
+/* ---------------- GLOBALS ---------------- */
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
 let selectedFile = null;
 let coords = { lat: null, lng: null };
 
@@ -12,8 +16,13 @@ let geocoder = null;
 
 let leafletMap = null;
 let leafletMarker = null;
+let geocoder = null;
 
+<<<<<<< HEAD:civic/js/user/reportissue.js
 /* ================= TOAST ================= */
+=======
+/* ---------------- TOAST ---------------- */
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
 function toast(msg, type = "info") {
   const box = document.createElement("div");
   box.className = `toast ${type}`;
@@ -22,12 +31,16 @@ function toast(msg, type = "info") {
   setTimeout(() => box.remove(), 3000);
 }
 
+<<<<<<< HEAD:civic/js/user/reportissue.js
 /* ================= VALIDATION ================= */
 function setError(input, msg = "") {
   input.parentElement.querySelector(".field-error").innerText = msg;
 }
 
 /* ================= FILE UPLOAD ================= */
+=======
+/* ---------------- FILE UPLOAD ---------------- */
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
 const photoInput = document.getElementById("photoInput");
 const uploadBox = document.getElementById("uploadBox");
 const previewArea = document.getElementById("previewArea");
@@ -44,6 +57,7 @@ photoInput.onchange = e => {
   previewArea.innerHTML = `<img class="preview-img" src="${URL.createObjectURL(f)}">`;
 };
 
+<<<<<<< HEAD:civic/js/user/reportissue.js
 uploadBox.ondragover = e => {
   e.preventDefault();
   uploadBox.classList.add("drag");
@@ -90,6 +104,9 @@ btnCapture.onclick = () => {
 };
 
 /* ================= MAP ================= */
+=======
+/* ---------------- MAP ---------------- */
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
 async function loadGoogleMap() {
   try {
     const loader = new google.maps.plugins.loader.Loader({
@@ -107,10 +124,14 @@ async function loadGoogleMap() {
     });
 
     map.addListener("click", e => {
+<<<<<<< HEAD:civic/js/user/reportissue.js
       setPos(
         { lat: e.latLng.lat(), lng: e.latLng.lng() },
         true
       );
+=======
+      setPos({ lat: e.latLng.lat(), lng: e.latLng.lng() }, true);
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
     });
 
     toast("Map loaded", "success");
@@ -162,11 +183,15 @@ document.getElementById("btnUseLocation").onclick = () => {
     return toast("GPS not supported", "error");
 
   navigator.geolocation.getCurrentPosition(
+<<<<<<< HEAD:civic/js/user/reportissue.js
     p =>
       setPos(
         { lat: p.coords.latitude, lng: p.coords.longitude },
         true
       ),
+=======
+    p => setPos({ lat: p.coords.latitude, lng: p.coords.longitude }, true),
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
     () => toast("Location permission denied", "error"),
     { enableHighAccuracy: true }
   );
@@ -180,10 +205,12 @@ const submitBtn = document.getElementById("submitBtn");
 form.onsubmit = async e => {
   e.preventDefault();
 
-  const title = document.getElementById("title");
-  const category = document.getElementById("category");
-  const locationText = document.getElementById("locationText");
+  const title = document.getElementById("title").value.trim();
+  const category = document.getElementById("category").value;
+  const locationText = document.getElementById("locationText").value.trim();
+  const description = document.getElementById("description").value.trim();
 
+<<<<<<< HEAD:civic/js/user/reportissue.js
   let ok = true;
 
   if (title.value.trim().length < 10) {
@@ -202,11 +229,17 @@ form.onsubmit = async e => {
   } else setError(locationText);
 
   if (!ok) return toast("Fix errors first", "error");
+=======
+  if (title.length < 10) return toast("Title must be at least 10 characters", "error");
+  if (!category) return toast("Select category", "error");
+  if (!locationText && !coords.lat) return toast("Select location", "error");
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
 
   loading.hidden = false;
   submitBtn.disabled = true;
 
   const fd = new FormData();
+<<<<<<< HEAD:civic/js/user/reportissue.js
   fd.append("title", title.value.trim());
   fd.append("category", category.value);
   fd.append("description", document.getElementById("description").value.trim());
@@ -214,29 +247,47 @@ form.onsubmit = async e => {
   fd.append("lat", coords.lat || "");
   fd.append("lng", coords.lng || "");
   if (selectedFile) fd.append("photo", selectedFile);
+=======
+  fd.append("title", title);
+  fd.append("department", category);
+  fd.append("location", locationText);
+  fd.append("description", description);
+  fd.append("latitude", coords.lat || "");
+  fd.append("longitude", coords.lng || "");
+  if (selectedFile) fd.append("image", selectedFile);
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
 
   try {
-    const res = await fetch(`${API_BASE}/reports`, {
+    const res = await fetch(`${API_BASE}/api/issues`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token") || ""}`
-      },
       body: fd
     });
 
-    if (!res.ok) throw new Error();
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Submit failed");
 
+<<<<<<< HEAD:civic/js/user/reportissue.js
     toast("Report submitted", "success");
     setTimeout(() => (location.href = "/dashboard"), 1200);
   } catch {
     toast("Submit failed", "error");
+=======
+    toast("Issue submitted successfully", "success");
+    setTimeout(() => window.location.href = "./UserDashboard.html", 1200);
+  } catch (err) {
+    toast(err.message, "error");
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
   }
 
   loading.hidden = true;
   submitBtn.disabled = false;
 };
 
+<<<<<<< HEAD:civic/js/user/reportissue.js
 /* ================= INIT ================= */
+=======
+/* ---------------- INIT ---------------- */
+>>>>>>> 271e3ce3046b517a282dfd0425746b0874f3fe45:civic/js/reportissue.js
 loadGoogleMap();
 
 

@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5001";
+const API_BASE = "http://localhost:5000";
 
 let activeTab = "my";
 let reportsMine = [];
@@ -93,6 +93,18 @@ function applyFilters() {
   updateStats();
   render();
 }
+
+// map location
+fetch("http://localhost:5000/api/map/issues", {
+  headers: {
+    Authorization: "Bearer " + localStorage.getItem("token")
+  }
+})
+.then(res => res.json())
+.then(data => {
+  console.log("Map Issues:", data);
+  // Loop & place markers on Leaflet map
+});
 
 
 // Update Stats
