@@ -87,6 +87,63 @@
 TEAM-SPARK follows a modern **client–server architecture** designed for scalability, security, and real-world civic operations.
 
 
+---
+
+### 🔐 Security Layer
+
+- Passwords are encrypted using **bcrypt**
+- All protected routes use **JWT authentication**
+- Role-based access for:
+  - Citizens
+  - Staff
+  - Admins
+
+---
+
+### 🧩 Key Components
+
+| Layer | Purpose |
+|------|---------|
+| Frontend | User Interface for citizens and staff |
+| Backend | API, authentication, and business logic |
+| Database | Stores users, staff, issues, and reports |
+| JWT | Secure session management |
+| MongoDB | High-performance NoSQL data storage |
+
+---
+
+### 🔄 Data Flow Example
+
+Citizen submits a report
+│
+▼
+Frontend → POST /api/report
+│
+▼
+Backend validates JWT
+│
+▼
+MongoDB stores issue
+│
+▼
+Staff dashboard receives new ticket
+
+---
+
+### 🚀 Why This Architecture?
+
+✔ Highly scalable  
+✔ Secure and encrypted  
+✔ Designed for government-grade applications  
+✔ Supports real-time dashboards  
+✔ Ready for future AI & analytics integration  
+
+---
+
+This architecture ensures that **TEAM-SPARK** can grow from a hackathon project into a full-scale smart-city platform.
+
+
+
 
 
 ## 🛠 Setup Instructions
