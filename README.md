@@ -56,7 +56,6 @@
 ---
 
 
----
 
 ## 🔑 Authentication Flow
 
@@ -75,7 +74,7 @@
 - Resolution status  
 - Contribution points  
 - City ranking  
-
+---
 ### 🏢 Staff Dashboard
 - View assigned issues  
 - Update status  
