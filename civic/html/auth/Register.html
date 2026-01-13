@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Registration | CityConnect</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <link rel="stylesheet" href="/civic/css/auth/Register.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">▦</div>
+    <h2>CityConnect</h2>
+  </div>
+</header>
+
+<main class="auth-page">
+  <div class="card">
+
+    <h1>Create Account</h1>
+    <p class="subtitle">Join your city community</p>
+
+    <!-- Role Switch -->
+    <div class="role-switch">
+      <button class="role active" data-role="citizen">Citizen</button>
+      <button class="role" data-role="staff">Staff</button>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <form id="registerForm" novalidate>
+
+      <div class="field">
+        <label>Full Name</label>
+        <input id="fullName" type="text" placeholder="John Doe">
+        <small class="error" id="nameError"></small>
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input id="email" type="email" placeholder="john@example.com">
+        <small class="error" id="emailError"></small>
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+
+        <div class="password-wrap">
+          <input id="password" type="password" placeholder="••••••••">
+          <button type="button" id="togglePassword" aria-label="Toggle password">👁</button>
+        </div>
+
+        <!-- Strength Meter -->
+        <div class="strength" id="strengthBox">
+          <div class="bar">
+            <span></span><span></span><span></span>
+          </div>
+          <p id="strengthText">Strength: —</p>
+        </div>
+
+        <small class="error" id="passwordError"></small>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">
+        <span class="btn-text">Create Account</span>
+        <span class="spinner hidden"></span>
+      </button>
+    </form>
+
+    <p class="switch">
+      Already have an account?
+      <a href="/civic/html/auth/LoginPage.html">Login</a>
+    </p>
+
+  </div>
+</main>
+
+<script src="/civic/js/auth/Register.js"></script>
+</body>
+</html>

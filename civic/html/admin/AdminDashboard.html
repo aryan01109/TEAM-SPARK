@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../../css/admin/AdminHeader.css">
+  <title>AdminDashboard</title>
+</head>
+<body>
+ <header class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <button id="logoutBtn" class="btn outline small">Logout</button>
+  </header>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="side-nav">
+        <ul>
+          <li data-tab="overview" class="active">Overview</li>
+          <li data-tab="departments">Departments</li>
+          <li data-tab="analytics">Analytics</li>
+          <li data-tab="reports">Reports</li>
+          <li data-tab="feedback">Feedback</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Top stats -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <span class="label">Avg Response</span>
+          <strong id="avgResponse">–</strong>
+        </div>
+        <div class="stat-card">
+          <span class="label">Resolution Rate</span>
+          <strong id="resolutionRate">–</strong>
+        </div>
+        <div class="stat-card">
+          <span class="label">Satisfaction</span>
+          <strong id="satisfaction">–</strong>
+        </div>
+        <div class="stat-card">
+          <span class="label">Active Issues</span>
+          <strong id="activeIssues">–</strong>
+        </div>
+      </section>
+
+      <!-- Tabs -->
+      <section class="tabs">
+        <div id="tab-overview" class="tab-panel active"></div>
+        <div id="tab-departments" class="tab-panel"></div>
+        <div id="tab-analytics" class="tab-panel"></div>
+        <div id="tab-reports" class="tab-panel"></div>
+        <div id="tab-feedback" class="tab-panel"></div>
+      </section>
+    </main>
+  </div>
+
+
+
+<script src="../../js/admin/admindashboard.js"></script>
+</body>
+</html>

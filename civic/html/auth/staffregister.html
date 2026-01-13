@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internal Staff Registration | City Services</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <link rel="stylesheet" href="/civic/css/auth/stafregister.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="material-symbols-outlined icon">shield_person</span>
+    <h2>Staff Portal</h2>
+  </div>
+  <a class="login-link" href="/civic/html/auth/LoginPage.html">Log In</a>
+</header>
+
+<main class="page">
+  <div class="card">
+
+    <h1>Internal Staff Registration</h1>
+    <p class="subtitle">
+      Authorized government personnel only. Verification required.
+    </p>
+
+    <!-- REGISTRATION FORM -->
+    <form id="staffForm">
+
+      <div class="grid">
+        <div class="field">
+          <label>Full Name</label>
+          <input id="fullName" type="text" placeholder="Jane Doe">
+        </div>
+
+        <div class="field">
+          <label>Department</label>
+          <select id="department">
+            <option value="">Select department</option>
+            <option>Public Works</option>
+            <option>IT Services</option>
+            <option>Emergency Response</option>
+            <option>Sanitation</option>
+            <option>City Administration</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Work Email (.gov only)</label>
+        <input id="email" type="email" placeholder="name@city.gov">
+        <small class="error" id="emailError"></small>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label>Employee ID</label>
+          <input id="employeeId" type="text" placeholder="EMP-0000">
+        </div>
+
+        <div class="field">
+          <label>Invite Code (optional)</label>
+          <input id="inviteCode" type="text" placeholder="XXXX-XXXX">
+        </div>
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="field">
+        <label>Create Password (min 12 chars)</label>
+
+        <div class="password-wrap">
+          <input id="password" type="password" placeholder="************">
+          <button type="button" id="togglePassword" aria-label="Toggle password">👁</button>
+        </div>
+
+        <!-- Strength meter -->
+        <div class="strength" id="strengthBox">
+          <div class="bars">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <p id="strengthText">Strength: —</p>
+        </div>
+
+        <small class="error" id="passwordError"></small>
+      </div>
+
+      <div class="terms">
+        <input type="checkbox" id="terms">
+        <label for="terms">
+          I certify I am an authorized employee and agree to security policies.
+        </label>
+      </div>
+
+     <small class="terms-error" id="termsError"></small>
+     
+      <button type="submit" class="btn" id="submitBtn">
+        <span class="btn-text">Verify Identity</span>
+        <span class="spinner hidden"></span>
+      </button>
+
+    </form>
+
+    <!-- CONFIRM CODE -->
+    <!-- <div id="confirmSection" class="confirm hidden">
+      <h2>Confirm Verification Code</h2>
+      <p>Enter the 6-digit code sent to your work email.</p>
+
+      <input id="otp" maxlength="6" placeholder="123456">
+      <button id="verifyBtn" class="btn">Confirm & Continue</button>
+    </div>
+
+  </div> -->
+</main>
+
+<footer class="footer">
+  © 2024 City Government Operations. All activity is logged.
+</footer>
+
+<script src="/civic/js/auth/stafregister.js"></script>
+</body>
+</html>

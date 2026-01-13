@@ -1,0 +1,320 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Public Sans", sans-serif;
+  background: #f6f7f8;
+  min-height: 100vh;
+}
+
+/* Topbar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.85);
+  border-bottom: 1px solid #ddd;
+  padding: 14px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 900;
+  color: #136dec;
+}
+
+.topbar nav a {
+  margin-left: 24px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.topbar nav a:hover {
+  color: #136dec;
+}
+
+/* Main */
+.login-wrapper {
+  position: relative;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+}
+
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background: url("https://images.unsplash.com/photo-1494526585095-c41746248156") center/cover;
+  filter: blur(6px) scale(1.1);
+  z-index: 0;
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+/* Card */
+.login-card {
+  position: absolute;
+  z-index: 2;
+  background: #fff;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+  padding: 32px;
+}
+
+.login-header h1 {
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.login-header p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Role switch */
+.role-switch {
+  display: flex;
+  background: #f0f2f4;
+  border-radius: 10px;
+  padding: 4px;
+  margin: 20px 0;
+}
+
+.role {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+  border-radius: 8px;
+}
+
+.role.active {
+  background: #fff;
+  color: #136dec;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Form */
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.field input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #136dec;
+}
+
+/* Button */
+.btn-primary {
+  width: 100%;
+  background: #136dec;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-primary:hover {
+  background: #0f55bd;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+.divider span {
+  margin: 0 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #777;
+}
+
+/* Social */
+.social-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.social-btn {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-btn img {
+  width: 18px;
+}
+
+/* SSO */
+.sso-link {
+  text-align: center;
+  margin-top: 14px;
+}
+
+.sso-link a {
+  text-decoration: none;
+  color: #136dec;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Footer inside card */
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-footer a {
+  color: #136dec;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Trust */
+.trust {
+  position: relative;
+  z-index: 2;
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  color: #fff;
+  font-size: 12px;
+}
+/* Errors */
+.error {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #dc2626;
+}
+
+.input-error {
+  border-color: #dc2626 !important;
+}
+
+/* Password toggle */
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 44px;
+}
+
+.password-wrap button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Loading spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+
+/* FORCE PASSWORD MASKING */
+input[type="password"] {
+  -webkit-text-security: disc;
+  text-security: disc;
+}
+
+/* prevent font glitches */
+.password-wrap input {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+

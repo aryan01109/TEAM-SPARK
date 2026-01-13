@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Public Sans", sans-serif;
+  background: #f6f8f8;
+  color: #111618;
+}
+
+/* Header */
+.header {
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+}
+
+.nav a.active {
+  color: #13b6ec;
+}
+
+/* User */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info {
+  text-align: right;
+}
+
+.rank {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+}
+
+/* Welcome */
+.welcome {
+  margin-bottom: 24px;
+}
+
+.welcome h1 {
+  font-size: 28px;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.05);
+}
+
+.big {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.success { color: #078836; }
+.warning { color: #f59e0b; }
+
+/* Activity */
+.activity h2 {
+  margin-bottom: 12px;
+}
+
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.activity-item.resolved {
+  border-left: 4px solid #078836;
+}
+
+/* Button */
+.report-btn {
+  margin-top: 24px;
+  width: 100%;
+  padding: 16px;
+  border: 2px dashed #ccc;
+  border-radius: 14px;
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.report-btn:hover {
+  background: #f0f9ff;
+}
+
+/* Footer */
+.footer {
+  margin-top: 60px;
+  padding: 20px;
+  text-align: center;
+  color: #999;
+}

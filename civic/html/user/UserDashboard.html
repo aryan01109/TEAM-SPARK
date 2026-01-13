@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Citizen Dashboard | CityTransparency</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/civic/css/user/UserDashboard.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="material-symbols-outlined">location_city</span>
+      <h2>CityTransparency</h2>
+    </div>
+
+    <nav class="nav">
+      <a class="active" href="#">My Dashboard</a>
+      <a href="/civic/html/user/MyReports.html">My Reports</a>
+      <a href="/civic/html/user/ReportIssue.html">ReportIssue</a>
+      <a href="#">Public Portal</a>
+      <a href="#">Community Board</a>
+    </nav>
+
+    <div class="user">
+      <div class="user-info">
+        <span class="rank">Civic Hero</span>
+        <span class="name" id="citizenName">Alex Johnson</span>
+      </div>
+      <img class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIXGhQPt3eCXznlXKZt8Qa_gXNVsIdBiQeBtpGirzy-9eTcw0fDzvsnpPVFwQGOIl38j5zNsqkf5xCZkWU1pH0-OjMHRUAlbKtpSTn6lWtBfaW0Sj69ZwAdY2Kfm7g_QHYDmW7qx8F6DoPGFhWUEqFDOQR9cVkuVvgtXOomLkFjCX61u-8cO9apGihWx3g5QDXt38Kdr0olVuagOS2S99nPwNwiJ0XDzRsxDfxEGo4MtfTvnMg6OYPQfWZikWJTHqyOmBnFSDqu8Y1" alt="Profile">
+      </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Welcome -->
+  <section class="welcome">
+    <h1>Welcome back, <span id="welcomeName">Alex</span> 👋</h1>
+    <p>You’re in the top <strong>5%</strong> of contributors this month.</p>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="card">
+      <h3>Total Reports</h3>
+      <p class="big">42</p>
+    </div>
+    <div class="card">
+      <h3>Resolved</h3>
+      <p class="big success">38</p>
+    </div>
+    <div class="card">
+      <h3>Active</h3>
+      <p class="big warning">4</p>
+    </div>
+  </section>
+
+  <!-- Activity -->
+  <section class="activity">
+    <h2>My Recent Activity</h2>
+
+    <div class="activity-item">
+      <span class="material-symbols-outlined">engineering</span>
+      <div>
+        <h4>Pothole on 5th Ave</h4>
+        <p>Status: In Progress</p>
+      </div>
+    </div>
+
+    <div class="activity-item resolved">
+      <span class="material-symbols-outlined">check_circle</span>
+      <div>
+        <h4>Graffiti in Central Park</h4>
+        <p>Resolved · +150 points</p>
+      </div>
+    </div>
+  </section>
+
+  <button class="report-btn">
+    <span class="material-symbols-outlined">add_circle</span>
+    <a href="/civic/html/user/ReportIssue.html">Report a New Issue
+  </button>
+
+</main>
+
+<footer class="footer">
+  <p>© 2024 CityTransparency Citizen Dashboard</p>
+</footer>
+
+<script src="/civic/js/user/UserDashboard.js"></script>
+</body>
+</html>

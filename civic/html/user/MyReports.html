@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Submitted Reports | CityFix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/civic/css/user/MyReports.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="material-symbols-outlined">location_city</span>
+      <h2>CityFix</h2>
+    </div>
+
+    <nav class="nav">
+      <a href="/civic/html/user/UserDashboard.html">Dashboard</a>
+      <a class="active" href="#">My Reports</a>
+      <a href="#">Map View</a>
+      <a href="#">Community</a>
+    </nav>
+
+    <div class="profile">
+      <span class="material-symbols-outlined">notifications</span>
+      <div class="avatar"></div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">Home</a> / <span>My Reports</span>
+  </div>
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>My Submitted Reports</h1>
+      <p>Track and manage your civic contributions in real-time.</p>
+    </div>
+    <div class="report-count">Total Reports: 24</div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="search">
+      <span class="material-symbols-outlined">search</span>
+      <input type="text" placeholder="Search reports by title or ID">
+    </div>
+
+    <div class="filter-buttons">
+      <button>Status: All</button>
+      <button>Issue Type</button>
+      <button>Date Range</button>
+      <button class="clear">
+        <span class="material-symbols-outlined">filter_list_off</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <section class="grid">
+
+    <article class="card resolved">
+      <div class="image" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuASMynZLlOjZY5g9Dp3hENX_swFbfgnL2EXIKcnL6nZSvCznK0gxG2t6TiskvcX0oW27jiVJzIeM46d-40m6KRhQdEGrzqNiLcMAE-TsGthQVXp1CKxfH9-061qFA35v7us6dogSxaXpcjC4Brbjp0V2kz44ycwMSjuCu_V7s6WtZL4Ldn6HKxJRERxJ4mma2G2-17mF_Dw5i3w-x65Gbk0VAdmItLHKnKDU-ft3ldGYjSrRy-yDHa4KlRCuSedJ-No_DO_y401nUdg');">
+        <span class="status">Resolved</span>
+      </div>
+      <div class="content">
+        <h3>Large Pothole – Elm St</h3>
+        <p class="meta">#CF-8912 · 122 Elm St</p>
+        <div class="tags">
+          <span>ROADS</span>
+          <span>2 Photos</span>
+        </div>
+        <div class="footer">
+          <span>Submitted Oct 12</span>
+          <em>Fixed 2h ago</em>
+        </div>
+      </div>
+    </article>
+
+    <article class="card progress">
+      <div class="image" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBydxb4h3mAAVk8PdYBk21BQ4NAns1iy4EDA1K3Az18-iNSxeDxSu8_Pc0SEF3KJNtXd1kkLd2moRXtnca3BR5bmWi3_OZKtuWUdA0E_dA8x0U40IQM8uwvKo2XtB_odwCMY7M63L6wJ8vErrfP9JoTbrTh4QGl_WOLmiz-Orhnhf-WCf4LPih-4U6qtQE0Sn_Ik99pAc0Ga3Qsk_uzfcLsZBM3Ue4N13o_mAwJsX11SQz-ClNy3rFmCZdH2aaFugp75UV9P6amBQZT');">
+        <span class="status">In Progress</span>
+      </div>
+      <div class="content">
+        <h3>Broken Lamp Post</h3>
+        <p class="meta">#CF-8945 · Greenwood Park</p>
+        <div class="tags">
+          <span>LIGHTING</span>
+          <span>1 Photo</span>
+        </div>
+        <div class="footer">
+          <span>Submitted Oct 14</span>
+          <em>Team assigned</em>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button disabled>&lt;</button>
+    <button class="active">1</button>
+    <button>2</button>
+    <button>3</button>
+    <span>…</span>
+    <button>8</button>
+    <button>&gt;</button>
+  </div>
+
+</main>
+
+<!-- Floating Button -->
+<button class="fab">
+  <span class="material-symbols-outlined">add</span>
+  Submit New Report
+</button>
+
+<script src="/civic/js/user/MyReports.js"></script>
+</body>
+</html>

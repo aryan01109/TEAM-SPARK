@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Civic Issue Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/civic/css/user/ReportIssue.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="material-symbols-outlined">domain</span>
+      <h2>CivicReport</h2>
+    </div>
+
+    <nav>
+      <a href="#">Dashboard</a>
+      <a href="#">Reports</a>
+      <a href="#">Community</a>
+      <a href="#">Profile</a>
+    </nav>
+
+    <div class="actions">
+      <button><span class="material-symbols-outlined">notifications</span></button>
+      <button><span class="material-symbols-outlined">settings</span></button>
+      <div class="avatar"></div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">Home</a> / <a href="#">Reports</a> / <span>New Report</span>
+  </div>
+
+  <!-- Header -->
+  <h1>Submit Civic Issue Report</h1>
+  <p class="subtitle">Help us improve your neighborhood by reporting issues in real-time.</p>
+
+  <!-- Progress -->
+  <section class="progress">
+    <div class="progress-header">
+      <span>Step 2 of 3: Issue Details</span>
+      <strong>66% Complete</strong>
+    </div>
+    <div class="progress-bar">
+      <div class="fill"></div>
+    </div>
+    <div class="progress-steps">
+      <span>Media Uploaded</span>
+      <span class="active">Adding Details</span>
+      <span>Final Confirmation</span>
+    </div>
+  </section>
+
+  <div class="layout">
+
+    <!-- Left: Media -->
+    <section class="media">
+      <h3><span class="material-symbols-outlined">photo_camera</span> Issue Evidence</h3>
+
+      <div class="preview">
+        <button class="delete"><span class="material-symbols-outlined">delete</span></button>
+        <p>IMG_20231024_1422.jpg</p>
+      </div>
+
+      <div class="thumbnails">
+        <div class="thumb active"></div>
+        <div class="thumb add"><span class="material-symbols-outlined">add_a_photo</span></div>
+        <div class="thumb add"><span class="material-symbols-outlined">videocam</span></div>
+      </div>
+
+      <div class="tip">
+        <span class="material-symbols-outlined">info</span>
+        Upload clear photos from multiple angles to speed up resolution.
+      </div>
+    </section>
+
+    <!-- Right: Form -->
+    <section class="form">
+
+      <!-- Categories -->
+      <div class="categories">
+        <label>Select Issue Category</label>
+        <div class="category-grid">
+          <button class="active"><span class="material-symbols-outlined">construction</span>Pothole</button>
+          <button><span class="material-symbols-outlined">lightbulb</span>Streetlight</button>
+          <button><span class="material-symbols-outlined">format_paint</span>Graffiti</button>
+          <button><span class="material-symbols-outlined">delete_outline</span>Littering</button>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="description">
+        <label>Describe the Issue</label>
+        <textarea placeholder="Explain the problem in detail..."></textarea>
+        <button class="voice">
+          <span class="material-symbols-outlined">mic</span>
+          Voice Explanation
+        </button>
+      </div>
+
+      <!-- Map -->
+      <div class="map">
+        <label>Confirm Location</label>
+        <div class="map-box">
+          <input type="text" value="123 5th Avenue, Downtown">
+          <span class="material-symbols-outlined pin">location_on</span>
+          <div class="gps">GPS Signal Strong</div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="footer-actions">
+    <button class="ghost">Save Draft</button>
+    <div>
+      <button class="secondary">Back</button>
+      <button class="primary">
+        Submit Report
+        <span class="material-symbols-outlined">send</span>
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<script src="/civic/js/user/reportissue.js"></script>
+</body>
+</html>
