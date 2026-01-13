@@ -1,0 +1,26 @@
+const mongoose = require("mongoose");
+
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+
+  email: { type: String, required: true, unique: true },
+
+  password: { type: String, required: true },
+
+  role: {
+    type: String,
+    enum: ["User", "Staff", "Admin"],   // allow Staff
+    default: "User"
+  },
+
+  department: String,
+  employeeId: String,
+
+  status: {
+    type: String,
+    enum: ["pending", "approved"],
+    default: "pending"
+  }
+});
+
+module.exports = mongoose.model("User", UserSchema);
