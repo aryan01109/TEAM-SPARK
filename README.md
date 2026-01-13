@@ -132,11 +132,11 @@ Staff dashboard receives new ticket
 
 ### 🚀 Why This Architecture?
 
-✔ Highly scalable  
-✔ Secure and encrypted  
-✔ Designed for government-grade applications  
-✔ Supports real-time dashboards  
-✔ Ready for future AI & analytics integration  
+- Highly scalable  
+- Secure and encrypted  
+- Designed for government-grade applications  
+- Supports real-time dashboards  
+- Ready for future AI & analytics integration  
 
 ---
 
@@ -153,11 +153,11 @@ This architecture ensures that **TEAM-SPARK** can grow from a hackathon project 
 ---
 ## 🏆 Why TEAM-SPARK?
 
-✔ Solves real-world civic problems  
-✔ Scalable & secure  
-✔ Hackathon-grade UI & architecture  
-✔ AI-powered future ready  
-✔ Built for smart cities  
+- Solves real-world civic problems  
+- Scalable & secure  
+- Hackathon-grade UI & architecture  
+- AI-powered future ready  
+- Built for smart cities  
 
 ---
 
