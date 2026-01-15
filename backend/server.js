@@ -1,39 +1,35 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+
+import authRoutes from "./routes/auth.js";
+import communityRoutes from "./routes/community.js";
 
 const app = express();
 
 // CORS
 app.use(cors({
   origin: "http://127.0.0.1:5500",
-  methods: ["GET","POST","PUT","DELETE"],
   credentials: true
 }));
 
+// Body parsers
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Test route
-app.get("/__test", (req,res)=>{
-  res.send("SERVER OK");
-});
-
-// MongoDB
+// Database
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log("Mongo Error", err));
+  .catch(err => console.log("Mongo Error:", err));
 
-// Load API routes
-const authRoutes = require("./routes/auth");
+// Routes
 app.use("/api", authRoutes);
+app.use("/api/community", communityRoutes);
 
-// 404 for API only
-app.use("/api", (req,res)=>{
-  res.status(404).json({ message: "API route not found" });
-});
-
-// Start server
+// Start
 app.listen(5000, () => {
   console.log("SERVER RUNNING ON 5000");
 });
