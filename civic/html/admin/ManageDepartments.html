@@ -1,19 +1,139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="../../css/admin/ManageDepartments.css">
-  <title>ManageDepartments</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>City Department Management</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <link rel="stylesheet" href="/civic/css/admin/ManageDepartments.css">
 </head>
+
 <body>
-  <!-- Converted from ManageDepartments.jsx -->
-  <h1>ManageDepartments</h1>
-  <p>Static placeholder for department management UI.</p>
-  <p>See <a href="index.html">Index</a>.</p>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand">
+        <span class="material-symbols-outlined">location_city</span>
+        <strong>MuniciCore</strong>
+      </div>
+
+      <div class="profile">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwaXb6oxGGSLsaNmhP5Y1HPR6cOSWQturIIC1nt2iVghLXCjqZ17jVajg23rjLEpGjT-fJhrOLCREuP9ciGsKHUe8maP2w-Qssj3luLkJ0z-JuJ32UK9YLXVQyThduRq7-S3CEohn_XOt1a933rPGmjfShYNwq9tJWWCXZLqXizTLtQQkw_cIjkO4dJKiyTvkJzzSSbEiC7LARiEYBqBxYAO9wzCqcCBZ3m56KmbD0cjfwp4eErsOHy8OnKhFEvXQb4lHtw6fjO8HL">
+        <div>
+          <strong>City Admin</strong>
+          <span>Executive Office</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#">Dashboard</a>
+        <a class="active" href="#">Departments</a>
+        <a href="#">Analytics</a>
+        <a href="#">Staffing</a>
+        <a href="#">Settings</a>
+      </nav>
+    </div>
+
+    <button class="new-dept">
+      <span class="material-symbols-outlined">add</span>
+      New Department
+    </button>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+  <div class="top-left">
+    <!-- BACK BUTTON -->
+    <a href="/civic/html/admin/AdminDashboard.html" class="btn-back">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back
+    </a>
+
+    <div class="breadcrumbs">
+      <span>Admin</span> › <strong>Department Management</strong>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <input placeholder="Search systems..." />
+    <span class="material-symbols-outlined">notifications</span>
+  </div>
+</header>
 
 
+    <!-- CONTENT -->
+    <section class="content">
 
-<script src="../../js/admin/ManageDepartments.js"></script>
+      <div class="content-header">
+        <div>
+          <h1>Municipal Overview</h1>
+          <p>Real-time status and SLA monitoring.</p>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="dept-grid">
+
+        <div class="dept-card">
+          <h3>Public Works</h3>
+          <p class="code">PW-440</p>
+
+          <div class="meta">
+            <span>Active Staff</span>
+            <strong>142</strong>
+          </div>
+
+          <div class="meta">
+            <span>Open Orders</span>
+            <strong>45</strong>
+          </div>
+
+          <div class="sla">
+            <div class="sla-bar" style="width:92%"></div>
+          </div>
+
+          <button>Manage Settings</button>
+        </div>
+
+        <div class="dept-card warning">
+          <h3>Sanitation</h3>
+          <p class="code">SAN-902</p>
+
+          <div class="meta">
+            <span>Active Staff</span>
+            <strong>210</strong>
+          </div>
+
+          <div class="meta">
+            <span>Open Orders</span>
+            <strong>104</strong>
+          </div>
+
+          <div class="sla">
+            <div class="sla-bar warning" style="width:78%"></div>
+          </div>
+
+          <button>Manage Settings</button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script src="/civic/js/admin/ManageDepartments.js"></script>
 </body>
 </html>

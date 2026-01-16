@@ -318,3 +318,50 @@ input[type="password"] {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* ===============================
+   ADMIN LOGIN BUTTON (MATCH SIGN IN)
+   =============================== */
+
+.admin-login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 52px;                 /* SAME HEIGHT AS SIGN IN */
+  margin-top: 18px;
+
+  border-radius: 12px;          /* SAME RADIUS */
+  border: 2px solid #00b3a4;    /* Same theme color */
+
+  background: transparent;      /* Outline style */
+  color: #00b3a4;
+
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover – behaves like Sign In */
+.admin-login-btn:hover {
+  background: #00b3a4;
+  color: #ffffff;
+}
+
+/* Focus (Accessibility) */
+.admin-login-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 179, 164, 0.25);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .admin-login-btn {
+    font-size: 14px;
+    height: 48px;
+  }
+}

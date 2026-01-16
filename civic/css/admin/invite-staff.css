@@ -1,0 +1,296 @@
+* {
+  box-sizing: border-box;
+  font-family: "Public Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #121417;
+}
+
+.topbar {
+  padding: 16px 28px;
+  border-bottom: 1px solid #dde0e4;
+  font-weight: 800;
+  color: #1a3b5b;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 36px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 32px;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.card {
+  border: 1px solid #dde0e4;
+  border-radius: 14px;
+  padding: 26px;
+  margin-bottom: 26px;
+}
+
+.step { display: none; }
+.step.active { display: block; }
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+input, select {
+  height: 46px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #dde0e4;
+}
+
+input[readonly] {
+  background: #f1f3f5;
+  color: #687582;
+}
+
+.error-text {
+  font-size: 12px;
+  color: #d93025;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.primary {
+  height: 50px;
+  padding: 0 32px;
+  background: #1a3b5b;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondary {
+  height: 50px;
+  padding: 0 32px;
+  border-radius: 12px;
+  background: transparent;
+  border: 2px solid #1a3b5b;
+  color: #1a3b5b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.preview {
+  position: sticky;
+  top: 28px;
+}
+
+.preview-box {
+  border: 1px solid #dde0e4;
+  border-radius: 14px;
+  padding: 22px;
+  background: #f7f9fa;
+}
+
+.label {
+  font-size: 11px;
+  color: #687582;
+  margin-top: 14px;
+  font-weight: 700;
+}
+
+#qrCode {
+  margin-top: 12px;
+}
+
+.qr-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.qr-actions button {
+  flex: 1;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #1a3b5b;
+  background: transparent;
+  color: #1a3b5b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Toasts */
+#toastContainer {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+}
+
+.toast {
+  background: #1a3b5b;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+/* Print Badge Button */
+.qr-actions button {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #1a3b5b;
+  background: transparent;
+  color: #1a3b5b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Print styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+}
+* {
+  box-sizing: border-box;
+  font-family: "Public Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #121417;
+}
+
+.topbar {
+  padding: 16px 28px;
+  border-bottom: 1px solid #dde0e4;
+  font-weight: 800;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 32px;
+}
+
+.step { display: none; }
+.step.active { display: block; }
+
+.card {
+  border: 1px solid #dde0e4;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+input, select {
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #dde0e4;
+}
+
+input[readonly] {
+  background: #f1f3f5;
+}
+
+.preview {
+  position: sticky;
+  top: 24px;
+}
+
+.preview-box {
+  border: 1px solid #dde0e4;
+  border-radius: 14px;
+  padding: 20px;
+  background: #f7f9fa;
+  text-align: center;
+}
+
+.photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  display: none;
+}
+
+#qrCode {
+  margin: 10px auto;
+}
+
+#barcode {
+  margin-top: 8px;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.primary, .secondary {
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary {
+  background: #1a3b5b;
+  color: #fff;
+  border: none;
+}
+
+.secondary {
+  background: transparent;
+  border: 2px solid #1a3b5b;
+  color: #1a3b5b;
+}
+
+.qr-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.qr-actions button {
+  flex: 1;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #1a3b5b;
+  background: transparent;
+  font-weight: 700;
+}
+
+.toast {
+  background: #1a3b5b;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-top: 10px;
+}

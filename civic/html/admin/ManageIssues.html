@@ -1,18 +1,157 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="../../css/admin/ManageIssues.css">
-  <title>ManageIssues</title>
+  <meta charset="UTF-8">
+  <title>Issue Assignment | CivicCare Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/civic/css/admin/ManageIssues.css">
 </head>
+
 <body>
-  <!-- Converted from ManageIssues.jsx -->
-  <h1>ManageIssues</h1>
-  <p>Static placeholder for issue management UI.</p>
-  <p>See <a href="index.html">Index</a>.</p>
 
+<header class="topbar">
+  <div class="brand">
+    <span class="material-symbols-outlined">location_city</span>
+    <strong>CivicCare Admin</strong>
+  </div>
 
-<script src="../../js/admin/ManageIssues.js"></script>
+  <nav class="nav">
+    <a href="/civic/html/admin/AdminDashboard.html">Dashboard</a>
+    <a class="active" href="#">Reports</a>
+    <a href="#">Crews</a>
+    <a href="#">Analytics</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <!-- HEADER -->
+  <section class="issue-header">
+    <div>
+      <h1>Pothole on Main St.</h1>
+      <p>Reported by Alex J · Oct 24, 2023</p>
+    </div>
+
+    <div class="header-actions">
+      <button id="exportPDF" class="outline">Export PDF</button>
+      <button class="primary">Save</button>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <section class="grid">
+
+    <!-- LEFT -->
+    <aside class="column">
+      <div class="card">
+        <h3>Visual Evidence</h3>
+        <img id="mainImage" src="https://via.placeholder.com/700">
+        <div class="thumbs">
+          <img class="thumb active" src="https://via.placeholder.com/700">
+          <img class="thumb" src="https://via.placeholder.com/701">
+          <img class="thumb" src="https://via.placeholder.com/702">
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Location</h3>
+        <div id="map" class="leaflet-map"></div>
+        <p class="muted">452 Main Street, District 4</p>
+      </div>
+    </aside>
+
+    <!-- MIDDLE -->
+    <section class="column">
+      <div class="card">
+        <h3>User Description</h3>
+        <p>
+          The sidewalk is cracked and dangerous for wheelchairs.
+          A deep pothole near the curb collects water.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Voice Note</h3>
+        <audio id="voiceAudio" src="voice.mp3"></audio>
+
+        <div class="voice-player">
+          <button id="voiceToggle">
+            <span class="material-symbols-outlined" id="voiceIcon">play_arrow</span>
+          </button>
+          <div class="voice-bar">
+            <div id="voiceProgress"></div>
+          </div>
+          <span id="voiceTime">0:00</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Activity Log</h3>
+        <div id="activityLog"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <aside class="column">
+      <div class="card admin-panel">
+
+        <label>
+          Status
+          <select id="status">
+            <option>New</option>
+            <option>In Progress</option>
+            <option>Resolved</option>
+            <option>Closed</option>
+          </select>
+        </label>
+
+        <label>
+          Priority
+          <select id="priority">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Emergency</option>
+          </select>
+        </label>
+
+        <label>
+          Assign Crew
+          <select id="crew">
+            <option value="">Select crew</option>
+            <option>District 4 Road Crew</option>
+            <option>Main City Maintenance</option>
+          </select>
+        </label>
+
+        <label>
+          Internal Note
+          <textarea id="note" rows="3"></textarea>
+        </label>
+
+        <button id="addNote" class="primary">Post Note</button>
+        <button id="updateIssue" class="outline">Update Issue</button>
+
+      </div>
+    </aside>
+
+  </section>
+
+</main>
+
+<script src="/civic/js/admin/manage-issues.js"></script>
 </body>
 </html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invite New Staff Member</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- QR & PDF Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/civic/css/admin/invite-staff.css">
+</head>
+
+<body>
+
+<header class="topbar">City Admin Portal</header>
+
+<main class="layout">
+
+<!-- FORM -->
+<section class="form">
+
+  <h1>Invite New Staff Member</h1>
+  <p class="subtitle">Onboard new employees into the municipal system.</p>
+
+  <!-- STEP 1 -->
+  <div class="card step" data-step="1">
+    <h3>Basic Information</h3>
+
+    <label>
+      Full Name
+      <input id="nameInput" placeholder="Bhavik Patel">
+    </label>
+
+    <label>
+      Employee ID
+      <input id="empIdInput" readonly>
+    </label>
+
+    <label>
+      Work Email (Auto-generated)
+      <input id="emailInput">
+      <small id="emailError" class="error-text"></small>
+    </label>
+
+    <label>
+      Employee Photo
+      <input type="file" id="photoInput" accept="image/*">
+    </label>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card step" data-step="2">
+    <h3>Department</h3>
+    <select id="departmentSelect">
+      <option value="PW">Public Works</option>
+      <option value="PR">Parks & Recreation</option>
+      <option value="TR">Transportation</option>
+      <option value="PS">Public Safety</option>
+    </select>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="card step" data-step="3">
+    <h3>Permissions</h3>
+    <p>Permissions auto-assigned by role.</p>
+  </div>
+
+  <div class="footer-actions">
+    <button id="backBtn" class="secondary">Back</button>
+    <button id="nextBtn" class="primary">Next</button>
+  </div>
+
+</section>
+
+<!-- PREVIEW -->
+<aside class="preview">
+  <h3>Badge Preview</h3>
+
+  <div class="preview-box">
+
+    <img id="photoPreview" class="photo" src="" alt="Photo">
+
+    <strong id="previewName">—</strong>
+    <span id="previewEmpId">—</span>
+
+    <div id="qrCode"></div>
+    <svg id="barcode"></svg>
+
+    <div class="qr-actions">
+      <button id="downloadPNG">PNG</button>
+      <button id="downloadPDF">PDF</button>
+      <button id="printBadge">Print</button>
+    </div>
+
+  </div>
+</aside>
+
+</main>
+
+<div id="toastContainer"></div>
+
+
+<!-- JS -->
+<script src="/civic/js/admin/invite-staff.js"></script>
+
+</body>
+</html>

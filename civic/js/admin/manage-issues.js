@@ -1,205 +1,160 @@
-/* =========================
-   RBAC
-========================= */
-const PERMISSIONS = {
-  admin: { acknowledge: true, assign: true, resolve: true },
-  staff: { acknowledge: true, assign: false, resolve: true },
-  viewer: { acknowledge: false, assign: false, resolve: false }
-};
+/* =====================================================
+   MANAGE ISSUES – CIVICCARE ADMIN
+   ===================================================== */
 
-const can = (role, action) => !!PERMISSIONS[role]?.[action];
-const userRole = "admin";
+document.addEventListener("DOMContentLoaded", () => {
 
-/* =========================
-   STATE
-========================= */
-let issues = [
-  {
-    id: 1,
-    title: "Road Damage",
-    description: "Large pothole on main road",
-    location: "Main Street",
-    status: "pending",
-    priority: "high",
-    department: "Public Works",
-    assignedTo: null,
-    submittedDate: Date.now()
-  },
-  {
-    id: 2,
-    title: "Street Light Broken",
-    description: "Light not working",
-    location: "Park Avenue",
-    status: "in-progress",
-    priority: "medium",
-    department: "Utilities",
-    assignedTo: "Team A",
-    submittedDate: Date.now()
-  }
-];
+  /* =====================================================
+     MAP (LEAFLET)
+     ===================================================== */
+  const map = L.map("map").setView([23.0225, 72.5714], 15);
 
-let page = 1;
-const pageSize = 5;
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
 
-/* =========================
-   HELPERS
-========================= */
-const qs = id => document.getElementById(id);
+  L.marker([23.0225, 72.5714])
+    .addTo(map)
+    .bindPopup(" Issue Location")
+    .openPopup();
 
-function statusLabel(s) {
-  if (s === "pending") return "Pending";
-  if (s === "in-progress") return "In Progress";
-  if (s === "resolved") return "Resolved";
-  return s;
-}
+  /* =====================================================
+     IMAGE GALLERY
+     ===================================================== */
+  const mainImage = document.getElementById("mainImage");
+  const thumbs = document.querySelectorAll(".thumb");
 
-/* =========================
-   FILTERING
-========================= */
-function getFiltered() {
-  const q = qs("searchInput").value.toLowerCase();
-  const status = qs("statusFilter").value;
-  const priority = qs("priorityFilter").value;
-  const dept = qs("departmentFilter").value;
-
-  return issues.filter(i => {
-    if (status !== "All" && i.status !== status) return false;
-    if (priority !== "All" && i.priority !== priority) return false;
-    if (dept !== "All" && i.department !== dept) return false;
-
-    if (!q) return true;
-    return (
-      i.title +
-      i.id +
-      i.department
-    ).toLowerCase().includes(q);
-  });
-}
-
-/* =========================
-   RENDER
-========================= */
-function render() {
-  const list = qs("issuesList");
-  list.innerHTML = "";
-
-  const filtered = getFiltered();
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-
-  if (page > totalPages) page = totalPages;
-
-  const start = (page - 1) * pageSize;
-  const visible = filtered.slice(start, start + pageSize);
-
-  visible.forEach(issue => list.appendChild(issueCard(issue)));
-
-  qs("pageInfo").innerText = `Page ${page} of ${totalPages}`;
-
-  qs("firstBtn").disabled = page === 1;
-  qs("prevBtn").disabled = page === 1;
-  qs("nextBtn").disabled = page === totalPages;
-  qs("lastBtn").disabled = page === totalPages;
-}
-
-/* =========================
-   ISSUE CARD
-========================= */
-function issueCard(issue) {
-  const div = document.createElement("div");
-  div.className = "issue-card";
-
-  div.innerHTML = `
-    <div class="issue-head">
-      <div>
-        <h4>${issue.title}</h4>
-        <div class="muted">${issue.location} • ${new Date(issue.submittedDate).toLocaleString()}</div>
-        <p>${issue.description}</p>
-        <div>
-          ${statusLabel(issue.status)} • ${issue.priority} • ${issue.assignedTo || "Unassigned"}
-        </div>
-      </div>
-      <div class="issue-actions"></div>
-    </div>
-  `;
-
-  const actions = div.querySelector(".issue-actions");
-
-  if (can(userRole, "acknowledge") && issue.status === "pending") {
-    actions.appendChild(button("Acknowledge", "outline", () =>
-      optimisticUpdate(issue, { status: "in-progress" })
-    ));
-  }
-
-  if (can(userRole, "assign")) {
-    actions.appendChild(button("Assign", "outline", () => {
-      const a = prompt("Assign to:");
-      if (a) optimisticUpdate(issue, { assignedTo: a });
-    }));
-  }
-
-  if (can(userRole, "resolve") && issue.status !== "resolved") {
-    actions.appendChild(button("Resolve", "primary", () =>
-      optimisticUpdate(issue, { status: "resolved" })
-    ));
-  }
-
-  return div;
-}
-
-function button(text, cls, handler) {
-  const b = document.createElement("button");
-  b.className = `btn ${cls}`;
-  b.innerText = text;
-  b.onclick = handler;
-  return b;
-}
-
-/* =========================
-   OPTIMISTIC UPDATE
-========================= */
-function optimisticUpdate(issue, patch) {
-  const backup = { ...issue };
-  Object.assign(issue, patch);
-  render();
-
-  fakeApi()
-    .catch(() => {
-      Object.assign(issue, backup);
-      render();
-      alert("Action failed. Changes reverted.");
+  thumbs.forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      thumbs.forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
+      mainImage.src = thumb.src;
     });
-}
+  });
 
-/* =========================
-   PAGINATION EVENTS
-========================= */
-qs("firstBtn").onclick = () => { page = 1; render(); };
-qs("prevBtn").onclick = () => { page--; render(); };
-qs("nextBtn").onclick = () => { page++; render(); };
-qs("lastBtn").onclick = () => {
-  page = Math.ceil(getFiltered().length / pageSize);
-  render();
-};
+  /* =====================================================
+     VOICE NOTE PLAYER
+     ===================================================== */
+  const audio = document.getElementById("voiceAudio");
+  const toggleBtn = document.getElementById("voiceToggle");
+  const icon = document.getElementById("voiceIcon");
+  const progressBar = document.getElementById("voiceProgress");
+  const timeLabel = document.getElementById("voiceTime");
 
-qs("searchInput").oninput = render;
-qs("statusFilter").onchange = render;
-qs("priorityFilter").onchange = render;
-qs("departmentFilter").onchange = render;
-qs("clearFilters").onclick = () => {
-  qs("searchInput").value = "";
-  qs("statusFilter").value = "All";
-  qs("priorityFilter").value = "All";
-  qs("departmentFilter").value = "All";
-  render();
-};
+  toggleBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      icon.textContent = "pause";
+    } else {
+      audio.pause();
+      icon.textContent = "play_arrow";
+    }
+  });
 
-/* =========================
-   MOCK API
-========================= */
-function fakeApi() {
-  return new Promise((resolve, reject) =>
-    setTimeout(() => Math.random() > 0.2 ? resolve() : reject(), 500)
-  );
-}
+  audio.addEventListener("timeupdate", () => {
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = percent + "%";
 
-render();
+    const mins = Math.floor(audio.currentTime / 60);
+    const secs = Math.floor(audio.currentTime % 60)
+      .toString()
+      .padStart(2, "0");
+
+    timeLabel.textContent = `${mins}:${secs}`;
+  });
+
+  audio.addEventListener("ended", () => {
+    icon.textContent = "play_arrow";
+    progressBar.style.width = "0%";
+  });
+
+  /* =====================================================
+     ACTIVITY LOG
+     ===================================================== */
+  const activityLog = document.getElementById("activityLog");
+
+  function addLog(message) {
+    const entry = document.createElement("div");
+    entry.className = "log-entry";
+    entry.innerHTML = `
+      <strong>${new Date().toLocaleString()}</strong>
+      <p>${message}</p>
+    `;
+    activityLog.prepend(entry);
+  }
+
+  addLog("Issue created and awaiting assignment");
+
+  /* =====================================================
+     ADMIN CONTROLS
+     ===================================================== */
+  const statusSelect = document.getElementById("status");
+  const prioritySelect = document.getElementById("priority");
+  const crewSelect = document.getElementById("crew");
+  const noteInput = document.getElementById("note");
+
+  const addNoteBtn = document.getElementById("addNote");
+  const updateIssueBtn = document.getElementById("updateIssue");
+
+  addNoteBtn.addEventListener("click", () => {
+    if (!noteInput.value.trim()) {
+      alert("Please enter a note");
+      return;
+    }
+
+    addLog(` Internal Note: ${noteInput.value}`);
+    noteInput.value = "";
+  });
+
+  updateIssueBtn.addEventListener("click", () => {
+    addLog(` Issue updated:
+      Status → ${statusSelect.value},
+      Priority → ${prioritySelect.value},
+      Crew → ${crewSelect.value || "Unassigned"}
+    `);
+
+    alert("Issue updated successfully");
+
+    /* 🔗 API READY
+    fetch("/api/issues/123", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        status: statusSelect.value,
+        priority: prioritySelect.value,
+        crew: crewSelect.value
+      })
+    });
+    */
+  });
+
+  /* =====================================================
+     EXPORT PDF
+     ===================================================== */
+  const exportPDFBtn = document.getElementById("exportPDF");
+
+  exportPDFBtn.addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+
+    pdf.setFontSize(16);
+    pdf.text("CivicCare Issue Report", 20, 20);
+
+    pdf.setFontSize(12);
+    pdf.text("Issue: Pothole on Main St.", 20, 35);
+    pdf.text("Status: " + statusSelect.value, 20, 45);
+    pdf.text("Priority: " + prioritySelect.value, 20, 55);
+    pdf.text("Assigned Crew: " + (crewSelect.value || "None"), 20, 65);
+
+    pdf.text("Description:", 20, 80);
+    pdf.text(
+      "The sidewalk is cracked and dangerous for wheelchairs.",
+      20,
+      90
+    );
+
+    pdf.save("issue-report.pdf");
+  });
+
+  console.log("Manage Issues JS Loaded Successfully");
+});

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User & Staff Management Portal</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <link rel="stylesheet" href="/civic/css/admin/staf&userpage.css" />
+</head>
+<body>
+
+<!-- Top Bar -->
+<header class="topbar">
+  <h2>CivicAdmin</h2>
+
+
+  <input
+    id="liveSearch"
+    class="search"
+    placeholder="Search users..."
+    type="text"
+  />
+<div class="top-actions">
+    <!-- BACK BUTTON -->
+    <a href="/civic/html/admin/AdminDashboard.html" class="btn secondary">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back
+    </a>
+
+    <!-- NEW USER BUTTON -->
+    <a href="/civic/html/admin/invite-staff.html" class="btn primary">
+      <span class="material-symbols-outlined">person_add</span>
+      New User
+    </a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Filters -->
+  <div class="filters">
+    <select id="statusFilter">
+      <option value="all">All Status</option>
+      <option value="active">Active</option>
+      <option value="suspended">Suspended</option>
+    </select>
+
+    <select id="roleFilter">
+      <option value="all">All Roles</option>
+      <option value="admin">Admin</option>
+      <option value="dispatcher">Dispatcher</option>
+      <option value="crew">Crew</option>
+      <option value="citizen">Citizen</option>
+    </select>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>User</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Status</th>
+          <th>Last Active</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" id="pagination"></div>
+
+</main>
+
+<script src="/civic/js/admin/staf&userpage.js"></script>
+</body>
+</html>

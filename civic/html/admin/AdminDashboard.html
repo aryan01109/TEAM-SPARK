@@ -1,66 +1,131 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="../../css/admin/AdminDashboard.css">
-  <title>AdminDashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Admin Command Center</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="/civic/css/admin/admindashboard.css" />
 </head>
+
 <body>
- <header class="admin-header">
-    <h1>Admin Dashboard</h1>
-    <button id="logoutBtn" class="btn outline small">Logout</button>
-  </header>
+<div class="app">
 
-  <div class="admin-layout">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <nav class="side-nav">
-        <ul>
-          <li data-tab="overview" class="active">Overview</li>
-          <li data-tab="departments">Departments</li>
-          <li data-tab="analytics">Analytics</li>
-          <li data-tab="reports">Reports</li>
-          <li data-tab="feedback">Feedback</li>
-        </ul>
-      </nav>
-    </aside>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="material-symbols-outlined">admin_panel_settings</span>
+      <div>
+        <h1>Command Center</h1>
+        <p>Global Admin</p>
+      </div>
+    </div>
 
-    <!-- Main -->
-    <main class="main-content">
-      <!-- Top stats -->
-      <section class="stats-grid">
-        <div class="stat-card">
-          <span class="label">Avg Response</span>
-          <strong id="avgResponse">–</strong>
+    <nav>
+      <a class="active"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
+      <a href="/civic/html/admin/staf&userpage.html"><span class="material-symbols-outlined">group</span>Users</a>
+      <a href="/civic/html/admin/all-reports.html"><span class="material-symbols-outlined">description</span>Reports</a>
+      <a><span class="material-symbols-outlined">calendar_today</span>Scheduling</a>
+      <a href="/civic/html/admin/ManageDepartments.html"><span class="material-symbols-outlined">local_shipping</span>ManageDepartments</a>
+      <a href="/civic/html/admin/reports-analytics.html"><span class="material-symbols-outlined">bar_chart</span>Analytics</a>
+    </nav>
+
+    <div class="profile">
+      <div class="avatar"></div>
+      <div>
+        <strong>Marcus Thorne</strong>
+        <span>Super Admin</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Header -->
+    <header class="topbar">
+      <span class="material-symbols-outlined hamburger" id="menuBtn">menu</span>
+
+      <div class="search">
+        <span class="material-symbols-outlined">search</span>
+        <input placeholder="Search districts, crew IDs, or incidents…" />
+      </div>
+
+      <div class="status">
+        <span class="dot"></span>
+        <span>Live Feed Active</span>
+        <span class="material-symbols-outlined bell">notifications</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <section class="content">
+
+      <!-- KPIs -->
+      <div class="kpis">
+        <div class="card"><p>Total Active Reports</p><h3>1,284</h3></div>
+        <div class="card"><p>Avg Resolution Time</p><h3>4.2 hrs</h3></div>
+        <div class="card"><p>Active Crews</p><h3>42 Units</h3></div>
+        <div class="card"><p>Citizen Satisfaction</p><h3>88.4%</h3></div>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid">
+
+        <!-- Map -->
+        <div class="map-wrapper">
+          <div class="map-filters">
+            <button data-type="all" class="active">All</button>
+            <button data-type="critical">Critical</button>
+            <button data-type="warning">Warning</button>
+            <button data-type="info">Info</button>
+          </div>
+          <div id="map"></div>
         </div>
-        <div class="stat-card">
-          <span class="label">Resolution Rate</span>
-          <strong id="resolutionRate">–</strong>
+
+        <!-- Actions -->
+        <div class="actions">
+          <h2>Priority Actions</h2>
+
+          <div class="action critical">
+            <strong>Water Main Break</strong>
+            <p>Sector 7 flooding reported</p>
+            <button>Deploy Crew</button>
+          </div>
+
+          <div class="action warning">
+            <strong>Sinkhole Detected</strong>
+            <p>Residential hillside area</p>
+            <button>Inspect</button>
+          </div>
+
+          <div class="action info">
+            <strong>Sanitation Overflow</strong>
+            <p>District 4 bins full</p>
+            <button>Reroute</button>
+          </div>
         </div>
-        <div class="stat-card">
-          <span class="label">Satisfaction</span>
-          <strong id="satisfaction">–</strong>
-        </div>
-        <div class="stat-card">
-          <span class="label">Active Issues</span>
-          <strong id="activeIssues">–</strong>
-        </div>
-      </section>
 
-      <!-- Tabs -->
-      <section class="tabs">
-        <div id="tab-overview" class="tab-panel active"></div>
-        <div id="tab-departments" class="tab-panel"></div>
-        <div id="tab-analytics" class="tab-panel"></div>
-        <div id="tab-reports" class="tab-panel"></div>
-        <div id="tab-feedback" class="tab-panel"></div>
-      </section>
-    </main>
-  </div>
+      </div>
 
+      <!-- System Health -->
+      <div class="health">
+        <h2>System Infrastructure Health</h2>
+        <div class="bars"></div>
+      </div>
 
+    </section>
+  </main>
+</div>
 
-<script src="../../js/admin/admindashboard.js"></script>
+<script src="/civic/js/admin/admindashboard.js"></script>
 </body>
 </html>

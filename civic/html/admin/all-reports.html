@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Reports | Civic Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <link rel="stylesheet" href="/civic/css/admin/all-reports.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="left">
+    <a href="/civic/html/admin/AdminDashboard.html" class="btn-back">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Dashboard
+    </a>
+    <h2>All Civic Reports</h2>
+  </div>
+
+  <input id="searchInput" class="search" placeholder="Search reports..." />
+</header>
+
+<main class="container">
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <select id="statusFilter">
+      <option value="all">All Status</option>
+      <option value="new">New</option>
+      <option value="in-progress">In Progress</option>
+      <option value="resolved">Resolved</option>
+    </select>
+
+    <select id="priorityFilter">
+      <option value="all">All Priority</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Issue</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Reported</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="reportTable"></tbody>
+    </table>
+  </div>
+
+</main>
+
+<script src="/civic/js/admin/all-reports.js"></script>
+</body>
+</html>

@@ -1,3 +1,6 @@
+/* ===============================
+   RESET
+================================ */
 * {
   margin: 0;
   padding: 0;
@@ -6,22 +9,25 @@
 
 body {
   font-family: "Public Sans", sans-serif;
-  background: #f6f7f8;
-  color: #111418;
+  background: #f4f6f8;
+  color: #111;
 }
 
-/* Header */
+/* ===============================
+   HEADER
+================================ */
 .topbar {
-  background: #fff;
+  background: white;
   border-bottom: 1px solid #e5e7eb;
   position: sticky;
   top: 0;
+  z-index: 50;
 }
 
 .topbar-inner {
   max-width: 1200px;
   margin: auto;
-  padding: 16px;
+  padding: 14px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,40 +35,45 @@ body {
 
 .brand {
   display: flex;
-  gap: 8px;
-  font-weight: 700;
+  gap: 10px;
+  font-weight: 800;
   align-items: center;
 }
 
 nav a {
-  margin: 0 10px;
+  margin: 0 12px;
   text-decoration: none;
-  color: #555;
+  color: #64748b;
   font-weight: 600;
+}
+
+nav a.active {
+  color: #2563eb;
 }
 
 .actions {
   display: flex;
   gap: 12px;
-  align-items: center;
 }
 
 .actions button {
-  border: none;
   background: #f1f5f9;
-  width: 40px;
-  height: 40px;
+  border: none;
+  width: 42px;
+  height: 42px;
   border-radius: 10px;
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
+  background: #2563eb;
   border-radius: 50%;
-  background: #1173d4;
 }
 
-/* Layout */
+/* ===============================
+   PAGE
+================================ */
 .container {
   max-width: 1200px;
   margin: auto;
@@ -70,9 +81,9 @@ nav a {
 }
 
 .breadcrumb {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 12px;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
 }
 
 h1 {
@@ -81,16 +92,18 @@ h1 {
 }
 
 .subtitle {
-  color: #6b7280;
+  color: #64748b;
   margin-bottom: 24px;
 }
 
-/* Progress */
+/* ===============================
+   PROGRESS
+================================ */
 .progress {
-  background: #fff;
+  background: white;
   padding: 20px;
   border-radius: 14px;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .progress-header {
@@ -100,17 +113,17 @@ h1 {
 }
 
 .progress-bar {
-  height: 10px;
   background: #e5e7eb;
-  border-radius: 6px;
+  height: 10px;
+  border-radius: 8px;
   margin: 12px 0;
 }
 
 .progress-bar .fill {
+  background: #2563eb;
   width: 66%;
   height: 100%;
-  background: #1173d4;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .progress-steps {
@@ -118,18 +131,23 @@ h1 {
   justify-content: space-between;
   font-size: 11px;
   text-transform: uppercase;
+  color: #64748b;
 }
 
-/* Main Grid */
+/* ===============================
+   GRID
+================================ */
 .layout {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1.3fr;
   gap: 24px;
 }
 
-/* Media */
+/* ===============================
+   MEDIA
+================================ */
 .media {
-  background: #fff;
+  background: white;
   border-radius: 16px;
   padding: 20px;
 }
@@ -139,7 +157,7 @@ h1 {
   background: #e5e7eb;
   border-radius: 14px;
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .preview p {
@@ -157,64 +175,68 @@ h1 {
   background: #ef4444;
   border: none;
   color: white;
-  padding: 6px;
   border-radius: 50%;
+  padding: 6px;
 }
 
 .thumbnails {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,1fr);
   gap: 10px;
 }
 
 .thumb {
   height: 80px;
-  background: #e5e7eb;
-  border-radius: 10px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-color: #e5e7eb;
 }
 
 .thumb.add {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px dashed #cbd5f5;
+  border: 2px dashed #94a3b8;
+  color: #64748b;
 }
 
 .tip {
-  background: #e0f2fe;
+  background: #eff6ff;
   padding: 12px;
   border-radius: 10px;
   font-size: 14px;
   margin-top: 16px;
 }
 
-/* Form */
+/* ===============================
+   FORM
+================================ */
 .form {
-  background: #fff;
+  background: white;
   border-radius: 16px;
   padding: 20px;
 }
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4,1fr);
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .category-grid button {
-  padding: 12px;
-  border-radius: 12px;
   border: 2px solid #e5e7eb;
-  background: #fff;
-  font-size: 12px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
   font-weight: 700;
 }
 
 .category-grid .active {
-  border-color: #1173d4;
-  background: #e0f2fe;
-  color: #1173d4;
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #2563eb;
 }
 
 .description textarea {
@@ -223,69 +245,70 @@ h1 {
   border-radius: 12px;
   border: 1px solid #e5e7eb;
   padding: 12px;
+  margin-top: 6px;
 }
 
 .voice {
   margin-top: 10px;
-  background: #1173d4;
+  background: #2563eb;
   color: white;
   border: none;
-  padding: 10px 14px;
+  padding: 10px 16px;
+  border-radius: 999px;
+}
+
+/* ===============================
+   MAP
+================================ */
+#map {
+  height: 300px;
+  width: 100%;
+  border-radius: 14px;
+  margin-top: 8px;
+}
+
+.map input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 6px;
+}
+
+.gps {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
   border-radius: 999px;
   font-size: 12px;
 }
 
-/* Map */
-.map-box {
-  height: 240px;
-  background: #e5e7eb;
-  border-radius: 16px;
-  position: relative;
-  margin-top: 12px;
+.gps.loading {
+  background: #fde68a;
+  color: #92400e;
 }
 
-.map-box input {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: calc(100% - 24px);
-  padding: 8px;
-  border-radius: 10px;
-  border: none;
-}
-
-.pin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -60%);
-  font-size: 40px;
-  color: #1173d4;
-}
-
-.gps {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
+.gps.locked {
   background: #22c55e;
   color: white;
-  font-size: 11px;
-  padding: 4px 8px;
-  border-radius: 999px;
 }
 
-/* Footer */
+/* ===============================
+   FOOTER
+================================ */
 .footer-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 32px;
+  margin-top: 28px;
 }
 
 .primary {
-  background: #1173d4;
+  background: #2563eb;
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 12px 24px;
   border-radius: 12px;
   font-weight: 700;
 }
@@ -293,7 +316,7 @@ h1 {
 .secondary {
   background: #e5e7eb;
   border: none;
-  padding: 12px 20px;
+  padding: 12px 24px;
   border-radius: 12px;
   font-weight: 700;
 }
@@ -301,21 +324,15 @@ h1 {
 .ghost {
   background: none;
   border: none;
-  color: #6b7280;
+  color: #64748b;
   font-weight: 700;
 }
 
-#map {
-  width: 100%;
-  height: 280px;
-  border-radius: 12px;
-  margin-top: 10px;
-}
-
-.map input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 8px;
+/* ===============================
+   MOBILE
+================================ */
+@media(max-width:900px){
+  .layout {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,22 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Run ONLY on Report Issue page
-  if (!location.pathname.includes("ReportIssue")) return;
+  /* ================================
+     RUN ONLY ON ReportIssue Page
+  ================================= */
+  if (!location.pathname.toLowerCase().includes("reportissue")) return;
 
-  /* =============================
-     AUTH
-  ============================= */
-  const sessionRaw = localStorage.getItem("citizenSession");
-  const session = sessionRaw ? JSON.parse(sessionRaw) : null;
-
+  /* ================================
+     AUTH CHECK
+  ================================= */
+  const session = JSON.parse(localStorage.getItem("citizenSession"));
   if (!session || !session.token) {
     window.location.href = "/civic/html/auth/LoginPage.html";
     return;
   }
 
-  /* =============================
+  /* ================================
      ELEMENTS
-  ============================= */
+  ================================= */
   const categoryButtons = document.querySelectorAll(".category-grid button");
   const thumbnails = document.querySelector(".thumbnails");
   const previewText = document.querySelector(".preview p");
@@ -26,27 +26,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitBtn = document.querySelector(".primary");
   const backBtn = document.querySelector(".secondary");
 
-  /* =============================
+  const gpsStatus = document.getElementById("gpsStatus");
+  const addressInput = document.getElementById("address");
+
+  /* ================================
      CATEGORY
-  ============================= */
+  ================================= */
   let selectedCategory = "Pothole";
 
   categoryButtons.forEach(btn => {
-    btn.onclick = () => {
+    btn.addEventListener("click", () => {
       categoryButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       selectedCategory = btn.innerText.trim();
-    };
+    });
   });
 
-  /* =============================
+  /* ================================
      FILE UPLOAD
-  ============================= */
+  ================================= */
   let uploadedFiles = [];
-
   const fileInput = document.createElement("input");
   fileInput.type = "file";
-  fileInput.accept = "image/*";
+  fileInput.accept = "image/*,video/*";
   fileInput.multiple = true;
 
   thumbnails.querySelectorAll(".add").forEach(btn => {
@@ -60,47 +62,89 @@ document.addEventListener("DOMContentLoaded", () => {
       const reader = new FileReader();
       reader.onload = e => {
         const div = document.createElement("div");
-        div.className = "thumb active";
+        div.className = "thumb";
         div.style.backgroundImage = `url(${e.target.result})`;
         thumbnails.prepend(div);
-        if (previewText) previewText.textContent = file.name;
+        previewText.textContent = file.name;
       };
       reader.readAsDataURL(file);
     });
   };
 
-  /* =============================
-     VOICE
-  ============================= */
+  /* ================================
+     VOICE INPUT
+  ================================= */
   if ("webkitSpeechRecognition" in window && voiceBtn) {
     const rec = new webkitSpeechRecognition();
     rec.lang = "en-US";
-    rec.continuous = false;
-
-    voiceBtn.onclick = () => rec.start();
     rec.onresult = e => {
       textarea.value += " " + e.results[0][0].transcript;
     };
+    voiceBtn.onclick = () => rec.start();
   }
 
-  /* =============================
-     GPS
-  ============================= */
+  /* ================================
+     MAP + GPS
+  ================================= */
   let latitude = null;
   let longitude = null;
 
+  gpsStatus.textContent = "Locating...";
+  gpsStatus.parentElement.classList.add("loading");
+
+  const map = L.map("map").setView([20.5937, 78.9629], 5);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
+
+  const marker = L.marker([20.5937, 78.9629], { draggable: true }).addTo(map);
+
+  function updatePosition(lat, lng) {
+    latitude = lat;
+    longitude = lng;
+
+    marker.setLatLng([lat, lng]);
+    map.setView([lat, lng], 16);
+
+    gpsStatus.textContent = "GPS Locked";
+    gpsStatus.parentElement.classList.remove("loading");
+    gpsStatus.parentElement.classList.add("locked");
+
+    fetchAddress(lat, lng);
+  }
+
   navigator.geolocation.getCurrentPosition(
-    pos => {
-      latitude = pos.coords.latitude;
-      longitude = pos.coords.longitude;
-      console.log("GPS:", latitude, longitude);
-    },
-    () => alert("Please allow location access")
+    pos => updatePosition(pos.coords.latitude, pos.coords.longitude),
+    () => {
+      gpsStatus.textContent = "Location denied";
+      gpsStatus.parentElement.classList.remove("loading");
+    }
   );
 
-  /* =============================
+  marker.on("dragend", () => {
+    const pos = marker.getLatLng();
+    updatePosition(pos.lat, pos.lng);
+  });
+
+  async function fetchAddress(lat, lng) {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+      );
+      const data = await res.json();
+      addressInput.value = data.display_name || "";
+    } catch {
+      addressInput.value = "";
+    }
+  }
+
+  setTimeout(() => {
+    map.invalidateSize();
+  }, 500);
+
+  /* ================================
      LOAD DRAFT
-  ============================= */
+  ================================= */
   const draft = JSON.parse(localStorage.getItem("reportDraft") || "{}");
 
   if (draft.description) textarea.value = draft.description;
@@ -110,9 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.classList.toggle("active", btn.innerText.trim() === selectedCategory);
   });
 
-  /* =============================
+  /* ================================
      SAVE DRAFT
-  ============================= */
+  ================================= */
   saveDraftBtn.onclick = () => {
     localStorage.setItem("reportDraft", JSON.stringify({
       category: selectedCategory,
@@ -123,23 +167,23 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("Draft saved");
   };
 
-  /* =============================
+  /* ================================
      BACK
-  ============================= */
+  ================================= */
   backBtn.onclick = () => {
     window.location.href = "/civic/html/user/UserDashboard.html";
   };
 
-  /* =============================
+  /* ================================
      SUBMIT
-  ============================= */
+  ================================= */
   let isSubmitting = false;
 
   submitBtn.onclick = async () => {
     if (isSubmitting) return;
 
     if (!textarea.value.trim()) return alert("Describe the issue");
-    if (!latitude || !longitude) return alert("Location not ready");
+    if (!latitude || !longitude) return alert("Waiting for GPS");
 
     isSubmitting = true;
     submitBtn.disabled = true;
@@ -166,12 +210,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!data.success) throw new Error(data.message);
 
       localStorage.removeItem("reportDraft");
-      alert("Report submitted successfully!");
-      localStorage.setItem("lastSubmittedReport", JSON.stringify(data.lastReport));
-      window.location.href = "/civic/html/user/ReportSuccess.html";
+      localStorage.setItem("lastSubmittedReport", JSON.stringify(data));
 
       window.location.href = "/civic/html/user/CommunityPage.html";
-
 
     } catch (err) {
       alert(err.message || "Server error");

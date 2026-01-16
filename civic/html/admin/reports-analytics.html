@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reports Analytics | Civic Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="/civic/css/admin/reports-analytics.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="left">
+    <a href="/civic/html/admin/AdminDashboard.html" class="btn-back">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Dashboard
+    </a>
+    <h2>Reports Analytics</h2>
+  </div>
+
+  <div class="toggle">
+    <button id="listBtn" class="active">List</button>
+    <button id="mapBtn">Map</button>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- CHARTS -->
+  <section class="charts">
+    <div class="chart-card">
+      <h3>Reports by Zone</h3>
+      <canvas id="zoneChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Reports by Status</h3>
+      <canvas id="statusChart"></canvas>
+    </div>
+  </section>
+
+  <!-- LIST VIEW -->
+  <section id="listView" class="list-view">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Issue</th>
+          <th>Zone</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="reportTable"></tbody>
+    </table>
+  </section>
+
+  <!-- MAP VIEW -->
+  <section id="mapView" class="map-view hidden">
+    <div id="map"></div>
+  </section>
+
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/civic/js/admin/reports-analytics.js"></script>
+</body>
+</html>

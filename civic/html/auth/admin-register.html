@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Government Officer Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/civic/css/auth/admin-register.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+  <h2>Government Officer Registration</h2>
+  <p class="subtitle">
+    Authorized municipal officers only
+  </p>
+
+  <form id="registerForm">
+
+    <div class="form-group">
+      <label>Full Name (as per records)</label>
+      <input type="text" id="name" placeholder="Ramesh Kumar" required>
+    </div>
+
+    <div class="form-group">
+      <label>Employee ID</label>
+      <input type="text" id="empId" placeholder="GOV-EMP-1023" required>
+    </div>
+
+    <div class="form-group">
+      <label>Official Email</label>
+      <input type="email" id="email" placeholder="name@gov.in" required>
+    </div>
+
+    <div class="form-group">
+      <label>Department</label>
+      <select id="department" required>
+        <option value="">Select Department</option>
+        <option>Public Works</option>
+        <option>Sanitation</option>
+        <option>Urban Planning</option>
+        <option>Water Supply</option>
+        <option>Electricity</option>
+        <option>Municipal Corporation</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Designation</label>
+      <input type="text" id="designation" placeholder="Assistant Engineer" required>
+    </div>
+
+    <div class="form-group">
+      <label>Government ID Number</label>
+      <input type="text" id="govId" placeholder="Office ID / Aadhaar (Last 4 digits)" required>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Minimum 6 characters" required>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+    </div>
+
+    <button type="submit">Register Officer</button>
+
+    <p class="switch">
+      Already registered?
+      <a href="/civic/html/auth/adminLogin.html">Login</a>
+    </p>
+
+  </form>
+</div>
+
+<script src="/civic/js/auth/admin-register.js"></script>
+</body>
+</html>

@@ -139,3 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+document.getElementById("adminLoginBtn").addEventListener("click", () => {
+  window.location.href = "/civic/html/auth/adminLogin.html";
+});

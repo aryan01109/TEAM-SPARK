@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-  <!-- CSS -->
+  <!-- Main CSS -->
   <link rel="stylesheet" href="/civic/css/user/ReportIssue.css">
 
   <!-- Leaflet Map -->
@@ -17,6 +17,7 @@
 </head>
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
@@ -26,7 +27,7 @@
 
     <nav>
       <a href="/civic/html/user/UserDashboard.html">Dashboard</a>
-      <a href="/civic/html/user/ReportIssue.html">Reports</a>
+      <a class="active" href="/civic/html/user/ReportIssue.html">Reports</a>
       <a href="/civic/html/user/CommunityPage.html">Community</a>
       <a href="/civic/html/user/UserProfile.html">Profile</a>
     </nav>
@@ -39,15 +40,20 @@
   </div>
 </header>
 
+<!-- ================= MAIN ================= -->
 <main class="container">
 
+  <!-- Breadcrumb -->
   <div class="breadcrumb">
-    <a href="/civic/html/user/UserDashboard.html">Home</a> / <a href="/civic/html/user/ReportIssue.html">Reports</a> / <span>New Report</span>
+    <a href="/civic/html/user/UserDashboard.html">Home</a> /
+    <a href="/civic/html/user/ReportIssue.html">Reports</a> /
+    <span>New Report</span>
   </div>
 
   <h1>Submit Civic Issue Report</h1>
-  <p class="subtitle">Help us improve your neighborhood by reporting issues in real-time.</p>
+  <p class="subtitle">Help improve your neighborhood by reporting problems in real time.</p>
 
+  <!-- Progress -->
   <section class="progress">
     <div class="progress-header">
       <span>Step 2 of 3: Issue Details</span>
@@ -65,7 +71,7 @@
 
   <div class="layout">
 
-    <!-- Media -->
+    <!-- ================= MEDIA ================= -->
     <section class="media">
       <h3><span class="material-symbols-outlined">photo_camera</span> Issue Evidence</h3>
 
@@ -86,9 +92,10 @@
       </div>
     </section>
 
-    <!-- Form -->
+    <!-- ================= FORM ================= -->
     <section class="form">
 
+      <!-- Categories -->
       <div class="categories">
         <label>Select Issue Category</label>
         <div class="category-grid">
@@ -99,6 +106,7 @@
         </div>
       </div>
 
+      <!-- Description -->
       <div class="description">
         <label>Describe the Issue</label>
         <textarea placeholder="Explain the problem in detail..."></textarea>
@@ -108,16 +116,16 @@
         </button>
       </div>
 
-      <!-- 🔥 LIVE MAP -->
+      <!-- ================= MAP ================= -->
       <div class="map">
         <label>Confirm Location</label>
 
-        <input id="address" placeholder="Fetching location…" />
+        <input id="address" placeholder="Fetching location…" readonly />
 
         <div id="map"></div>
 
-        <div class="gps">
-          <span class="material-symbols-outlined">gps_fixed</span>
+        <div id="gpsBadge" class="gps loading">
+          <span class="material-symbols-outlined" id="gpsIcon">gps_not_fixed</span>
           <span id="gpsStatus">Locating…</span>
         </div>
       </div>
@@ -125,6 +133,7 @@
     </section>
   </div>
 
+  <!-- ================= FOOTER ================= -->
   <div class="footer-actions">
     <button class="ghost">Save Draft</button>
     <div>
@@ -141,6 +150,7 @@
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
+<!-- Main Script -->
 <script src="/civic/js/user/reportissue.js"></script>
 
 </body>

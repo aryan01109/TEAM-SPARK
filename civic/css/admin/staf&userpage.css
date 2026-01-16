@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #1a1f23;
+  color: #e5e7eb;
+}
+
+/* Header */
+.topbar {
+  padding: 16px 20px;
+  border-bottom: 1px solid #2d353b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search {
+  background: #242b30;
+  border: 1px solid #2d353b;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 240px;
+}
+
+/* Layout */
+.container {
+  padding: 20px;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filters select {
+  background: #242b30;
+  border: 1px solid #2d353b;
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* Table */
+.table-card {
+  background: #242b30;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 14px;
+  border-bottom: 1px solid #2d353b;
+  text-align: left;
+}
+
+td span {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* Tags */
+.tag {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.tag.admin { background: #4338ca33; color: #818cf8; }
+.tag.dispatcher { background: #0d948833; color: #5eead4; }
+.tag.crew { background: #f59e0b33; color: #fbbf24; }
+.tag.citizen { background: #64748b33; color: #cbd5f5; }
+
+/* Status */
+.status.active { color: #26a69c; font-weight: 700; }
+.status.suspended { color: #f59e0b; font-weight: 700; }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.pagination button {
+  background: #242b30;
+  border: 1px solid #2d353b;
+  color: #94a3b8;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #26a69c;
+  color: white;
+  border-color: #26a69c;
+}
+
+/* ---------- TOPBAR IMPROVEMENTS ---------- */
+.topbar {
+  padding: 16px 20px;
+  border-bottom: 1px solid #2d353b;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar h2 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+/* Actions container */
+.top-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------- BUTTON SYSTEM ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Primary button */
+.btn.primary {
+  background: #26a69c;
+  color: #ffffff;
+}
+
+.btn.primary:hover {
+  background: #1f8f86;
+}
+
+/* Secondary button (Back) */
+.btn.secondary {
+  background: #242b30;
+  color: #cbd5f5;
+  border: 1px solid #2d353b;
+}
+
+.btn.secondary:hover {
+  background: #2f383f;
+}
+
+/* Icon sizing */
+.btn .material-symbols-outlined {
+  font-size: 18px;
+}

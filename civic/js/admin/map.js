@@ -1,141 +1,121 @@
-/* ==========================
-   CONFIG
-========================== */
-const userRole = "admin"; // admin | supervisor
+/* =====================================================
+   ADMIN MAP – SMART CITY (LEAFLET)
+   ===================================================== */
 
+/* ---------- MAP INITIALIZATION ---------- */
+const map = L.map("map").setView([22.9734, 78.6569], 5); // India center
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: "© OpenStreetMap contributors"
+}).addTo(map);
+
+/* ---------- ISSUE DATA (DUMMY / API READY) ---------- */
 const issues = [
   {
-    id: "CIV-101",
-    title: "Water leakage",
-    priority: "high",
-    status: "pending",
-    lat: 23.034,
-    lng: 72.526
+    id: 1,
+    title: "Water Pipeline Burst",
+    description: "Heavy leakage reported near main road",
+    status: "critical",
+    location: "Delhi – Sector 12",
+    coords: [28.6139, 77.2090]
   },
   {
-    id: "CIV-102",
-    title: "Broken streetlight",
-    priority: "medium",
-    status: "in-progress",
-    lat: 23.045,
-    lng: 72.552
+    id: 2,
+    title: "Garbage Overflow",
+    description: "Bins overflowing for 2 days",
+    status: "warning",
+    location: "Mumbai – Andheri",
+    coords: [19.0760, 72.8777]
   },
   {
-    id: "CIV-103",
-    title: "Garbage overflow",
-    priority: "low",
-    status: "pending",
-    lat: 23.015,
-    lng: 72.565
+    id: 3,
+    title: "Street Light Not Working",
+    description: "Dark zone reported by citizens",
+    status: "info",
+    location: "Bengaluru – Whitefield",
+    coords: [12.9716, 77.5946]
+  },
+  {
+    id: 4,
+    title: "Road Cave-In",
+    description: "Road partially collapsed",
+    status: "critical",
+    location: "Ahmedabad – SG Highway",
+    coords: [23.0225, 72.5714]
   }
 ];
 
-/* ==========================
-   MAP INIT
-========================== */
-const map = L.map("map").setView([23.03, 72.54], 13);
-
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "© OpenStreetMap"
-}).addTo(map);
-
-/* ==========================
-   ICONS
-========================== */
-function icon(color) {
-  return new L.Icon({
-    iconUrl: `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`,
-    iconSize: [32, 32],
-    iconAnchor: [16, 32]
-  });
-}
-
-const icons = {
-  high: icon("red"),
-  medium: icon("orange"),
-  low: icon("green")
+/* ---------- STATUS COLORS ---------- */
+const statusColor = {
+  critical: "#e53935",
+  warning: "#fb8c00",
+  info: "#1e88e5"
 };
 
-/* ==========================
-   MARKERS
-========================== */
-const cluster = L.markerClusterGroup();
-const heatPoints = [];
+/* ---------- MARKER STORAGE ---------- */
+const markers = [];
 
+/* ---------- CREATE MARKERS ---------- */
 issues.forEach(issue => {
-  const marker = L.marker([issue.lat, issue.lng], {
-    icon: icons[issue.priority]
-  });
+  const marker = L.circleMarker(issue.coords, {
+    radius: 9,
+    color: statusColor[issue.status],
+    fillColor: statusColor[issue.status],
+    fillOpacity: 0.85
+  }).addTo(map);
 
-  marker.on("click", () => showDetails(issue));
-  cluster.addLayer(marker);
-
-  heatPoints.push([issue.lat, issue.lng, issue.priority === "high" ? 1 : 0.5]);
-});
-
-map.addLayer(cluster);
-
-/* ==========================
-   HEATMAP
-========================== */
-let heatLayer = L.heatLayer(heatPoints, {
-  radius: 25,
-  blur: 15
-});
-
-let heatVisible = false;
-
-document.getElementById("toggleHeat").onclick = () => {
-  heatVisible = !heatVisible;
-  heatVisible ? map.addLayer(heatLayer) : map.removeLayer(heatLayer);
-};
-
-/* ==========================
-   DETAILS PANEL
-========================== */
-function showDetails(issue) {
-  document.getElementById("details").innerHTML = `
-    <div class="issue-row"><strong>${issue.title}</strong></div>
-    <div class="issue-row">ID: ${issue.id}</div>
-    <div class="issue-row">
-      Priority:
-      <span class="priority-${issue.priority}">
-        ${issue.priority.toUpperCase()}
-      </span>
+  marker.bindPopup(`
+    <div style="min-width:220px">
+      <h3 style="margin:0;color:${statusColor[issue.status]}">
+        ${issue.title}
+      </h3>
+      <p>${issue.description}</p>
+      <strong>📍 ${issue.location}</strong><br>
+      <small>Status: ${issue.status.toUpperCase()}</small>
+      <hr>
+      <button onclick="assignCrew(${issue.id})">🚑 Assign Crew</button>
+      <button onclick="resolveIssue(${issue.id})">✅ Mark Resolved</button>
     </div>
-    <div class="issue-row">Status: ${issue.status}</div>
-  `;
-}
+  `);
 
-/* ==========================
-   ADD ISSUE (ADMIN ONLY)
-========================== */
-const addBtn = document.getElementById("addIssueBtn");
+  markers.push(marker);
+});
 
-if (userRole !== "admin") {
-  addBtn.style.display = "none";
-}
-
-addBtn.onclick = () => {
-  alert("Click on map to add issue");
-  map.once("click", e => {
-    const title = prompt("Issue title:");
-    if (!title) return;
-
-    const issue = {
-      id: "CIV-" + Date.now(),
-      title,
-      priority: "medium",
-      status: "pending",
-      lat: e.latlng.lat,
-      lng: e.latlng.lng
-    };
-
-    const marker = L.marker([issue.lat, issue.lng], {
-      icon: icons.medium
-    }).addTo(cluster);
-
-    marker.on("click", () => showDetails(issue));
-    heatLayer.addLatLng([issue.lat, issue.lng, 0.6]);
-  });
+/* ---------- ADMIN ACTIONS ---------- */
+window.assignCrew = function (id) {
+  alert(`🚧 Crew assigned to issue ID: ${id}`);
 };
+
+window.resolveIssue = function (id) {
+  alert(`✅ Issue ID ${id} marked as resolved`);
+};
+
+/* ---------- LIVE ISSUE SIMULATION ---------- */
+setInterval(() => {
+  const random = issues[Math.floor(Math.random() * issues.length)];
+  const pulse = L.circle(random.coords, {
+    radius: 200,
+    color: statusColor[random.status],
+    fillOpacity: 0.2
+  }).addTo(map);
+
+  setTimeout(() => map.removeLayer(pulse), 1500);
+}, 4000);
+
+/* ---------- GEOLOCATION (ADMIN VIEW) ---------- */
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(pos => {
+    const adminLocation = [pos.coords.latitude, pos.coords.longitude];
+
+    L.marker(adminLocation)
+      .addTo(map)
+      .bindPopup("🧑‍💼 You (Admin)")
+      .openPopup();
+
+    map.setView(adminLocation, 10);
+  });
+}
+
+/* ---------- CONSOLE CONFIRM ---------- */
+console.log("✅ Admin Smart City Map Loaded Successfully");

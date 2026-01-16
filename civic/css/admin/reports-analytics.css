@@ -1,0 +1,100 @@
+* {
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #1a1f23;
+  color: #e5e7eb;
+}
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #2d353b;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-back {
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #242b30;
+  border: 1px solid #2d353b;
+  color: #cbd5f5;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* TOGGLE */
+.toggle button {
+  background: #242b30;
+  border: 1px solid #2d353b;
+  color: #94a3b8;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.toggle button.active {
+  background: #26a69c;
+  color: #fff;
+  border-color: #26a69c;
+}
+
+/* CONTENT */
+.container {
+  padding: 20px;
+}
+
+/* CHARTS */
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.chart-card {
+  background: #242b30;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+/* LIST */
+.list-view table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #242b30;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px;
+  border-bottom: 1px solid #2d353b;
+}
+
+/* MAP */
+.map-view {
+  height: 420px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.hidden {
+  display: none;
+}
