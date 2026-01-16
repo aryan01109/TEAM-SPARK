@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusFilter = document.getElementById("statusFilter");
   const roleFilter = document.getElementById("roleFilter");
   const pagination = document.getElementById("pagination");
+  const backBtn = document.getElementById("backBtn"); // ✅ SAFE
 
   /* ---------- DATA (API READY) ---------- */
   let users = [
@@ -57,6 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- RENDER TABLE ---------- */
   function renderTable(data) {
+    if (!tableBody) return;
+
     tableBody.innerHTML = "";
 
     if (data.length === 0) {
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       tr.innerHTML = `
         <td>
-          <div class="avatar">${user.name[0]}</div>
+          <div class="avatar">${user.name.charAt(0)}</div>
         </td>
         <td>
           <strong>${user.name}</strong><br>
@@ -103,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- PAGINATION UI ---------- */
   function renderPagination(total) {
+    if (!pagination) return;
+
     pagination.innerHTML = "";
     const pages = Math.ceil(total / rowsPerPage);
 
@@ -124,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyFilters() {
     let filtered = [...users];
 
-    const search = searchInput.value.toLowerCase();
+    const search = searchInput?.value.toLowerCase() || "";
     if (search) {
       filtered = filtered.filter(u =>
         u.name.toLowerCase().includes(search) ||
@@ -132,13 +137,13 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
 
-    if (statusFilter.value !== "all") {
+    if (statusFilter?.value !== "all") {
       filtered = filtered.filter(
         u => u.status === statusFilter.value
       );
     }
 
-    if (roleFilter.value !== "all") {
+    if (roleFilter?.value !== "all") {
       filtered = filtered.filter(
         u => u.role === roleFilter.value
       );
@@ -153,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.addEventListener("click", () => {
         const id = parseInt(btn.dataset.id);
         const user = users.find(u => u.id === id);
+        if (!user) return;
 
         const action = prompt(
           `Action for ${user.name}:\n1 = View\n2 = Toggle Status\n3 = Delete`
@@ -187,27 +193,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- EVENTS ---------- */
-  searchInput.addEventListener("input", () => {
-    currentPage = 1;
-    applyFilters();
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      currentPage = 1;
+      applyFilters();
+    });
+  }
 
-  statusFilter.addEventListener("change", () => {
-    currentPage = 1;
-    applyFilters();
-  });
+  if (statusFilter) {
+    statusFilter.addEventListener("change", () => {
+      currentPage = 1;
+      applyFilters();
+    });
+  }
 
-  roleFilter.addEventListener("change", () => {
-    currentPage = 1;
-    applyFilters();
-  });
+  if (roleFilter) {
+    roleFilter.addEventListener("change", () => {
+      currentPage = 1;
+      applyFilters();
+    });
+  }
+
+  /* ---------- BACK BUTTON (SAFE) ---------- */
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      window.history.back();
+    });
+  }
 
   /* ---------- INITIAL LOAD ---------- */
   applyFilters();
 
-  console.log("Staff & User Management JS Loaded");
-});
-
-document.getElementById("backBtn").addEventListener("click", () => {
-  window.history.back();
+  console.log(" Staff & User Management JS Loaded Safely");
 });
