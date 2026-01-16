@@ -290,60 +290,37 @@ router.get("/my-reports", auth, async (req, res) => {
 });
 
 
-/* ================================
-   USER DASHBOARD (PROFILE PAGE)
-================================ */
+/* ======================
+   USER DASHBOARD
+====================== */
 router.get("/user-dashboard", auth, async (req, res) => {
-  try {
-    const userId = req.user.id;
+  const reports = await Report.find({ userId: req.user.id });
 
-    // Reports
-    const reports = await Report.find({ userId });
+  const total = reports.length;
+  const resolved = reports.filter(r => r.status === "Resolved").length;
+  const active = total - resolved;
 
-    const total = reports.length;
-    const resolved = reports.filter(r => r.status === "Resolved").length;
-    const active = total - resolved;
-
-    // Stats
-    let stats = await UserStats.findOne({ userId });
-
-    if (!stats) {
-      stats = await UserStats.create({
-        userId,
-        reports: total,
-        resolved,
-        points: total * 20
-      });
-    }
-
-    res.json({
-      total,
-      resolved,
-      active,
-      points: stats.points
+  let stats = await UserStats.findOne({ userId: req.user.id });
+  if (!stats) {
+    stats = await UserStats.create({
+      userId: req.user.id,
+      reports: total,
+      photos: 0,
+      points: total * 20
     });
-
-  } catch (err) {
-    console.error("DASHBOARD ERROR:", err);
-    res.status(500).json({ message: "Failed to load dashboard" });
   }
+
+  res.json({ total, resolved, active, points: stats.points });
 });
 
 /* ======================
    SUBMIT REPORT
 ====================== */
-router.post("/", auth, upload.array("media", 5), async (req, res) => {
+router.post("/report", auth, upload.array("media", 5), async (req, res) => {
   try {
     const { category, description, lat, lng } = req.body;
-    const files = req.files.map(f => f.filename);
+    const files = (req.files || []).map(f => f.filename);
 
-    if (!category || !description) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
-
-    /* -----------------------
-       1. CREATE REPORT
-    ------------------------ */
     const report = await Report.create({
       userId: req.user.id,
       title: category,
@@ -354,9 +331,6 @@ router.post("/", auth, upload.array("media", 5), async (req, res) => {
       status: "Submitted"
     });
 
-    /* -----------------------
-       2. CREATE COMMUNITY POST
-    ------------------------ */
     await Community.create({
       reportId: report._id,
       userId: req.user.id,
@@ -366,55 +340,32 @@ router.post("/", auth, upload.array("media", 5), async (req, res) => {
       category,
       location: `${lat}, ${lng}`,
       beforeImage: files[0] || null,
-      afterImage: null,
-      impactScore: 1,
-      likes: 0,
-      celebrates: 0
+      likes: 0
     });
 
-    /* -----------------------
-       3. USER STATS (XP)
-    ------------------------ */
     let stats = await UserStats.findOne({ userId: req.user.id });
     if (!stats) {
-      stats = await UserStats.create({
-        userId: req.user.id,
-        reports: 0,
-        photos: 0,
-        points: 0
-      });
+      stats = await UserStats.create({ userId: req.user.id, reports: 0, photos: 0, points: 0 });
     }
 
-    const oldXP = stats.points;
     const earnedXP = 50;
+    const oldXP = stats.points;
 
     stats.reports += 1;
     stats.photos += files.length;
     stats.points += earnedXP;
     await stats.save();
 
-    /* -----------------------
-       4. ACTIVITY LOG
-    ------------------------ */
     await Activity.create({
       userId: req.user.id,
       title: `Reported ${category}`,
       points: earnedXP
     });
 
-    /* -----------------------
-       5. HUMAN REPORT ID
-    ------------------------ */
-    const reportId = "CFX-" + Math.floor(10000 + Math.random() * 90000);
-
-    /* -----------------------
-       6. RETURN TO FRONTEND
-    ------------------------ */
     res.json({
       success: true,
-      message: "Report submitted successfully",
       lastReport: {
-        reportId,
+        reportId: "CFX-" + Math.floor(10000 + Math.random() * 90000),
         title: category,
         location: `${lat}, ${lng}`,
         mongoId: report._id,
@@ -424,9 +375,25 @@ router.post("/", auth, upload.array("media", 5), async (req, res) => {
     });
 
   } catch (err) {
-    console.error("REPORT ERROR:", err);
+    console.error(err);
     res.status(500).json({ message: "Failed to submit report" });
   }
+});
+
+/* ======================
+   COMMUNITY FEED
+====================== */
+router.get("/community", auth, async (req, res) => {
+  const posts = await Community.find().sort({ createdAt: -1 });
+  res.json(posts);
+});
+
+/* ======================
+   LIKE POST
+====================== */
+router.post("/community/like/:id", auth, async (req, res) => {
+  await Community.findByIdAndUpdate(req.params.id, { $inc: { likes: 1 } });
+  res.json({ success: true });
 });
 
 

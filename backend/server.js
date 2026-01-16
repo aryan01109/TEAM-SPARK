@@ -1,35 +1,46 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv";
 
-import authRoutes from "./routes/auth.js";
-import communityRoutes from "./routes/community.js";
+import adminAuthRoutes from "./routes/adminAuth.routes.js";
 
+dotenv.config();
+
+/* ======================
+   INIT APP  ✅ FIRST
+   ====================== */
 const app = express();
 
-// CORS
-app.use(cors({
-  origin: "http://127.0.0.1:5500",
-  credentials: true
-}));
-
-// Body parsers
+/* ======================
+   MIDDLEWARE
+   ====================== */
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Database
+/* ======================
+   ROUTES  ✅ AFTER app
+   ====================== */
+app.use("/api/admin", adminAuthRoutes);
+
+/* ======================
+   ROOT CHECK
+   ====================== */
+app.get("/", (req, res) => {
+  res.send("Admin backend running");
+});
+
+/* ======================
+   DATABASE
+   ====================== */
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log("Mongo Error:", err));
+  
 
-// Routes
-app.use("/api", authRoutes);
-app.use("/api/community", communityRoutes);
+/* ======================
+   START SERVER
+   ====================== */
+const PORT = process.env.PORT || 5000;
 
-// Start
-app.listen(5000, () => {
-  console.log("SERVER RUNNING ON 5000");
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
