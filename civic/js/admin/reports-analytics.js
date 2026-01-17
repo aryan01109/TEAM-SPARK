@@ -180,5 +180,5 @@ document.addEventListener("DOMContentLoaded", () => {
      INIT
      ====================== */
   loadReports();
-  console.log("✅ Reports Analytics Loaded");
+  console.log("Reports Analytics Loaded");
 });

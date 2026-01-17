@@ -1,12 +1,23 @@
 /* =====================================================
-   MANAGE ISSUES – CIVICCARE ADMIN
+   MANAGE ISSUES – CIVICCARE ADMIN (FIXED)
    ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =====================================================
+  /* ===============================
+     ISSUE ID FROM URL
+     =============================== */
+  const issueId = new URLSearchParams(window.location.search).get("id");
+  const token = localStorage.getItem("token");
+
+  if (!issueId) {
+    alert("Invalid Issue ID");
+    return;
+  }
+
+  /* ===============================
      MAP (LEAFLET)
-     ===================================================== */
+     =============================== */
   const map = L.map("map").setView([23.0225, 72.5714], 15);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -15,12 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   L.marker([23.0225, 72.5714])
     .addTo(map)
-    .bindPopup(" Issue Location")
-    .openPopup();
+    .bindPopup("📍 Issue Location");
 
-  /* =====================================================
+  /* ===============================
      IMAGE GALLERY
-     ===================================================== */
+     =============================== */
   const mainImage = document.getElementById("mainImage");
   const thumbs = document.querySelectorAll(".thumb");
 
@@ -32,9 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* =====================================================
+  /* ===============================
      VOICE NOTE PLAYER
-     ===================================================== */
+     =============================== */
   const audio = document.getElementById("voiceAudio");
   const toggleBtn = document.getElementById("voiceToggle");
   const icon = document.getElementById("voiceIcon");
@@ -42,24 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeLabel = document.getElementById("voiceTime");
 
   toggleBtn.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play();
-      icon.textContent = "pause";
-    } else {
-      audio.pause();
-      icon.textContent = "play_arrow";
-    }
+    audio.paused ? audio.play() : audio.pause();
+    icon.textContent = audio.paused ? "play_arrow" : "pause";
   });
 
   audio.addEventListener("timeupdate", () => {
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progressBar.style.width = percent + "%";
-
+    if (!audio.duration) return;
+    progressBar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
     const mins = Math.floor(audio.currentTime / 60);
-    const secs = Math.floor(audio.currentTime % 60)
-      .toString()
-      .padStart(2, "0");
-
+    const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, "0");
     timeLabel.textContent = `${mins}:${secs}`;
   });
 
@@ -68,9 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
     progressBar.style.width = "0%";
   });
 
-  /* =====================================================
+  /* ===============================
      ACTIVITY LOG
-     ===================================================== */
+     =============================== */
   const activityLog = document.getElementById("activityLog");
 
   function addLog(message) {
@@ -83,11 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
     activityLog.prepend(entry);
   }
 
-  addLog("Issue created and awaiting assignment");
+  addLog("Issue loaded in admin panel");
 
-  /* =====================================================
+  /* ===============================
      ADMIN CONTROLS
-     ===================================================== */
+     =============================== */
   const statusSelect = document.getElementById("status");
   const prioritySelect = document.getElementById("priority");
   const crewSelect = document.getElementById("crew");
@@ -96,44 +97,67 @@ document.addEventListener("DOMContentLoaded", () => {
   const addNoteBtn = document.getElementById("addNote");
   const updateIssueBtn = document.getElementById("updateIssue");
 
-  addNoteBtn.addEventListener("click", () => {
-    if (!noteInput.value.trim()) {
-      alert("Please enter a note");
-      return;
+  /* ---------- ADD NOTE ---------- */
+  addNoteBtn.addEventListener("click", async () => {
+    const note = noteInput.value.trim();
+    if (!note) return alert("Please enter a note");
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/admin/issues/${issueId}/note`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ note })
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to add note");
+
+      addLog(`📝 Internal Note: ${note}`);
+      noteInput.value = "";
+
+    } catch (err) {
+      alert("Error adding note");
     }
-
-    addLog(` Internal Note: ${noteInput.value}`);
-    noteInput.value = "";
   });
 
-  updateIssueBtn.addEventListener("click", () => {
-    addLog(` Issue updated:
-      Status → ${statusSelect.value},
-      Priority → ${prioritySelect.value},
-      Crew → ${crewSelect.value || "Unassigned"}
-    `);
+  /* ---------- UPDATE ISSUE ---------- */
+  updateIssueBtn.addEventListener("click", async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/admin/issues/${issueId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            status: statusSelect.value,
+            priority: prioritySelect.value,
+            crew: crewSelect.value
+          })
+        }
+      );
 
-    alert("Issue updated successfully");
+      if (!res.ok) throw new Error("Update failed");
 
-    /* 🔗 API READY
-    fetch("/api/issues/123", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        status: statusSelect.value,
-        priority: prioritySelect.value,
-        crew: crewSelect.value
-      })
-    });
-    */
+      addLog(`✅ Issue updated → Status: ${statusSelect.value}, Priority: ${prioritySelect.value}, Crew: ${crewSelect.value || "Unassigned"}`);
+      alert("Issue updated successfully");
+
+    } catch (err) {
+      alert("Failed to update issue");
+    }
   });
 
-  /* =====================================================
+  /* ===============================
      EXPORT PDF
-     ===================================================== */
-  const exportPDFBtn = document.getElementById("exportPDF");
-
-  exportPDFBtn.addEventListener("click", () => {
+     =============================== */
+  document.getElementById("exportPDF").addEventListener("click", () => {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
 
@@ -141,20 +165,12 @@ document.addEventListener("DOMContentLoaded", () => {
     pdf.text("CivicCare Issue Report", 20, 20);
 
     pdf.setFontSize(12);
-    pdf.text("Issue: Pothole on Main St.", 20, 35);
-    pdf.text("Status: " + statusSelect.value, 20, 45);
-    pdf.text("Priority: " + prioritySelect.value, 20, 55);
-    pdf.text("Assigned Crew: " + (crewSelect.value || "None"), 20, 65);
-
-    pdf.text("Description:", 20, 80);
-    pdf.text(
-      "The sidewalk is cracked and dangerous for wheelchairs.",
-      20,
-      90
-    );
+    pdf.text("Status: " + statusSelect.value, 20, 40);
+    pdf.text("Priority: " + prioritySelect.value, 20, 50);
+    pdf.text("Assigned Crew: " + (crewSelect.value || "None"), 20, 60);
 
     pdf.save("issue-report.pdf");
   });
 
-  console.log("Manage Issues JS Loaded Successfully");
+  console.log("✅ Manage Issues JS Loaded & Connected");
 });

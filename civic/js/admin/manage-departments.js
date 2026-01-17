@@ -1,37 +1,38 @@
 /* =====================================================
-   CITY DEPARTMENT MANAGEMENT – ADMIN JS
+   CITY DEPARTMENT MANAGEMENT – ADMIN (FINAL)
    ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* ---------- ELEMENTS ---------- */
+
+  /* ===============================
+     ELEMENTS
+     =============================== */
   const deptGrid = document.querySelector(".dept-grid");
   const newDeptBtn = document.querySelector(".new-dept");
   const searchInput = document.querySelector(".top-actions input");
-  const notificationIcon = document.querySelector(".top-actions .material-symbols-outlined");
+  const notificationIcon = document.querySelector(
+    ".top-actions .material-symbols-outlined"
+  );
 
-  /* ---------- DATA (API READY) ---------- */
-  let departments = [
-    {
-      name: "Public Works",
-      code: "PW-440",
-      staff: 142,
-      orders: 45,
-      sla: 92
-    },
-    {
-      name: "Sanitation",
-      code: "SAN-902",
-      staff: 210,
-      orders: 104,
-      sla: 78
-    }
-  ];
+  const TOKEN = localStorage.getItem("token");
 
-  /* ---------- RENDER DEPARTMENTS ---------- */
+  if (!TOKEN) {
+    alert("Unauthorized. Please login again.");
+    window.location.href = "/civic/html/auth/adminLogin.html";
+    return;
+  }
+
+  let departments = [];
+
+  /* ===============================
+     RENDER DEPARTMENTS
+     =============================== */
   function renderDepartments(data) {
+    if (!deptGrid) return;
+
     deptGrid.innerHTML = "";
 
-    if (data.length === 0) {
+    if (!data.length) {
       deptGrid.innerHTML = "<p>No departments found.</p>";
       return;
     }
@@ -63,66 +64,128 @@ document.addEventListener("DOMContentLoaded", () => {
 
       deptGrid.appendChild(card);
 
-      // Animate SLA bar
+      /* SLA animation */
       setTimeout(() => {
-        card.querySelector(".sla-bar").style.width = dept.sla + "%";
+        const bar = card.querySelector(".sla-bar");
+        if (bar) bar.style.width = dept.sla + "%";
       }, 100);
     });
 
     attachManageHandlers();
   }
 
-  /* ---------- MANAGE SETTINGS ACTION ---------- */
+  /* ===============================
+     LOAD DEPARTMENTS FROM BACKEND
+     =============================== */
+  async function loadDepartments() {
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/admin/departments",
+        {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`
+          }
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message);
+
+      departments = data;
+      renderDepartments(departments);
+
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load departments");
+    }
+  }
+
+  /* ===============================
+     MANAGE SETTINGS
+     =============================== */
   function attachManageHandlers() {
     document.querySelectorAll(".dept-card button").forEach(btn => {
       btn.addEventListener("click", () => {
         const code = btn.dataset.code;
         alert(`⚙️ Managing settings for department: ${code}`);
-        
-        // 🔗 API READY
-        // window.location.href = `/admin/department/${code}`;
+        // Future: window.location.href = `/admin/department/${code}`;
       });
     });
   }
 
-  /* ---------- ADD NEW DEPARTMENT ---------- */
-  newDeptBtn.addEventListener("click", () => {
-    const name = prompt("Enter Department Name:");
-    if (!name) return;
+  /* ===============================
+     CREATE NEW DEPARTMENT
+     =============================== */
+  if (newDeptBtn) {
+    newDeptBtn.addEventListener("click", async () => {
+      const name = prompt("Enter Department Name:");
+      if (!name) return;
 
-    const code = prompt("Enter Department Code:");
-    if (!code) return;
+      const code = prompt("Enter Department Code:");
+      if (!code) return;
 
-    departments.push({
-      name,
-      code,
-      staff: Math.floor(Math.random() * 200) + 20,
-      orders: Math.floor(Math.random() * 120),
-      sla: Math.floor(Math.random() * 20) + 75
+      try {
+        const res = await fetch(
+          "http://localhost:5000/api/admin/departments",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${TOKEN}`
+            },
+            body: JSON.stringify({ name, code })
+          }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          alert(data.message);
+          return;
+        }
+
+        departments.push(data.department);
+        renderDepartments(departments);
+
+        alert("✅ Department created successfully");
+
+      } catch (err) {
+        console.error(err);
+        alert("Server error while creating department");
+      }
     });
+  }
 
-    renderDepartments(departments);
-  });
+  /* ===============================
+     SEARCH FILTER
+     =============================== */
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const value = searchInput.value.toLowerCase();
 
-  /* ---------- SEARCH ---------- */
-  searchInput.addEventListener("input", () => {
-    const value = searchInput.value.toLowerCase();
+      const filtered = departments.filter(dept =>
+        dept.name.toLowerCase().includes(value) ||
+        dept.code.toLowerCase().includes(value)
+      );
 
-    const filtered = departments.filter(dept =>
-      dept.name.toLowerCase().includes(value) ||
-      dept.code.toLowerCase().includes(value)
-    );
+      renderDepartments(filtered);
+    });
+  }
 
-    renderDepartments(filtered);
-  });
+  /* ===============================
+     NOTIFICATIONS
+     =============================== */
+  if (notificationIcon) {
+    notificationIcon.addEventListener("click", () => {
+      alert("No new notifications");
+    });
+  }
 
-  /* ---------- NOTIFICATIONS ---------- */
-  notificationIcon.addEventListener("click", () => {
-    alert("No new notifications");
-  });
+  /* ===============================
+     INIT
+     =============================== */
+  loadDepartments();
 
-  /* ---------- INITIAL RENDER ---------- */
-  renderDepartments(departments);
-
-  console.log("Manage Departments JS Loaded");
+  console.log("✅ Manage Departments Frontend Loaded Successfully");
 });

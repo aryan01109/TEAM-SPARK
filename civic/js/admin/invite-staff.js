@@ -1,9 +1,22 @@
 /* =====================================================
-   INVITE NEW STAFF MEMBER – SMART CITY ADMIN
+   INVITE NEW STAFF MEMBER – SMART CITY ADMIN (FINAL)
    ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* ---------- ELEMENTS ---------- */
+
+  /* ===============================
+     AUTH CHECK
+     =============================== */
+  const TOKEN = localStorage.getItem("token");
+  if (!TOKEN) {
+    alert("Unauthorized. Please login again.");
+    window.location.href = "/civic/html/auth/adminLogin.html";
+    return;
+  }
+
+  /* ===============================
+     ELEMENTS
+     =============================== */
   const steps = document.querySelectorAll(".step");
   const nextBtn = document.getElementById("nextBtn");
   const backBtn = document.getElementById("backBtn");
@@ -27,19 +40,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const toastContainer = document.getElementById("toastContainer");
 
   let currentStep = 0;
-  let qr;
 
-/* ---------- INIT ---------- */
+  /* ===============================
+     INIT
+     =============================== */
   generateEmployeeId();
   updateStep();
 
-/* ---------- FUNCTIONS ---------- */
+  /* ===============================
+     FUNCTIONS
+     =============================== */
   function updateStep() {
     steps.forEach((step, i) => {
       step.style.display = i === currentStep ? "block" : "none";
     });
     backBtn.style.display = currentStep === 0 ? "none" : "inline-block";
-    nextBtn.textContent = currentStep === steps.length - 1 ? "Finish" : "Next";
+    nextBtn.textContent =
+      currentStep === steps.length - 1 ? "Finish" : "Next";
   }
 
   function generateEmployeeId() {
@@ -49,8 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateEmail(name) {
-    if (!name) return "";
-    return name.toLowerCase().replace(/\s+/g, ".") + "@smartcity.gov";
+    return name
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, ".") + "@smartcity.gov";
   }
 
   function showToast(msg, type = "success") {
@@ -63,33 +82,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function generateQR(data) {
     qrContainer.innerHTML = "";
-    qr = new QRCode(qrContainer, {
+    new QRCode(qrContainer, {
       text: data,
       width: 120,
       height: 120
     });
   }
 
-/* ---------- EVENTS ---------- */
-  nextBtn.addEventListener("click", () => {
+  /* ===============================
+     NEXT / BACK
+     =============================== */
+  nextBtn.addEventListener("click", async () => {
+
+    /* STEP 1 VALIDATION */
     if (currentStep === 0) {
-      if (!nameInput.value) {
+      if (!nameInput.value.trim()) {
         showToast("Name is required", "error");
         return;
       }
+
       emailInput.value = generateEmail(nameInput.value);
       previewName.textContent = nameInput.value;
       generateQR(empIdInput.value);
     }
 
+    /* FINAL STEP → SEND TO BACKEND */
     if (currentStep === steps.length - 1) {
-      showToast("Staff invited successfully!");
-      console.log("Staff Data:", {
-        name: nameInput.value,
-        empId: empIdInput.value,
-        email: emailInput.value,
-        department: departmentSelect.value
-      });
+      try {
+        const res = await fetch(
+          "http://localhost:5000/api/admin/staff/invite",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${TOKEN}`
+            },
+            body: JSON.stringify({
+              name: nameInput.value.trim(),
+              empId: empIdInput.value,
+              email: emailInput.value.trim(),
+              department: departmentSelect.value,
+              photo: photoPreview.src || ""
+            })
+          }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showToast(data.message || "Failed to invite staff", "error");
+          return;
+        }
+
+        showToast("✅ Staff invited successfully");
+        setTimeout(() => {
+          window.location.href = "/civic/html/admin/staf&userpage.html";
+        }, 1200);
+
+      } catch (err) {
+        console.error(err);
+        showToast("Server error", "error");
+      }
+
       return;
     }
 
@@ -102,7 +156,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStep();
   });
 
-/* ---------- PHOTO PREVIEW ---------- */
+  /* ===============================
+     PHOTO PREVIEW
+     =============================== */
   photoInput.addEventListener("change", e => {
     const file = e.target.files[0];
     if (!file) return;
@@ -114,13 +170,17 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   });
 
-/* ---------- EMAIL VALIDATION ---------- */
+  /* ===============================
+     EMAIL VALIDATION
+     =============================== */
   emailInput.addEventListener("input", () => {
     const valid = emailInput.value.endsWith("@smartcity.gov");
     emailError.textContent = valid ? "" : "Invalid work email";
   });
 
-/* ---------- DOWNLOAD PNG ---------- */
+  /* ===============================
+     DOWNLOAD PNG
+     =============================== */
   downloadPNG.addEventListener("click", () => {
     const img = qrContainer.querySelector("img");
     if (!img) return;
@@ -131,7 +191,9 @@ document.addEventListener("DOMContentLoaded", () => {
     link.click();
   });
 
-/* ---------- DOWNLOAD PDF ---------- */
+  /* ===============================
+     DOWNLOAD PDF
+     =============================== */
   downloadPDF.addEventListener("click", () => {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
@@ -141,23 +203,27 @@ document.addEventListener("DOMContentLoaded", () => {
     pdf.text(`ID: ${previewEmpId.textContent}`, 20, 40);
 
     const qrImg = qrContainer.querySelector("img");
-    if (qrImg) pdf.addImage(qrImg.src, "PNG", 20, 50, 50, 50);
+    if (qrImg) {
+      pdf.addImage(qrImg.src, "PNG", 20, 50, 50, 50);
+    }
 
     pdf.save(`${empIdInput.value}.pdf`);
   });
 
-/* ---------- PRINT ---------- */
+  /* ===============================
+     PRINT BADGE
+     =============================== */
   printBadge.addEventListener("click", () => {
-    const printWindow = window.open("", "", "width=400,height=600");
-    printWindow.document.write(`
+    const w = window.open("", "", "width=400,height=600");
+    w.document.write(`
       <h3>Smart City Staff Badge</h3>
       <p>${previewName.textContent}</p>
       <p>${previewEmpId.textContent}</p>
       ${qrContainer.innerHTML}
     `);
-    printWindow.document.close();
-    printWindow.print();
+    w.document.close();
+    w.print();
   });
 
-  console.log("✅ Invite Staff JS Loaded");
+  console.log("✅ Invite Staff Frontend Loaded Successfully");
 });
