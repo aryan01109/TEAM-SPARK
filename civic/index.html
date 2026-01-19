@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unified Civic Login</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/auth/LoginPage.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">▦</div>
+    <h2>CityConnect</h2>
+  </div>
+  <nav>
+    <a href="#">Contact Support</a>
+    <a href="#">About Us</a>
+  </nav>
+</header>
+
+<main class="login-wrapper">
+  <div class="bg-image"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="login-card">
+
+    <div class="login-header">
+      <h1>Unified Civic Login</h1>
+      <p>Access municipal services, staff portals, and partner tools.</p>
+    </div>
+
+    <!-- Role Selector -->
+    <div class="role-switch">
+      <button class="role active" data-role="citizen">Citizen</button>
+      <button class="role" data-role="staff">City Staff</button>
+      
+    </div>
+
+    <!-- Form -->
+    <form id="loginForm" novalidate>
+
+      <!-- Email -->
+      <div class="field">
+        <label>Email Address</label>
+        <input id="email" type="email" placeholder="name@example.com" autocomplete="email">
+        <small class="error" id="emailError"></small>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <div class="field-row">
+          <label>Password</label>
+          <a href="../../html/auth/forgetpassword.html">Forgot Password?</a>
+
+        </div>
+
+        <div class="password-wrap">
+          <input
+            id="password"
+            type="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          >
+          <button type="button" id="togglePassword" aria-label="Toggle password">👁</button>
+        </div>
+
+        <small class="error" id="passwordError"></small>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-primary" id="submitBtn">
+        <a href="/civic/html/user/UserDashboard.html" class="btn-text">Sign In</a>
+      </button>
+
+    </form>
+
+    <!-- Divider -->
+    <div class="divider">
+      <span>Or continue with</span>
+    </div>
+
+    <!-- Social Login -->
+<!-- <div class="social-buttons">
+  <button class="social-btn" id="googleBtn" type="button">
+    <img src="https://www.svgrepo.com/show/475656/google-color.svg">
+    Google
+  </button>
+
+  <button class="social-btn" type="button" id="appleBtn">
+    <img src="https://www.svgrepo.com/show/475647/apple-color.svg">
+    Apple ID
+  </button>
+</div> -->
+
+
+<button class="admin-login-btn" id="adminLoginBtn">
+  Admin Login (Government officers of municipal corporation)
+</button>
+
+
+    <!-- Staff SSO -->
+    <div class="sso-link" id="ssoLink">
+      <a href="#">
+        <span class="material-symbols-outlined">domain_verification</span>
+        Login with Municipal SSO
+      </a>
+    </div>
+
+    <div class="login-footer">
+      Don’t have an account?
+      <a href="/civic/html/auth/Register.html">Register now</a>
+
+    </div>
+  </div>
+
+  <div class="trust">
+    <span><span class="material-symbols-outlined">shield</span> Secure Encryption</span>
+    <span><span class="material-symbols-outlined">verified_user</span> GDPR Compliant</span>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© 2024 CityConnect Municipal Services. All rights reserved.</p>
+  <div>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms</a>
+    <a href="#">Accessibility</a>
+  </div>
+</footer>
+
+<script src="/civic/js/auth/loginpage.js"></script>
+</body>
+</html>
