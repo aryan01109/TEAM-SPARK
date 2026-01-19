@@ -1,30 +1,40 @@
 /* =====================================================
    REPORT MANAGEMENT – ADMIN FRONTEND
-   (FINAL + DEPARTMENT FILTER)
+   (FINAL – TOKEN SAFE, WORKS WITH ALL STORAGE)
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* ======================
+     AUTH RESOLUTION (ROBUST)
+  ====================== */
+  let TOKEN = null;
+
+  // Option 1: citizenSession
+  try {
+    const raw = localStorage.getItem("citizenSession");
+    if (raw) {
+      const session = JSON.parse(raw);
+      if (session?.token) TOKEN = session.token;
+    }
+  } catch {}
+
+  // Option 2: adminToken (fallback)
+  if (!TOKEN) {
+    TOKEN = localStorage.getItem("adminToken");
+  }
+
+
+
+  console.log(" Admin token resolved");
 
   /* ======================
      API CONFIG
   ====================== */
   const API_BASE = "http://localhost:5000/api/admin/reports";
 
-  /* ======================
-     AUTH GUARD
-  ====================== */
-  let session = null;
-
-  try {
-    session = JSON.parse(localStorage.getItem("citizenSession"));
-  } catch {
-    session = null;
-  }
-
-
-
   const authHeaders = {
-    Authorization: `Bearer ${session.token}`
+    Authorization: `Bearer ${TOKEN}`
   };
 
   /* ======================
@@ -34,12 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
   const statusFilter = document.getElementById("statusFilter");
   const priorityFilter = document.getElementById("priorityFilter");
-
-  //  Department Filter (NEW)
   const departmentFilter = document.getElementById("departmentFilter");
 
   if (!reportTable) {
-    console.warn(" reportTable not found");
+    console.warn("reportTable not found");
     return;
   }
 
@@ -59,11 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: authHeaders
       });
 
-      if (res.status === 401 || res.status === 403) {
-        localStorage.removeItem("citizenSession");
-        window.location.replace("/civic/html/auth/adminLogin.html");
-        return;
-      }
+      
 
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
@@ -73,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderReports(reports);
 
     } catch (err) {
-      console.error(" Load reports error:", err.message);
+      console.error("Load reports error:", err.message);
       reportTable.innerHTML =
         `<tr><td colspan="8">Failed to load reports</td></tr>`;
     }
@@ -96,11 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const priority = (r.priority || "low").toLowerCase();
 
       const tr = document.createElement("tr");
+
       tr.innerHTML = `
-        <td>#${r._id.slice(-6)}</td>
+        <td>#${String(r._id).slice(-6)}</td>
         <td><strong>${r.title || "—"}</strong></td>
         <td>${r.category || "—"}</td>
-        <td>${r.location || "—"}</td>
+        <td>${formatLocation(r.location)}</td>
         <td class="priority ${priority}">
           ${priority.toUpperCase()}
         </td>
@@ -114,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </button>
         </td>
       `;
+
       reportTable.appendChild(tr);
     });
 
@@ -121,7 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ======================
-     VIEW BUTTON HANDLER
+     FORMAT LOCATION
+  ====================== */
+  function formatLocation(loc) {
+    if (!loc) return "—";
+    if (typeof loc === "string") return loc;
+    if (loc.lat && loc.lng) {
+      return `${loc.lat.toFixed(5)}, ${loc.lng.toFixed(5)}`;
+    }
+    return "—";
+  }
+
+  /* ======================
+     VIEW HANDLER
   ====================== */
   function attachViewHandlers() {
     document.querySelectorAll(".action-btn").forEach(btn => {
@@ -131,14 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     });
   }
-
-  /* ======================
-     EVENTS
-  ====================== */
-  searchInput?.addEventListener("input", debounce(loadReports, 400));
-  statusFilter?.addEventListener("change", loadReports);
-  priorityFilter?.addEventListener("change", loadReports);
-  departmentFilter?.addEventListener("change", loadReports);
 
   /* ======================
      DEBOUNCE
@@ -152,9 +162,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ======================
+     EVENTS
+  ====================== */
+  searchInput?.addEventListener("input", debounce(loadReports, 400));
+  statusFilter?.addEventListener("change", loadReports);
+  priorityFilter?.addEventListener("change", loadReports);
+  departmentFilter?.addEventListener("change", loadReports);
+
+  /* ======================
      INIT
   ====================== */
   loadReports();
-  console.log(" All Reports page loaded with department filter");
+  console.log(" All Reports page loaded successfully");
 
 });

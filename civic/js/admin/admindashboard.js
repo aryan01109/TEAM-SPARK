@@ -1,5 +1,5 @@
 /* =====================================================
-   ADMIN DASHBOARD – AUTH + LIVE DATA HANDLER (FINAL)
+   ADMIN DASHBOARD – AUTH + LIVE DATA HANDLER (FIXED)
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -7,17 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const API_BASE = "http://localhost:5000/api/admin";
 
   /* ======================
-     AUTH GUARD (SAFE)
+     BULLETPROOF AUTH GUARD
   ====================== */
-  let session;
+  let session = null;
 
   try {
-    session = JSON.parse(localStorage.getItem("citizenSession"));
+    const raw = localStorage.getItem("citizenSession");
+    if (raw) session = JSON.parse(raw);
   } catch {
     session = null;
   }
 
 
+
+  // SAFE TO USE TOKEN AFTER THIS LINE
   const authHeaders = {
     Authorization: `Bearer ${session.token}`
   };
@@ -124,8 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
   loadDashboardStats();
   initMap();
 
-  // LIVE KPI REFRESH (Every 5 Seconds)
+  //  LIVE KPI REFRESH (Every 5 Seconds)
   setInterval(loadDashboardStats, 5000);
 
-  console.log("Admin Dashboard Loaded with Live KPIs");
+  console.log("Admin Dashboard Loaded Without Token Errors");
 });

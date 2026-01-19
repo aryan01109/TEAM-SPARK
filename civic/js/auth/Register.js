@@ -14,7 +14,7 @@ const submitBtn = document.getElementById("submitBtn");
 const spinner = submitBtn.querySelector(".spinner");
 const btnText = submitBtn.querySelector(".btn-text");
 
-const API_BASE = "http://localhost:5000/api/auth";
+const API_BASE = "http://localhost:5000/api";
 
 // ============================
 // ROLE SWITCH

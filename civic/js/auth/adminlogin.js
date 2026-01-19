@@ -1,6 +1,9 @@
 /* =====================================================
-   ADMIN LOGIN – CIVIC SYSTEM (BACKEND CONNECTED)
-   ===================================================== */
+   ADMIN LOGIN – CIVIC SYSTEM (FIXED SESSION STORAGE)
+===================================================== */
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -10,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordInput = document.getElementById("password");
 
   function showMessage(message, type = "error") {
-    alert(type === "error" ? " " + message : " " + message);
+    alert(type === "error" ? message : message);
   }
 
   form.addEventListener("submit", async (e) => {
@@ -26,13 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      // CORRECT ADMIN LOGIN API
-    const res = await fetch("http://localhost:5000/api/admin/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ empId, email, password })
-});
-
+      // ADMIN LOGIN API
+      const res = await fetch("http://localhost:5000/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ empId, email, password })
+      });
 
       const data = await res.json();
 
@@ -41,22 +43,29 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      //  SAVE AUTH STATE
-      localStorage.setItem("adminToken", data.token);
-      localStorage.setItem("adminUser", JSON.stringify(data.admin));
+      /* ======================
+         SAVE SESSION (CRITICAL FIX)
+      ====================== */
+      localStorage.setItem(
+        "citizenSession",
+        JSON.stringify({
+          token: data.token,
+          admin: data.admin
+        })
+      );
 
       showMessage("Login successful", "success");
 
-      // REDIRECT (RELATIVE PATH – LIVE SERVER SAFE)
+      // REDIRECT (LIVE SERVER SAFE)
       setTimeout(() => {
         window.location.href = "../admin/AdminDashboard.html";
-      }, 800);
+      }, 600);
 
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
       showMessage("Server error. Please try again later");
     }
   });
 
-  console.log("Admin Login JS Loaded (Backend Connected)");
+  console.log("Admin Login JS Loaded & Session Stored Correctly");
 });

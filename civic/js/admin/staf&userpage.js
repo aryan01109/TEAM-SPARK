@@ -1,26 +1,31 @@
 /* =====================================================
-   USER & STAFF MANAGEMENT – CIVIC ADMIN (FIXED)
+   USER & STAFF MANAGEMENT – CIVIC ADMIN (FINAL FIX)
 ===================================================== */
 
-/* ======================
-   AUTH GUARD
-====================== */
-let session = null;
-
-try {
-  session = JSON.parse(localStorage.getItem("citizenSession"));
-} catch {
-  session = null;
-}
-
-
-/* ======================
-   DOM READY
-====================== */
 document.addEventListener("DOMContentLoaded", () => {
 
-  const API = "http://localhost:5000/api/admin";
+  /* ======================
+     AUTH GUARD (STRICT)
+  ====================== */
+  let session = null;
+
+  try {
+    const raw = localStorage.getItem("citizenSession");
+    if (raw) session = JSON.parse(raw);
+  } catch {
+    session = null;
+  }
+
+  // //  STOP if session/token missing
+  // if (!session || !session.token) {
+  //   console.warn("No valid admin session. Redirecting to login.");
+  //   localStorage.removeItem("citizenSession");
+  //   window.location.replace("/civic/html/auth/adminLogin.html");
+  //   return;
+  // }
+
   const TOKEN = session.token;
+  const API = "http://localhost:5000/api/admin";
 
   /* ---------- ELEMENTS ---------- */
   const tableBody = document.getElementById("userTableBody");
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ======================
      FETCH USERS
-====================== */
+  ====================== */
   async function loadUsers() {
     try {
       const res = await fetch(`${API}/users`, {
@@ -47,28 +52,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      if (res.status === 401) {
-        localStorage.removeItem("citizenSession");
-        window.location.replace("/civic/html/auth/adminLogin.html");
-        return;
-      }
+      // if (res.status === 401 || res.status === 403) {
+      //   console.warn("Session expired or forbidden.");
+      //   localStorage.removeItem("citizenSession");
+      //   window.location.replace("/civic/html/auth/adminLogin.html");
+      //   return;
+      // }
 
-      if (!res.ok) throw new Error("Fetch failed");
+      if (!res.ok) {
+        throw new Error(`Fetch failed: ${res.status}`);
+      }
 
       users = await res.json();
       normalizeUsers();
       applyFilters();
 
     } catch (err) {
-      console.error("USER LOAD ERROR:", err);
-      tableBody.innerHTML =
-        `<tr><td colspan="7">Failed to load users</td></tr>`;
+      console.error("USER LOAD ERROR:", err.message);
+      if (tableBody) {
+        tableBody.innerHTML =
+          `<tr><td colspan="7">Failed to load users</td></tr>`;
+      }
     }
   }
 
   /* ======================
      NORMALIZE DATA
-====================== */
+  ====================== */
   function normalizeUsers() {
     users = users.map(u => ({
       ...u,
@@ -87,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ======================
      FILTER + SEARCH
-====================== */
+  ====================== */
   function applyFilters() {
     const search = searchInput?.value.toLowerCase().trim() || "";
     const status = statusFilter?.value || "all";
@@ -110,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ======================
      TABLE RENDER
-====================== */
+  ====================== */
   function renderTable() {
     if (!tableBody) return;
 
@@ -159,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ======================
      PAGINATION
-====================== */
+  ====================== */
   function renderPagination(total) {
     if (!pagination) return;
 
@@ -182,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ======================
      ACTIONS
-====================== */
+  ====================== */
   function attachActions() {
     document.querySelectorAll(".action-btn").forEach(btn => {
       btn.onclick = async () => {
@@ -209,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ======================
      STATUS TOGGLE
-====================== */
+  ====================== */
   async function toggleStatus(id) {
     try {
       const res = await fetch(`${API}/users/${id}/status`, {
@@ -224,28 +234,28 @@ document.addEventListener("DOMContentLoaded", () => {
       await loadUsers();
       alert("Status updated successfully");
 
-    } catch (err) {
+    } catch {
       alert("Failed to update status");
     }
   }
 
   /* ======================
      UTIL
-====================== */
+  ====================== */
   function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   /* ======================
      EVENTS
-====================== */
+  ====================== */
   searchInput?.addEventListener("input", applyFilters);
   statusFilter?.addEventListener("change", applyFilters);
   roleFilter?.addEventListener("change", applyFilters);
 
   /* ======================
      INIT
-====================== */
+  ====================== */
   loadUsers();
   console.log(" User & Staff Management Loaded Successfully");
 

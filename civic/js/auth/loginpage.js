@@ -1,31 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
+     CONFIG
+  ========================= */
+  const API_BASE = "http://localhost:5000/api";
+
+  /* =========================
      ELEMENTS
   ========================= */
+  const form = document.getElementById("loginForm");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
-  const form = document.getElementById("loginForm");
   const submitBtn = document.getElementById("submitBtn");
   const btnText = submitBtn?.querySelector(".btn-text");
+
+  const roleButtons = document.querySelectorAll(".role");
   const ssoLink = document.getElementById("ssoLink");
   const adminBtn = document.getElementById("adminLoginBtn");
-
-  const API_BASE = "http://localhost:5000/api";
 
   let activeRole = "citizen";
 
   /* =========================
+     AUTO REDIRECT IF LOGGED IN
+  ========================= */
+  try {
+    const session = JSON.parse(localStorage.getItem("citizenSession"));
+    if (session?.token) {
+      redirectByRole(session.role);
+      return;
+    }
+  } catch {}
+
+  /* =========================
      ROLE SWITCH
   ========================= */
-  document.querySelectorAll(".role").forEach(btn => {
+  roleButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll(".role").forEach(b => b.classList.remove("active"));
+      roleButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
 
       activeRole = btn.dataset.role;
 
-      // Show SSO info for staff
       if (ssoLink) {
         ssoLink.style.display = activeRole === "staff" ? "block" : "none";
       }
@@ -39,17 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      /*  STAFF → REDIRECT (NO LOGIN HERE) */
-      if (activeRole === "staff") {
-        window.location.href = "/civic/html/auth/staffRegister.html";
-        return;
-      }
-
       const email = emailInput.value.trim().toLowerCase();
       const password = passwordInput.value.trim();
 
       if (!email || !password) {
-        alert("Email and password required");
+        alert("Email and password are required");
         return;
       }
 
@@ -57,22 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
       if (btnText) btnText.textContent = "Signing in...";
 
       try {
-        const res = await fetch(`${API_BASE}/login`, {
+        const endpoint =
+          activeRole === "staff"
+            ? `${API_BASE}/staff/login`
+            : `${API_BASE}/login`;
+
+        const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            identifier: email,
-            password
-          })
+          body: JSON.stringify({ email, password })
         });
 
         const data = await res.json();
 
         if (!res.ok) {
-          alert(data.message || "Login failed");
-          submitBtn.disabled = false;
-          if (btnText) btnText.textContent = "Sign In";
-          return;
+          throw new Error(data.message || "Login failed");
         }
 
         /* =========================
@@ -85,19 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
           lastActive: Date.now()
         }));
 
-        const role = (data.role || "").toLowerCase();
-
-        /* =========================
-           REDIRECT
-        ========================= */
-        if (role === "admin" || role === "staff") {
-          window.location.href = "/civic/html/admin/AdminDashboard.html";
-        } else {
-          window.location.href = "/civic/html/user/UserDashboard.html";
-        }
+        redirectByRole(data.role);
 
       } catch (err) {
-        alert("Server not reachable");
+        alert(err.message);
         submitBtn.disabled = false;
         if (btnText) btnText.textContent = "Sign In";
       }
@@ -113,4 +112,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* =========================
+     REDIRECT HELPERS
+  ========================= */
+  function redirectByRole(role) {
+    const r = (role || "").toLowerCase();
+
+    if (r === "admin") {
+      window.location.href = "/civic/html/admin/AdminDashboard.html";
+    } else if (r === "staff") {
+      window.location.href = "/civic/html/staff/StaffDashboard.html";
+    } else {
+      window.location.href = "/civic/html/user/UserDashboard.html";
+    }
+  }
+
+  console.log("Login page loaded successfully");
 });

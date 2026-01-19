@@ -7,10 +7,10 @@ const API = "http://localhost:5000/api/profile";
 /* ===============================
    AUTH
 ================================ */
-const session = JSON.parse(localStorage.getItem("citizenSession"));
-if (!session || !session.token) {
-  window.location.href = "/civic/html/auth/LoginPage.html";
-}
+// const session = JSON.parse(localStorage.getItem("citizenSession"));
+// if (!session || !session.token) {
+//   window.location.href = "/civic/html/auth/LoginPage.html";
+// }
 
 /* ===============================
    LOAD PROFILE FROM SERVER

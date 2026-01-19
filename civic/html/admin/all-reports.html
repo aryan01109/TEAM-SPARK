@@ -9,10 +9,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
+  <!-- Styles -->
   <link rel="stylesheet" href="/civic/css/admin/all-reports.css">
 </head>
 <body>
 
+<!-- ======================
+     TOP BAR
+====================== -->
 <header class="topbar">
   <div class="left">
     <a href="/civic/html/admin/AdminDashboard.html" class="btn-back">
@@ -22,13 +26,22 @@
     <h2>All Civic Reports</h2>
   </div>
 
-  <input id="searchInput" class="search" placeholder="Search reports..." />
+  <input
+    id="searchInput"
+    class="search"
+    placeholder="Search reports..."
+    aria-label="Search reports"
+  />
 </header>
 
+<!-- ======================
+     MAIN
+====================== -->
 <main class="container">
 
   <!-- FILTERS -->
   <div class="filters">
+
     <select id="statusFilter">
       <option value="all">All Status</option>
       <option value="new">New</option>
@@ -42,6 +55,18 @@
       <option value="medium">Medium</option>
       <option value="high">High</option>
     </select>
+
+    <!--  DEPARTMENT FILTER (MATCHES JS) -->
+    <select id="departmentFilter">
+      <option value="all">All Departments</option>
+      <option value="public-works">Public Works</option>
+      <option value="transport">Transport</option>
+      <option value="water">Water Supply</option>
+      <option value="electricity">Electricity</option>
+      <option value="sanitation">Sanitation</option>
+      <option value="other">Other</option>
+    </select>
+
   </div>
 
   <!-- TABLE -->
@@ -59,12 +84,22 @@
           <th></th>
         </tr>
       </thead>
-      <tbody id="reportTable"></tbody>
+
+      <tbody id="reportTable">
+        <tr>
+          <td colspan="8" style="text-align:center;">
+            Loading reports...
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
 </main>
 
+<!-- ======================
+     SCRIPT
+====================== -->
 <script src="/civic/js/admin/all-reports.js"></script>
 </body>
 </html>

@@ -1,25 +1,15 @@
 // ===============================
-// USER DASHBOARD – SESSION & DATA
+// USER DASHBOARD – FINAL VERSION
 // ===============================
 
-/* ===============================
-   CONFIG
-================================ */
-const API_BASE = "http://localhost:5000/api"; // FIXED
-const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+const API_BASE = "http://localhost:5000/api";
+const SESSION_TIMEOUT = 30 * 60 * 1000;
 
-/* ===============================
-   SAFE LOGIN REDIRECT
-================================ */
-function redirectToLogin() {
-  window.location.replace("/civic/html/auth/index.html");
-}
 
-/* ===============================
-   SESSION LOAD (SAFE)
-================================ */
+// ===============================
+// LOAD SESSION
+// ===============================
 let session = null;
-
 try {
   session = JSON.parse(localStorage.getItem("citizenSession"));
 } catch {
@@ -28,18 +18,23 @@ try {
 
 if (!session || !session.token) {
   redirectToLogin();
-  return; //  VERY IMPORTANT
+  throw new Error("No active session");
 }
 
-/* ===============================
-   UPDATE LAST ACTIVE
-================================ */
+// ===============================
+// UPDATE LAST ACTIVE
+// ===============================
 session.lastActive = Date.now();
 localStorage.setItem("citizenSession", JSON.stringify(session));
 
-/* ===============================
-   AUTO LOGOUT ON IDLE
-================================ */
+// ===============================
+// AUTO LOGOUT ON IDLE
+// ===============================
+function logout() {
+  localStorage.removeItem("citizenSession");
+  redirectToLogin();
+}
+
 function checkSessionExpiry() {
   const s = JSON.parse(localStorage.getItem("citizenSession"));
   if (!s) return;
@@ -61,34 +56,29 @@ function checkSessionExpiry() {
 
 setInterval(checkSessionExpiry, 60000);
 
-/* ===============================
-   LOGOUT
-================================ */
-function logout() {
-  localStorage.removeItem("citizenSession");
-  redirectToLogin();
-}
+// ===============================
+// DISPLAY USER NAME (FIXED)
+// ===============================
+const userName = session.name || "User";
 
-const logoutBtn = document.getElementById("logoutBtn");
-if (logoutBtn) logoutBtn.addEventListener("click", logout);
-
-/* ===============================
-   USER NAME DISPLAY
-================================ */
-document.querySelectorAll(".font-bold").forEach(el => {
-  if (el.textContent.toLowerCase().includes("alex")) {
-    el.textContent = session.name || "User";
+// Top header name
+document.querySelectorAll(".text-sm.font-bold").forEach(el => {
+  if (el.textContent.trim().toLowerCase() === "user") {
+    el.textContent = userName;
   }
 });
 
+// Welcome heading
 const welcomeHeading = document.querySelector("h1");
-if (welcomeHeading && session.name) {
-  welcomeHeading.innerHTML = `Welcome back, ${session.name.split(" ")[0]}!`;
+if (welcomeHeading) {
+  welcomeHeading.textContent = `Welcome back, ${userName}!`;
 }
 
-/* ===============================
-   FETCH DASHBOARD DATA FIXED
-================================ */
+console.log("Dashboard loaded with user name support:", userName);
+
+// ===============================
+// FETCH DASHBOARD DATA
+// ===============================
 async function loadDashboard() {
   try {
     const res = await fetch(`${API_BASE}/user-dashboard`, {
@@ -99,11 +89,11 @@ async function loadDashboard() {
 
     if (res.status === 401) {
       logout();
-      return; //  STOP EXECUTION
+      return;
     }
 
     if (!res.ok) {
-      throw new Error(`Dashboard fetch failed (${res.status})`);
+      throw new Error("Dashboard fetch failed");
     }
 
     const data = await res.json();
@@ -118,9 +108,9 @@ async function loadDashboard() {
 
 loadDashboard();
 
-/* ===============================
-   UPDATE STATS
-================================ */
+// ===============================
+// UPDATE STATS
+// ===============================
 function updateStats(data) {
   const numbers = document.querySelectorAll(".text-3xl.font-black");
   if (numbers.length >= 3) {
@@ -130,9 +120,9 @@ function updateStats(data) {
   }
 }
 
-/* ===============================
-   UPDATE ACTIVITY
-================================ */
+// ===============================
+// UPDATE ACTIVITY
+// ===============================
 function updateActivity(reports) {
   const container = document.querySelector(".lg\\:col-span-2 .bg-white");
   if (!container) return;
@@ -156,7 +146,7 @@ function updateActivity(reports) {
       <div class="flex justify-between mb-2">
         <h4 class="font-bold">${r.title || "Report"}</h4>
         <span class="text-xs text-gray-400">
-          ${new Date(r.createdAt || Date.now()).toLocaleString()}
+          ${new Date(r.createdAt).toLocaleString()}
         </span>
       </div>
       <span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-600">
@@ -168,12 +158,10 @@ function updateActivity(reports) {
   });
 }
 
-/* ===============================
-   FALLBACK
-================================ */
+// ===============================
+// FALLBACK
+// ===============================
 function showFallback() {
   updateStats({ total: 0, resolved: 0, active: 0 });
   updateActivity([]);
 }
-
-console.log("User Dashboard Loaded Successfully");

@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===============================
      SESSION CHECK
   =============================== */
-  const session = JSON.parse(localStorage.getItem("citizenSession") || "null");
-  if (!session || !session.token) {
-    window.location.href = "/civic/html/auth/LoginPage.html";
-    return;
-  }
+  // const session = JSON.parse(localStorage.getItem("citizenSession") || "null");
+  // if (!session || !session.token) {
+  //   window.location.href = "/civic/html/auth/LoginPage.html";
+  //   return;
+  // }
 
   /* ===============================
      ELEMENTS
