@@ -7,68 +7,65 @@ import User from "../models/User.js";
 const router = express.Router();
 
 /* ======================
-   REGISTER
+   ADMIN AUTH MIDDLEWARE
    ====================== */
-router.post("/register", async (req, res) => {
-  res.json({ message: "Register route working" });
-});
-
-/* ======================
-   LOGIN
-   ====================== */
-router.post("/login", async (req, res) => {
-  res.json({ message: "Login route working" });
-});
-
-/* ======================
-   SIMPLE AUTH MIDDLEWARE
-   ====================== */
-const simpleAdminAuth = (req, res, next) => {
+const adminAuth = async (req, res, next) => {
   const header = req.headers.authorization;
-  if (!header) return res.status(401).json({ message: "No token" });
+
+  if (!header) {
+    return res.status(401).json({ message: "No token" });
+  }
 
   try {
     const token = header.split(" ")[1];
-    req.user = jwt.verify(token, process.env.JWT_SECRET || "secretkey");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secretkey");
+
+    const admin = await Admin.findById(decoded.id);
+    if (!admin) {
+      return res.status(401).json({ message: "Invalid admin" });
+    }
+
+    req.admin = admin;
     next();
-  } catch {
+  } catch (err) {
     return res.status(401).json({ message: "Invalid token" });
   }
 };
 
 /* ======================
-   ADMIN PROFILE  ✅
+   ADMIN PROFILE
    ====================== */
-router.get("/profile", simpleAdminAuth, async (req, res) => {
-  try {
-    const admin = await Admin.findById(req.user.id).select("-password");
-    if (!admin) {
-      return res.status(404).json({ message: "Admin not found" });
-    }
-    res.json(admin);
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
+router.get("/profile", adminAuth, async (req, res) => {
+  res.json({
+    id: req.admin._id,
+    name: req.admin.name,
+    email: req.admin.email,
+    role: req.admin.role
+  });
 });
 
 /* ======================
-   DASHBOARD STATS  ✅
+   DASHBOARD STATS
    ====================== */
-router.get("/dashboard/stats", simpleAdminAuth, async (req, res) => {
+router.get("/dashboard/stats", adminAuth, async (req, res) => {
   try {
     const totalReports = await Report.countDocuments();
-    const activeReports = await Report.countDocuments();
+    const activeReports = await Report.countDocuments({
+      status: { $ne: "Resolved" }
+    });
+
     const users = await User.countDocuments();
 
     res.json({
       totalReports,
+      avgResolution: 0,   
+      activeCrews: 0,
+      satisfaction: 0,
       activeReports,
-      avgResolution: "4.2 hrs",
-      activeCrews: 42,
-      satisfaction: "88.4%",
       users
     });
   } catch (err) {
+    console.error("Dashboard stats error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });

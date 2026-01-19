@@ -154,8 +154,8 @@ export const getDashboardStats = async (req, res) => {
     res.json({
       totalReports,
       avgResolution,
-      activeCrews: 0,     // future module
-      satisfaction: 0    // future feedback
+      activeCrews: 0,    
+      satisfaction: 0    
     });
 
   } catch (err) {

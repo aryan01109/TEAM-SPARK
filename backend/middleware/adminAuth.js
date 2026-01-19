@@ -1,27 +1,36 @@
 import jwt from "jsonwebtoken";
 
 const adminAuth = (req, res, next) => {
+  const header = req.headers.authorization;
+
+  if (!header || !header.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "No token" });
+  }
+
   try {
-    const header = req.headers.authorization;
-
-    if (!header || !header.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Authorization token missing" });
-    }
-
     const token = header.split(" ")[1];
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    //  DECODE FIRST
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET || "secretkey"
+    );
 
-    if (decoded.role !== "admin" && decoded.role !== "Admin") {
+    //  NOW SAFE TO LOG
+    console.log("DECODED TOKEN:", decoded);
+
+    // attach admin to request
+    req.user = decoded;
+
+    // optional role check
+    if (decoded.role && decoded.role !== "admin") {
       return res.status(403).json({ message: "Admin access only" });
     }
 
-    req.admin = decoded;
     next();
-
   } catch (err) {
-    console.error("Admin Auth Error:", err.message);
-    res.status(401).json({ message: "Invalid or expired token" });
+    console.error("AUTH ERROR:", err.message);
+    return res.status(401).json({ message: "Invalid token" });
   }
 };
 

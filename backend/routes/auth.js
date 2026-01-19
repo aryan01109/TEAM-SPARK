@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 import multer from "multer";
 
 import User from "../models/User.js";
-import Report from "../models/Report.js";
-import auth from "../middleware/auth.js";
-import Community from "../models/CommunityPost.js";
 import Staff from "../models/staff.js";
+import Report from "../models/Report.js";
+import Community from "../models/CommunityPost.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -16,88 +16,25 @@ const router = express.Router();
 ====================== */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) =>
-    cb(null, Date.now() + "-" + file.originalname)
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
 });
-
 const upload = multer({ storage });
 
 /* ======================
-   REGISTER (FIXED)
-====================== */
-router.post("/report", auth, upload.array("media", 5), async (req, res) => {
-  try {
-    const { category, description, lat, lng } = req.body;
-
-    if (!category || !description || !lat || !lng) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing required fields"
-      });
-    }
-
-    const files = (req.files || []).map(f => f.filename);
-
-    const report = await Report.create({
-      userId: req.user.id,
-      title: category,
-      category,
-      description,
-      media: files,
-      location: `${lat}, ${lng}`,
-      status: "Submitted" // ✅ MUST MATCH ENUM
-    });
-
-    // ✅ SAFE community post
-    await Community.create({
-      reportId: report._id,
-      userId: req.user.id,
-      userName: "Citizen", // DO NOT USE req.user.name
-      title: category,
-      description,
-      location: `${lat}, ${lng}`,
-      beforeImage: files[0] || null,
-      likes: 0
-    });
-
-    res.status(201).json({
-      success: true,
-      message: "Report submitted successfully",
-      reportId: report._id
-    });
-
-  } catch (err) {
-    console.error("REPORT SUBMIT ERROR:", err); // 🔥 IMPORTANT
-    res.status(500).json({
-      success: false,
-      message: "Failed to submit report"
-    });
-  }
-});
-
-/* ======================
-   LOGIN
+   USER LOGIN
 ====================== */
 router.post("/login", async (req, res) => {
   try {
-    let { email, identifier, password } = req.body;
+    const { email, identifier, password } = req.body;
+    const loginEmail = (email || identifier)?.toLowerCase().trim();
 
-    const loginEmail = (email || identifier)?.trim().toLowerCase();
-
-    if (!loginEmail || !password) {
-      return res.status(400).json({ message: "Missing credentials" });
-    }
-
-    // 🔥 CRITICAL FIX
-    const user = await User
-      .findOne({ email: loginEmail })
-      .select("+password"); // <-- REQUIRED
-
+    const user = await User.findOne({ email: loginEmail }).select("+password");
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log("PASSWORD MATCH:", isMatch);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
@@ -121,21 +58,74 @@ router.post("/login", async (req, res) => {
   }
 });
 /* ======================
-   USER DASHBOARD (ONLY ONCE)
+   USER REGISTER
+====================== */
+router.post("/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
+
+    if (!email.includes("@")) {
+      return res.status(400).json({ message: "Invalid email" });
+    }
+
+    const exists = await User.findOne({ email: email.toLowerCase() });
+    if (exists) {
+      return res.status(409).json({ message: "Email already exists" });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      name,
+      email: email.toLowerCase(),
+      password: hash,
+      role: "user",
+      status: "approved"
+    });
+
+    res.status(201).json({
+      message: "Registered successfully",
+      userId: user._id
+    });
+
+  } catch (err) {
+    console.error("REGISTER ERROR:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+/* ======================
+   USER DASHBOARD (LIVE SAFE)
 ====================== */
 router.get("/user-dashboard", auth, async (req, res) => {
-  const reports = await Report.find({ userId: req.user.id });
+  try {
+    const reports = await Report
+      .find({ userId: req.user.id })
+      .sort({ createdAt: -1 })
+      .lean();
 
-  res.json({
-    total: reports.length,
-    resolved: reports.filter(r => r.status === "Resolved").length,
-    active: reports.filter(r => r.status !== "Resolved").length,
-    reports
-  });
+    const total = reports.length;
+    const resolved = reports.filter(r => r.status === "Resolved").length;
+    const active = reports.filter(r => r.status !== "Resolved").length;
+
+    res.json({
+      total,
+      resolved,
+      active,
+      reports
+    });
+
+  } catch (err) {
+    console.error("DASHBOARD ERROR:", err);
+    res.status(500).json({ message: "Dashboard error" });
+  }
 });
 
 /* ======================
-   SUBMIT REPORT
+   SUBMIT REPORT (USER)
 ====================== */
 router.post("/report", auth, upload.array("media", 5), async (req, res) => {
   try {
@@ -148,20 +138,31 @@ router.post("/report", auth, upload.array("media", 5), async (req, res) => {
       });
     }
 
-    const mediaFiles = (req.files || []).map(f => f.filename);
+    const files = (req.files || []).map(f => f.filename);
 
     const report = await Report.create({
       userId: req.user.id,
       title: category,
       category,
       description,
-      media: mediaFiles,
-      location: `${lat}, ${lng}`
+      media: files,
+      location: `${lat}, ${lng}`,
+      status: "Submitted"
+    });
+
+    await Community.create({
+      reportId: report._id,
+      userId: req.user.id,
+      userName: req.user.name || "Citizen",
+      title: category,
+      description,
+      location: `${lat}, ${lng}`,
+      beforeImage: files[0] || null,
+      likes: 0
     });
 
     res.status(201).json({
       success: true,
-      message: "Report submitted successfully",
       reportId: report._id
     });
 
@@ -174,101 +175,77 @@ router.post("/report", auth, upload.array("media", 5), async (req, res) => {
   }
 });
 
+/* ======================
+   COMMUNITY FEED (AUTH)
+====================== */
 router.get("/community", auth, async (req, res) => {
   try {
-    const posts = await Community.find()
+    const posts = await Community
+      .find()
       .sort({ createdAt: -1 })
-      .lean(); // safer
+      .lean();
 
-    res.json(posts || []);
-
-  } catch (err) {
-    console.error("COMMUNITY API ERROR:", err.message);
-    res.status(500).json({
-      message: "Failed to load community feed"
-    });
-  }
-});
-
-// /* =====================
-//    RESET PASSWORD
-// ===================== */
-router.post("/reset-password", async (req, res) => {
-  try {
-    const { email, newPassword } = req.body;
-
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Email not found" });
-
-    const hash = await bcrypt.hash(newPassword, 10);
-    user.password = hash;
-    await user.save();
-
-    res.json({ message: "Password updated successfully" });
+    res.json(posts);
 
   } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-// /* =====================
-//    FORGOT PASSWORD
-// ===================== */
-router.post("/forgot-password", async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Email not found" });
-
-    const token = crypto.randomBytes(32).toString("hex");
-
-    user.resetToken = token;
-    user.resetTokenExpiry = Date.now() + 15 * 60 * 1000;
-    await user.save();
-
-    const resetLink = `http://127.0.0.1:5500/civic/html/auth/ResetPassword.html?token=${token}`;
-    console.log("RESET LINK:", resetLink);
-
-    res.json({ message: "Reset link sent", resetLink });
-
-  } catch (err) {
-    console.error("FORGOT ERROR:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-
-
-// /* =====================
-//    USER REGISTER
-// ===================== */
-router.post("/register", async (req, res) => {
-  try {
-    let { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
-
-    const exists = await User.findOne({ email });
-    if (exists) {
-      return res.status(409).json({ message: "Email already exists" });
-    }
-
-    await User.create({ name, email, password });
-
-    res.status(201).json({ message: "Registered successfully" });
-
-  } catch (err) {
-    console.error("REGISTER ERROR:", err); // 🔥 THIS LINE
-    res.status(500).json({ message: "Server error" });
+    console.error("COMMUNITY ERROR:", err);
+    res.status(500).json({ message: "Community load failed" });
   }
 });
 
 /* ======================
-   STAFF REGISTER
+   LIKE COMMUNITY POST
 ====================== */
+router.post("/community/like/:id", auth, async (req, res) => {
+  try {
+    await Community.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { likes: 1 } }
+    );
+
+    res.json({ success: true });
+
+  } catch (err) {
+    res.status(500).json({ message: "Like failed" });
+  }
+});
+
+/* ======================
+   STAFF LOGIN
+====================== */
+router.post("/staff/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const staff = await Staff.findOne({ email }).select("+password");
+    if (!staff) return res.status(401).json({ message: "Staff not found" });
+
+    if (!staff.isActive) {
+      return res.status(403).json({ message: "Awaiting approval" });
+    }
+
+    const match = await bcrypt.compare(password, staff.password);
+    if (!match) return res.status(401).json({ message: "Invalid password" });
+
+    const token = jwt.sign(
+      { id: staff._id, role: "staff" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.json({
+      token,
+      role: "staff",
+      name: staff.name
+    });
+
+  } catch (err) {
+    console.error("STAFF LOGIN ERROR:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 /* ======================
    STAFF REGISTER
 ====================== */
@@ -323,45 +300,6 @@ router.post("/register", async (req, res) => {
 });
 
 
-/* ======================
-   STAFF LOGIN
-====================== */
-router.post("/staff/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const staff = await Staff.findOne({ email }).select("+password");
-    if (!staff) {
-      return res.status(401).json({ message: "Staff not found" });
-    }
-
-    if (!staff.isActive) {
-      return res.status(403).json({ message: "Awaiting admin approval" });
-    }
-
-    const match = await bcrypt.compare(password, staff.password);
-    if (!match) {
-      return res.status(401).json({ message: "Invalid password" });
-    }
-
-    const token = jwt.sign(
-      { id: staff._id, role: staff.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
-
-    res.json({
-      token,
-      role: staff.role,
-      name: staff.name
-    });
-
-  } catch (err) {
-    console.error("STAFF LOGIN ERROR:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
 // /* ======================
 //    COMMUNITY FEED
 // ====================== */
@@ -377,6 +315,55 @@ router.post("/community/like/:id", auth, async (req, res) => {
   await Community.findByIdAndUpdate(req.params.id, { $inc: { likes: 1 } });
   res.json({ success: true });
 });
+
+// /* =====================
+//    RESET PASSWORD
+// ===================== */
+router.post("/reset-password", async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: "Email not found" });
+
+    const hash = await bcrypt.hash(newPassword, 10);
+    user.password = hash;
+    await user.save();
+
+    res.json({ message: "Password updated successfully" });
+
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// /* =====================
+//    FORGOT PASSWORD
+// ===================== */
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: "Email not found" });
+
+    const token = crypto.randomBytes(32).toString("hex");
+
+    user.resetToken = token;
+    user.resetTokenExpiry = Date.now() + 15 * 60 * 1000;
+    await user.save();
+
+    const resetLink = `http://127.0.0.1:5500/civic/html/auth/ResetPassword.html?token=${token}`;
+    console.log("RESET LINK:", resetLink);
+
+    res.json({ message: "Reset link sent", resetLink });
+
+  } catch (err) {
+    console.error("FORGOT ERROR:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 export default router;
 

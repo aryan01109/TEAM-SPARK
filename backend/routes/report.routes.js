@@ -2,6 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import Report from "../models/Report.js";
 import { getReports } from "../controllers/report.controller.js";
+import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -57,33 +58,39 @@ router.get("/:reportId", auth, async (req, res) => {
 /* =====================================================
    CREATE REPORT (CITIZEN)
 ===================================================== */
-router.post("/", async (req, res) => {
+router.post("/report", authMiddleware, async (req, res) => {
   try {
-    const { title, category, description, location, citizen } = req.body;
+    const { title, category, description, location, priority } = req.body;
+
+    //  VALIDATION
+    if (!title || !category || !description || !location) {
+      return res.status(400).json({
+        message: "All fields are required"
+      });
+    }
 
     const report = await Report.create({
-      title,
-      category,
-      description,
-      location,
-      citizen,
-      status: "Submitted",
-      timeline: [
-        {
-          status: "Submitted",
-          note: "Report submitted by citizen",
-          time: new Date()
-        }
-      ]
+      userId: req.user.id,     //  comes from authMiddleware
+      title: title.trim(),
+      category: category.trim(),
+      description: description.trim(),
+      location: location.trim(),
+      priority: priority || "low",
+      status: "Submitted"
     });
 
-    res.status(201).json(report);
+    res.status(201).json({
+      message: "Report submitted successfully",
+      report
+    });
+
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to submit report" });
+    console.error("CREATE REPORT ERROR:", err);
+    res.status(500).json({
+      message: "Failed to submit report"
+    });
   }
 });
-
 /* =====================================================
    UPDATE REPORT STATUS (ADMIN / STAFF)
 ===================================================== */

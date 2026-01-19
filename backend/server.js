@@ -12,6 +12,7 @@ import reportRoutes from "./routes/report.routes.js";
 import adminSettingsRoutes from "./routes/adminSettings.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import authRoutes from "./routes/auth.js";
+import communityRoutes from "./routes/community.routes.js";
 
 dotenv.config();
 
@@ -19,6 +20,11 @@ dotenv.config();
    INIT APP
 ====================== */
 const app = express();
+
+app.use((req, res, next) => {
+  console.log(" REQUEST:", req.method, req.originalUrl);
+  next();
+});
 
 /* ======================
    MIDDLEWARE
@@ -42,14 +48,17 @@ app.use("/uploads", express.static("uploads"));
 ====================== */
 
 // Auth (login / register / dashboard / community)
-app.use("/api/auth", authRoutes);
+app.use("/api", authRoutes);
 
 // Staff
 app.use("/api/staff", staffRoutes);
 
 
 // Reports
-app.use("/api/report", reportRoutes);
+app.use("/api", reportRoutes);
+
+//communityRoutes
+app.use("/api/Community", communityRoutes);
 
 // Admin
 app.use("/api/admin", adminAuthRoutes);
@@ -84,3 +93,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

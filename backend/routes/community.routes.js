@@ -1,37 +1,21 @@
 import express from "express";
 import auth from "../middleware/auth.js";
-import Community from "../models/CommunityPost.js";
+import Community from "../models/CommunityPost.js"; 
+import { getCommunityReports } from "../controllers/community.controller.js";
 
 const router = express.Router();
 
 /* =============================
-   GET COMMUNITY FEED
-   /api/community?mode=recent | impactful | following
+   COMMUNITY FEED (PUBLIC)
+   GET /api/community
 ============================= */
-router.get("/", auth, async (req, res) => {
-  try {
-    const mode = req.query.mode || "recent";
-
-    let sort = { createdAt: -1 };
-    if (mode === "impactful") sort = { impactScore: -1, createdAt: -1 };
-    if (mode === "following") sort = { likes: -1, createdAt: -1 };
-
-    const posts = await Community.find()
-      .sort(sort)
-      .limit(50)
-      .lean();
-
-    res.json(posts);
-  } catch (err) {
-    console.error("COMMUNITY FEED ERROR:", err);
-    res.status(500).json({ message: "Failed to load community feed" });
-  }
-});
+router.get("/community", getCommunityReports);
 
 /* =============================
-   LIKE A POST
+   LIKE A POST (AUTH REQUIRED)
+   POST /api/community/like/:id
 ============================= */
-router.post("/like/:id", auth, async (req, res) => {
+router.post("/community/like/:id", auth, async (req, res) => {
   try {
     const post = await Community.findByIdAndUpdate(
       req.params.id,
@@ -39,7 +23,9 @@ router.post("/like/:id", auth, async (req, res) => {
       { new: true }
     );
 
-    if (!post) return res.status(404).json({ message: "Post not found" });
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
 
     res.json({
       success: true,
@@ -53,20 +39,23 @@ router.post("/like/:id", auth, async (req, res) => {
 });
 
 /* =============================
-   TRENDING POSTS
+   TRENDING POSTS (PUBLIC)
+   GET /api/community/trending
 ============================= */
-router.get("/trending", async (req, res) => {
+router.get("/community/trending", async (req, res) => {
   try {
     const posts = await Community.find()
       .sort({ impactScore: -1 })
       .limit(5)
       .lean();
 
-    res.json(posts.map(p => ({
-      title: p.title,
-      score: p.impactScore,
-      tag: p.impactScore > 15 ? "Urgent" : "Event"
-    })));
+    res.json(
+      posts.map(p => ({
+        title: p.title,
+        score: p.impactScore,
+        tag: p.impactScore > 15 ? "Urgent" : "Event"
+      }))
+    );
   } catch (err) {
     console.error("TRENDING ERROR:", err);
     res.status(500).json({ message: "Failed to load trending" });
@@ -74,9 +63,10 @@ router.get("/trending", async (req, res) => {
 });
 
 /* =============================
-   IMPACT HEROES
+   IMPACT HEROES (PUBLIC)
+   GET /api/community/heroes
 ============================= */
-router.get("/heroes", async (req, res) => {
+router.get("/community/heroes", async (req, res) => {
   try {
     const data = await Community.aggregate([
       {
@@ -89,10 +79,12 @@ router.get("/heroes", async (req, res) => {
       { $limit: 5 }
     ]);
 
-    res.json(data.map(u => ({
-      name: u._id,
-      points: u.points
-    })));
+    res.json(
+      data.map(u => ({
+        name: u._id,
+        points: u.points
+      }))
+    );
   } catch (err) {
     console.error("HEROES ERROR:", err);
     res.status(500).json({ message: "Failed to load heroes" });
