@@ -3,18 +3,21 @@
 // ============================
 const form = document.getElementById("registerForm");
 const roleButtons = document.querySelectorAll(".role");
+
+const nameInput = document.getElementById("fullName");
+const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
+
 const togglePassword = document.getElementById("togglePassword");
 const strengthBox = document.getElementById("strengthBox");
 const strengthText = document.getElementById("strengthText");
 
-const nameInput = document.getElementById("fullName");
-const emailInput = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
 const spinner = submitBtn.querySelector(".spinner");
 const btnText = submitBtn.querySelector(".btn-text");
 
-const API_BASE = "http://localhost:5000/api";
+// ✅ DEPLOYED BACKEND URL
+const API_BASE = "https://team-spark-1.onrender.com/api";
 
 // ============================
 // ROLE SWITCH
@@ -38,10 +41,9 @@ roleButtons.forEach(btn => {
 // PASSWORD TOGGLE
 // ============================
 togglePassword.addEventListener("click", () => {
-  passwordInput.type =
-    passwordInput.type === "password" ? "text" : "password";
-  togglePassword.textContent =
-    passwordInput.type === "password" ? "👁" : "🙈";
+  const isHidden = passwordInput.type === "password";
+  passwordInput.type = isHidden ? "text" : "password";
+  togglePassword.textContent = isHidden ? "🙈" : "👁";
 });
 
 // ============================
@@ -70,7 +72,7 @@ passwordInput.addEventListener("input", () => {
 });
 
 // ============================
-// SUBMIT
+// SUBMIT REGISTER FORM
 // ============================
 form.addEventListener("submit", async e => {
   e.preventDefault();
@@ -89,12 +91,17 @@ form.addEventListener("submit", async e => {
   btnText.textContent = "Creating Account...";
 
   try {
-   fetch("https://team-spark-1.onrender.com/register", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ name: "test" })
-});
-  
+    const res = await fetch(`${API_BASE}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      })
+    });
 
     const data = await res.json();
 
@@ -106,10 +113,11 @@ form.addEventListener("submit", async e => {
     localStorage.setItem("lastRegisteredEmail", email);
     alert("Account created successfully!");
 
-    //  redirect to LOGIN (index.html)
+    // Redirect to login page
     window.location.href = "/civic/html/auth/index.html";
 
   } catch (err) {
+    console.error("Fetch error:", err);
     alert("Server not reachable");
   } finally {
     submitBtn.disabled = false;
