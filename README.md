@@ -1,4 +1,4 @@
-# 🚀 TEAM-SPARK — Smart Civic Issue Management Platform
+# 🚀 TEAM EAGLE — Smart Civic Issue Management Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Active-success"/>
@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/Hackathon-Ready-orange"/>
 </p>
 
-**TEAM-SPARK** is a next-generation **Civic Engagement Platform** that allows citizens to report city issues, track progress, and communicate with municipal staff in real time using a modern, AI-powered digital system.
+**TEAM EAGLE** is a next-generation **Civic Engagement Platform** that allows citizens to report city issues, track progress, and communicate with municipal staff in real time using a modern, AI-powered digital system.
 
 > 🌍 Making cities transparent, responsive, and citizen-friendly.
 
@@ -159,15 +159,6 @@ This architecture ensures that **TEAM-SPARK** can grow from a hackathon project 
 - Built for smart cities  
 
 ---
-
-## 👨‍💻 Author
-
-**Aryan Bhoya AND Patel Bhavik **  
-Full-Stack Developer & Civic Tech Innovator  
-
-GitHub: [https://github.com/aryan01109](https://github.com/aryan01109) <br>
-        <t>[https://github.com/Bhavikpatel2910](https://github.com/Bhavikpatel2910)
-
 
 
 
