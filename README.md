@@ -1,169 +1,132 @@
-# 🚀 TEAM EAGLE — Smart Civic Issue Management Platform
+<h1 align="center">Hi 👋, I'm Aryan Bhoya</h1>
+<h3 align="center">🚀 Computer Engineering Student | AI Developer | Full Stack Developer | Open Source Enthusiast</h3>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Active-success"/>
-  <img src="https://img.shields.io/badge/Stack-MERN-blue"/>
-  <img src="https://img.shields.io/badge/AI-Powered-purple"/>
-  <img src="https://img.shields.io/badge/Hackathon-Ready-orange"/>
+  <img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=24&pause=1000&color=00F7FF&center=true&vCenter=true&width=700&lines=Computer+Engineering+Student;AI+Developer;Full+Stack+Developer;Hackathon+Enthusiast;Open+Source+Contributor;Always+Learning+New+Technologies" />
 </p>
 
-**TEAM EAGLE** is a next-generation **Civic Engagement Platform** that allows citizens to report city issues, track progress, and communicate with municipal staff in real time using a modern, AI-powered digital system.
+---
 
-> 🌍 Making cities transparent, responsive, and citizen-friendly.
+## 🚀 About Me
+
+🎓 **Computer Engineering Student**
+
+💡 Passionate about solving real-world problems using AI and Full Stack Development.
+
+🌱 Currently learning
+- Artificial Intelligence
+- Machine Learning
+- Data Science
+- Cloud Computing
+- System Design
+
+💻 Building scalable web applications and AI-powered solutions.
 
 ---
 
-## 🌟 Key Features
+## 🛠️ Tech Stack
 
-### 👤 Citizen Portal
-- Secure Login & Registration  
-- Report civic issues (potholes, garbage, lighting, water, etc.)  
-- Live status tracking  
-- View personal issue history  
-- Earn points & civic ranks  
+### 👨‍💻 Languages
 
-### 🏛 Staff Portal
-- Staff Registration with Government ID  
-- Admin Approval System  
-- Municipal Staff Dashboard  
-- Issue Assignment & Resolution Tracking  
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Java](https://img.shields.io/badge/Java-orange?style=for-the-badge&logo=openjdk)
 
-### 🤖 AI & Smart Features
-- AI-powered issue classification  
-- Smart routing to departments  
-- Analytics & reporting dashboard  
-- AI suggestions for faster resolution  
+### 🌐 Web Development
 
-### 🔐 Security
-- JWT Authentication  
-- Password hashing (bcrypt)  
-- Role-based access control  
-- Staff approval workflow  
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3)
+![JavaScript](https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react)
 
----
+### ⚙ Backend
 
-## 🧩 Tech Stack
+![Node.js](https://img.shields.io/badge/Node.js-green?style=for-the-badge&logo=node.js)
+![Express](https://img.shields.io/badge/Express-black?style=for-the-badge&logo=express)
 
-| Layer | Technology |
-|------|------------|
-| Frontend | HTML, CSS, JavaScript |
-| Backend | Node.js, Express.js |
-| Database | MongoDB |
-| Authentication | JWT + bcrypt |
-| API | RESTful APIs |
-| Tools | VS Code, Postman, GitHub |
+### 🗄 Database
+
+![MongoDB](https://img.shields.io/badge/MongoDB-green?style=for-the-badge&logo=mongodb)
+![MySQL](https://img.shields.io/badge/MySQL-blue?style=for-the-badge&logo=mysql)
+
+### 📊 Data Science
+
+![Pandas](https://img.shields.io/badge/Pandas-purple?style=for-the-badge&logo=pandas)
+![NumPy](https://img.shields.io/badge/Numpy-blue?style=for-the-badge&logo=numpy)
+![Power BI](https://img.shields.io/badge/PowerBI-yellow?style=for-the-badge&logo=powerbi)
+
+### ☁ Tools
+
+Git • GitHub • VS Code • Postman • Firebase • Linux
 
 ---
 
+# 🚀 Featured Projects
 
+⭐ Smart Civic Issue Reporting Platform
 
-## 🔑 Authentication Flow
+⭐ AI ERP Integration Platform
 
-| User Type | Login Method |
-|----------|--------------|
-| Citizen | Email / Password |
-| Staff | Municipal SSO / Staff Login |
-| Admin | Secure Role-Based Login |
+⭐ AI Library Management System
 
----
+⭐ Task Management App
 
-## 📊 Dashboards
-
-### 🧑 Citizen Dashboard
-- View submitted issues  
-- Resolution status  
-- Contribution points  
-- City ranking  
----
-### 🏢 Staff Dashboard
-- View assigned issues  
-- Update status  
-- Approve or reject reports  
-
----
-## 🧠 TEAM-SPARK System Architecture
-
-TEAM-SPARK follows a modern **client–server architecture** designed for scalability, security, and real-world civic operations.
-
+⭐ AI Resume Analyzer
 
 ---
 
-### 🔐 Security Layer
+## 📈 GitHub Stats
 
-- Passwords are encrypted using **bcrypt**
-- All protected routes use **JWT authentication**
-- Role-based access for:
-  - Citizens
-  - Staff
-  - Admins
+![](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=tokyonight)
 
----
+![](https://github-readme-streak-stats.herokuapp.com/?user=YOUR_USERNAME&theme=tokyonight)
 
-### 🧩 Key Components
-
-| Layer | Purpose |
-|------|---------|
-| Frontend | User Interface for citizens and staff |
-| Backend | API, authentication, and business logic |
-| Database | Stores users, staff, issues, and reports |
-| JWT | Secure session management |
-| MongoDB | High-performance NoSQL data storage |
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=tokyonight)
 
 ---
 
-### 🔄 Data Flow Example
+## 🐍 Contribution Graph
 
-Citizen submits a report
-│
-▼
-Frontend → POST /api/report
-│
-▼
-Backend validates JWT
-│
-▼
-MongoDB stores issue
-│
-▼
-Staff dashboard receives new ticket
+![](https://github.com/YOUR_USERNAME/YOUR_USERNAME/blob/output/github-contribution-grid-snake.svg)
 
 ---
 
-### 🚀 Why This Architecture?
+## 🏆 GitHub Trophies
 
-- Highly scalable  
-- Secure and encrypted  
-- Designed for government-grade applications  
-- Supports real-time dashboards  
-- Ready for future AI & analytics integration  
+![](https://github-profile-trophy.vercel.app/?username=YOUR_USERNAME&theme=tokyonight&no-frame=true&row=1)
 
 ---
 
-This architecture ensures that **TEAM-SPARK** can grow from a hackathon project into a full-scale smart-city platform.
+## 📊 Activity Graph
 
-
-
-
-
-## 🛠 Setup Instructions
-
-### 1️⃣ Clone Repository
-
----
-## 🏆 Why TEAM-SPARK?
-
-- Solves real-world civic problems  
-- Scalable & secure  
-- Hackathon-grade UI & architecture  
-- AI-powered future ready  
-- Built for smart cities  
+![](https://github-readme-activity-graph.vercel.app/graph?username=YOUR_USERNAME&theme=tokyo-night)
 
 ---
 
+## 🎯 Current Focus
 
+✅ AI Projects
 
+✅ Open Source
 
+✅ Competitive Programming
 
+✅ DSA
 
+✅ Full Stack Development
 
+---
 
+## 🌐 Connect with Me
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/YOUR_LINK)
+
+[![Email](https://img.shields.io/badge/Email-red?style=for-the-badge&logo=gmail)](mailto:YOUR_EMAIL)
+
+[![Instagram](https://img.shields.io/badge/Instagram-pink?style=for-the-badge&logo=instagram)](https://instagram.com/YOUR_USERNAME)
+
+---
+
+<p align="center">
+⭐ Thanks for visiting my profile! ⭐
+</p>
