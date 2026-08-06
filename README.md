@@ -1,132 +1,265 @@
-<h1 align="center">Hi 👋, I'm Aryan Bhoya</h1>
-<h3 align="center">🚀 Computer Engineering Student | AI Developer | Full Stack Developer | Open Source Enthusiast</h3>
+<h1 align="center">
+  Hi 👋, I'm <span style="color:#00BFFF;">Aryan Bhoya</span>
+</h1>
+
+<h3 align="center">
+💻 Computer Engineering Student | AI Developer | Full Stack Developer | Data Science Enthusiast
+</h3>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=24&pause=1000&color=00F7FF&center=true&vCenter=true&width=700&lines=Computer+Engineering+Student;AI+Developer;Full+Stack+Developer;Hackathon+Enthusiast;Open+Source+Contributor;Always+Learning+New+Technologies" />
+<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=700&size=28&duration=3500&pause=1000&color=00F7FF&center=true&vCenter=true&width=900&lines=Computer+Engineering+Student;AI+Developer;Full+Stack+Developer;Machine+Learning+Enthusiast;Data+Science+Explorer;Hackathon+Builder;Open+Source+Contributor;Always+Learning+🚀" />
 </p>
 
 ---
 
-## 🚀 About Me
+<img align="right" width="380" src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif"/>
 
-🎓 **Computer Engineering Student**
+# 🚀 About Me
 
-💡 Passionate about solving real-world problems using AI and Full Stack Development.
+🎓 Third Year Computer Engineering Student
 
-🌱 Currently learning
+💡 Passionate about AI, Full Stack Development, and Data Science.
+
+💻 Love building impactful applications using modern technologies.
+
+🏆 Regular Hackathon Participant
+
+📚 Currently Learning
+
 - Artificial Intelligence
 - Machine Learning
-- Data Science
 - Cloud Computing
 - System Design
+- DevOps
 
-💻 Building scalable web applications and AI-powered solutions.
+🎯 Goal
 
----
-
-## 🛠️ Tech Stack
-
-### 👨‍💻 Languages
-
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Java](https://img.shields.io/badge/Java-orange?style=for-the-badge&logo=openjdk)
-
-### 🌐 Web Development
-
-![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3)
-![JavaScript](https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react)
-
-### ⚙ Backend
-
-![Node.js](https://img.shields.io/badge/Node.js-green?style=for-the-badge&logo=node.js)
-![Express](https://img.shields.io/badge/Express-black?style=for-the-badge&logo=express)
-
-### 🗄 Database
-
-![MongoDB](https://img.shields.io/badge/MongoDB-green?style=for-the-badge&logo=mongodb)
-![MySQL](https://img.shields.io/badge/MySQL-blue?style=for-the-badge&logo=mysql)
-
-### 📊 Data Science
-
-![Pandas](https://img.shields.io/badge/Pandas-purple?style=for-the-badge&logo=pandas)
-![NumPy](https://img.shields.io/badge/Numpy-blue?style=for-the-badge&logo=numpy)
-![Power BI](https://img.shields.io/badge/PowerBI-yellow?style=for-the-badge&logo=powerbi)
-
-### ☁ Tools
-
-Git • GitHub • VS Code • Postman • Firebase • Linux
+Become a Software Engineer building AI products used by millions.
 
 ---
 
-# 🚀 Featured Projects
+# 💼 Featured Projects
 
-⭐ Smart Civic Issue Reporting Platform
+### 🚀 Smart Civic Issue Reporting Platform
 
-⭐ AI ERP Integration Platform
+AI-powered civic complaint management platform with image classification and geolocation.
 
-⭐ AI Library Management System
+**Tech Stack**
 
-⭐ Task Management App
-
-⭐ AI Resume Analyzer
+React • Node.js • Express • MongoDB • Firebase
 
 ---
 
-## 📈 GitHub Stats
+### 🩺 AI Medical Assistant
 
-![](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=tokyonight)
+Symptom Checker
 
-![](https://github-readme-streak-stats.herokuapp.com/?user=YOUR_USERNAME&theme=tokyonight)
+Medical Report Analyzer
 
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=tokyonight)
+Health Dashboard
 
----
+Appointment Booking
 
-## 🐍 Contribution Graph
-
-![](https://github.com/YOUR_USERNAME/YOUR_USERNAME/blob/output/github-contribution-grid-snake.svg)
+AI Chatbot
 
 ---
 
-## 🏆 GitHub Trophies
+### 📄 AI Resume Analyzer
 
-![](https://github-profile-trophy.vercel.app/?username=YOUR_USERNAME&theme=tokyonight&no-frame=true&row=1)
+Resume Parsing
+
+ATS Score
+
+Skill Gap Analysis
+
+Resume Suggestions
 
 ---
 
-## 📊 Activity Graph
+### 🎬 Movie Revenue Prediction
 
-![](https://github-readme-activity-graph.vercel.app/graph?username=YOUR_USERNAME&theme=tokyo-night)
+Machine Learning
+
+Regression
+
+Data Visualization
+
+Python
+
+Scikit-Learn
 
 ---
 
-## 🎯 Current Focus
+# 🛠 Tech Stack
 
-✅ AI Projects
+## 💻 Languages
 
-✅ Open Source
+<p>
+<img src="https://skillicons.dev/icons?i=cpp,java,python,javascript,typescript"/>
+</p>
 
-✅ Competitive Programming
+## 🌐 Frontend
 
-✅ DSA
+<p>
+<img src="https://skillicons.dev/icons?i=html,css,react,nextjs,tailwind"/>
+</p>
+
+## ⚙ Backend
+
+<p>
+<img src="https://skillicons.dev/icons?i=nodejs,express,firebase"/>
+</p>
+
+## 🗄 Database
+
+<p>
+<img src="https://skillicons.dev/icons?i=mongodb,mysql"/>
+</p>
+
+## ☁ Cloud & Tools
+
+<p>
+<img src="https://skillicons.dev/icons?i=aws,gcp,git,github,vscode,docker,postman,linux"/>
+</p>
+
+## 📊 Data Science
+
+Python
+
+Pandas
+
+NumPy
+
+Scikit Learn
+
+Power BI
+
+Matplotlib
+
+Jupyter Notebook
+
+---
+
+# 📈 GitHub Analytics
+
+<p align="center">
+
+<img width="48%" src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=tokyonight"/>
+
+<img width="48%" src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR_USERNAME&theme=tokyonight"/>
+
+</p>
+
+<p align="center">
+
+<img width="45%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=tokyonight"/>
+
+</p>
+
+---
+
+# 📊 GitHub Activity Graph
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=YOUR_USERNAME&theme=react-dark"/>
+
+---
+
+# 🏆 GitHub Trophies
+
+<img src="https://github-profile-trophy.vercel.app/?username=YOUR_USERNAME&theme=algolia&column=4&margin-w=15&margin-h=15"/>
+
+---
+
+# 🐍 Contribution Snake
+
+<img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_USERNAME/output/github-contribution-grid-snake.svg"/>
+
+---
+
+# 📚 Currently Learning
+
+✅ Artificial Intelligence
+
+✅ Machine Learning
 
 ✅ Full Stack Development
 
+✅ Cloud Computing
+
+✅ Data Structures & Algorithms
+
 ---
 
-## 🌐 Connect with Me
+# 🎯 2026 Goals
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/YOUR_LINK)
+🏆 Crack Product Based Company
 
-[![Email](https://img.shields.io/badge/Email-red?style=for-the-badge&logo=gmail)](mailto:YOUR_EMAIL)
+🚀 Contribute to Open Source
 
-[![Instagram](https://img.shields.io/badge/Instagram-pink?style=for-the-badge&logo=instagram)](https://instagram.com/YOUR_USERNAME)
+💻 Build 20+ Real World Projects
+
+🌍 Participate in Global Hackathons
+
+⭐ Reach 1000+ GitHub Contributions
+
+---
+
+# 🌎 Coding Profiles
+
+<p>
+
+<a href="#">
+<img src="https://img.shields.io/badge/LeetCode-orange?style=for-the-badge&logo=leetcode"/>
+</a>
+
+<a href="#">
+<img src="https://img.shields.io/badge/Codeforces-blue?style=for-the-badge"/>
+</a>
+
+<a href="#">
+<img src="https://img.shields.io/badge/GeeksforGeeks-darkgreen?style=for-the-badge"/>
+</a>
+
+<a href="#">
+<img src="https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank"/>
+</a>
+
+</p>
+
+---
+
+# 🌐 Connect With Me
+
+<p>
+
+<a href="YOUR_LINKEDIN">
+<img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin"/>
+</a>
+
+<a href="mailto:YOUR_EMAIL">
+<img src="https://img.shields.io/badge/Gmail-red?style=for-the-badge&logo=gmail"/>
+</a>
+
+<a href="YOUR_PORTFOLIO">
+<img src="https://img.shields.io/badge/Portfolio-black?style=for-the-badge&logo=google-chrome"/>
+</a>
+
+</p>
 
 ---
 
 <p align="center">
+
+<img src="https://komarev.com/ghpvc/?username=YOUR_USERNAME&style=for-the-badge&color=blue"/>
+
+</p>
+
+---
+
+<h3 align="center">
 ⭐ Thanks for visiting my profile! ⭐
+</h3>
+
+<p align="center">
+<i>"Code • Learn • Build • Innovate • Repeat 🚀"</i>
 </p>
